@@ -9,6 +9,11 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
+*.log
+*.htm
+*.orig
+*.orig.*
+*.lock
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
