@@ -43,6 +43,8 @@ namespace Tenet.Weapon
             using (new GUILayout.AreaScope(new Rect(Screen.width - 200, Screen.height - 50, 200, 50), string.Empty, GUI.skin.box))
             {
                 GUILayout.Label($"Weapon : {name}");
+				if (IsBlackout)
+					GUILayout.Label($"    Blackout");
             }
         }
 
@@ -61,7 +63,10 @@ namespace Tenet.Weapon
                     AmmoType.enabled = false;
                 }
                 if (enabled)
+                {
                     CurrentAmmoType.enabled = true;
+                    EnableBlackout(true, true);
+				}
             }
         }
 
@@ -109,9 +114,9 @@ namespace Tenet.Weapon
             return false;
 		}
 
-        private void EnableBlackout(bool IsEnable)
+        private void EnableBlackout(bool IsEnable, bool Force = false)
         {
-            if (IsBlackout != IsEnable)
+            if (Force || IsBlackout != IsEnable)
             {
                 IsBlackout = IsEnable;
                 if (IsEnable)

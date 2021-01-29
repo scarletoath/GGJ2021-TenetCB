@@ -101,7 +101,7 @@ namespace Tenet.Game
         private void ChangeWeapon (int WeaponIndex)
         {
             var NewWeapon = Weapons[WeaponIndex = Mathf.Clamp(WeaponIndex, 0, Weapons.Length)];
-            if (!(CurrentWeapon?.IsBlackout ?? false) && WeaponIndex != CurrentWeaponIndex)
+            if (WeaponIndex != CurrentWeaponIndex)
             {
                 CurrentWeapon?.Activate(false);
                 CurrentWeapon = NewWeapon;
@@ -117,7 +117,7 @@ namespace Tenet.Game
 
 		private void CheckWeaponInput()
 		{
-			if (Input.GetButtonDown("Fire1"))
+			if (Input.GetButtonUp("Fire1"))
 			{
 				if (SessionManager.Instance.GameMode.CanUseWeapon(SessionManager.Instance.CurrentInversionState))
 				{
@@ -127,11 +127,8 @@ namespace Tenet.Game
 			if (Input.GetButtonDown("Swap")) // TODO : Swap weapon input
 			{
                 // next/prev/explicit selection
-				if (!CurrentWeapon?.IsBlackout ?? true)
-				{
-                    int NewWeaponIndex = CurrentWeaponIndex + 1 < Weapons.Length ? CurrentWeaponIndex + 1 : 0;
-                    ChangeWeapon(NewWeaponIndex);
-				}
+                int NewWeaponIndex = CurrentWeaponIndex + 1 < Weapons.Length ? CurrentWeaponIndex + 1 : 0;
+                ChangeWeapon(NewWeaponIndex);
 			}
 			if (Input.GetButtonDown("Reload"))
 			{
