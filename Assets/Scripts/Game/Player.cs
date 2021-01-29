@@ -171,19 +171,7 @@ namespace Tenet.Game
 		{
 			if (Input.GetButtonDown("Inversion"))
 			{
-                InversionState NewInversionState;
-				switch (SessionManager.Instance.CurrentInversionState)
-				{
-					case InversionState.Normal:
-                        NewInversionState = InversionState.Inverted;
-						break;
-					case InversionState.Inverted:
-                        NewInversionState = InversionState.Normal;
-						break;
-					default:
-                        throw new Exception("Unknown Inversion State");
-				}
-                SessionManager.Instance.ActivateInversion(NewInversionState);
+                SessionManager.Instance.ActivateInversion();
 			}
 		}
     }

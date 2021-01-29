@@ -36,7 +36,7 @@ namespace Tenet.Game
 		public GameModeBase GameMode { get; private set; }
 		public Player Player { get; private set; }
 
-		public bool CanInvert { get; private set; } = false;
+		public InversionState? CanInvertTargetState { get; private set; } = null;
 		public InversionState CurrentInversionState { get; private set; } = InversionState.Normal;
 		public float CurrentInversionStateDuration => (float)InversionTimer.Elapsed.TotalSeconds;
 
@@ -50,28 +50,31 @@ namespace Tenet.Game
 			this.Player = Player;
 		}
 
-		public void SetInvertability ( bool CanInvert , Collider other )
+		public void SetInvertability ( InversionState? TargetState , Collider other )
 		{
-			if (this.CanInvert != CanInvert && other.TryGetComponent ( out Player Player ) && Player == this.Player)
+			if (CanInvertTargetState != TargetState && other.TryGetComponent ( out Player Player ) && Player == this.Player)
 			{
-				this.CanInvert = CanInvert;
+				CanInvertTargetState = TargetState;
 			}
 		}
 
-		public bool ActivateInversion ( InversionState NewInversionState )
+		public bool ActivateInversion ()
 		{
-			if (CurrentInversionState != NewInversionState)
+			if (UnityEngine.Debug.isDebugBuild && Input.GetKey(KeyCode.LeftShift) || CanInvertTargetState.HasValue)
 			{
-				if (UnityEngine.Debug.isDebugBuild && Input.GetKey(KeyCode.LeftShift) || CanInvert)
-				{
-					CurrentInversionState = NewInversionState;
-					GameMode.ApplyInversionEffects(CurrentInversionState);
-					OnInversionStateChanged?.Invoke(CurrentInversionState);
-					InversionTimer.Restart();
-				}
-				return CanInvert;
+				CurrentInversionState = CanInvertTargetState.Value;
+				GameMode.ApplyInversionEffects(CurrentInversionState);
+				OnInversionStateChanged?.Invoke(CurrentInversionState);
+				InversionTimer.Restart();
+				return true;
 			}
 			return false;
+		}
+
+		public void RefreshInversion ()
+		{
+			GameMode.ApplyInversionEffects(CurrentInversionState);
+			InversionTimer.Restart();
 		}
 
     }

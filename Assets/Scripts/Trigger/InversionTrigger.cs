@@ -7,7 +7,15 @@ namespace Tenet.Triggers
 {
     public class InversionTrigger : MonoBehaviour
     {
-		private void OnTriggerEnter(Collider other) => SessionManager.Instance.SetInvertability(true, other);
-		private void OnTriggerExit(Collider other) => SessionManager.Instance.SetInvertability(false, other);
+		[SerializeField] private InversionState TargetState;
+
+		private void OnTriggerEnter(Collider other)
+		{
+			SessionManager.Instance.SetInvertability(TargetState, other);
+			if (SessionManager.Instance.CurrentInversionState == TargetState)
+				SessionManager.Instance.RefreshInversion();
+		}
+
+		private void OnTriggerExit(Collider other) => SessionManager.Instance.SetInvertability(null, other);
 	}
 }
