@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6753434371618948441}
   - component: {fileID: 6753434371618948442}
   m_Layer: 0
-  m_Name: Platform L:1.5 x W:1.5 x H:0.5
+  m_Name: Platform L:2 x W:2 x H:0.5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6753434371618948444}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.75, y: 0.25, z: 0.75}
-  m_LocalScale: {x: 1.5, y: 0.5, z: 1.5}
+  m_LocalPosition: {x: 1, y: 0.25, z: 1}
+  m_LocalScale: {x: 2, y: 0.5, z: 2}
   m_Children: []
   m_Father: {fileID: 6753434372198768924}
   m_RootOrder: 0
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 6753434372081260456}
   - component: {fileID: 6753434372081260457}
   m_Layer: 0
-  m_Name: Stair L:1.5 x W:3.5 x H:2.5
+  m_Name: Stair L:2 x W:5 x H:3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,13 +121,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6753434372081260459}
-  m_LocalRotation: {x: 0.29786614, y: -0, z: -0, w: 0.9546076}
-  m_LocalPosition: {x: 0.75, y: -1.079, z: 3.305}
-  m_LocalScale: {x: 1.5, y: 0.5, z: 4.81}
+  m_LocalRotation: {x: 0.30118993, y: -0, z: -0, w: 0.9535642}
+  m_LocalPosition: {x: 1, y: -1.579, z: 4.514}
+  m_LocalScale: {x: 2, y: 0.5, z: 6.5144744}
   m_Children: []
   m_Father: {fileID: 6753434372198768924}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 34.659, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 35.058, y: 0, z: 0}
 --- !u!33 &6753434372081260455
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6753434372198768924}
   m_Layer: 0
-  m_Name: Ramp_NonDestructible_Stair_5m
+  m_Name: Ramp_NonDestructible_Stair_6m
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
