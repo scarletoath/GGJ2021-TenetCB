@@ -48,7 +48,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 30
   MaxLifetime: 1
+  DestroyAfterLifetime: 0
+  DestroyOnDamage: 0
   DamageOnCollision: 1
+  KinematicOnDamage: 1
   RandomSpin: 0
   Rigidbody: {fileID: -435278637726199356}
   DamageEffect: {fileID: 0}
