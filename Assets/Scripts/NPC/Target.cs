@@ -18,9 +18,9 @@ namespace Tenet.NPC
 
         // Start is called before the first frame update
         void Start()
-        {
-
-        }
+		{
+			Debug.DrawLine( transform.position, transform.position + new Vector3( 0, 1, 0 ) * 1000, Color.blue, 10.0f );
+		}
 
         // Update is called once per frame
         void Update()
@@ -31,14 +31,19 @@ namespace Tenet.NPC
 				Vector3 playerDir	= playerPos - transform.position;
 				playerDir.Normalize();
 				RaycastHit hit;
+
+				Debug.DrawLine(playerPos, playerPos + new Vector3(0,1,0) * 1000, Color.blue, 2.0f);
 				if(Physics.Raycast(transform.position, playerDir, out hit, Mathf.Infinity, playerLayerMask ) )
 				{
 					Debug.DrawLine(transform.position, playerDir * hit.distance, Color.green, 2.0f );
+					//Debug.Log( "raycast hit" );
 				}
 				else
 				{
 					Debug.DrawRay( transform.position, playerDir * 1000, Color.red, 2.0f );
+					//Debug.Log( "raycast NO hit" );
 				}
+				//Debug.Log( "Mask : " + playerLayerMask );
 			}
 
 		}
