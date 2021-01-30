@@ -11,8 +11,14 @@ namespace Tenet.Level
 		public bool IsPlayerSpawnable => _IsPlayerSpawnable;
 
 		public string AssignedTag { get; set; }
-		public TileObjects TileObjects { get; set; }
-		public float Rotation { get; set; }
+		public TileObjects TileObjects { get; private set; }
+		public float Rotation { get; private set; }
+
+		public void Spawn(TileObjects TileObjects, float Rotation)
+		{
+			this.Rotation = Rotation;
+			this.TileObjects = Instantiate(TileObjects, transform.position, Quaternion.Euler(0, Rotation, 0), transform);
+		}
 
 	}
 }

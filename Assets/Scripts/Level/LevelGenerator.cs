@@ -100,8 +100,7 @@ namespace Tenet.Level
 
 				// Spawn TileObjects layer
 				var TileObjects = TileObjectsForTag[UnityEngine.Random.Range(0, TileObjectsForTag.Count)];
-				Tile.Rotation = UnityEngine.Random.Range(0, 4) * 90;
-				Tile.TileObjects = Instantiate(TileObjects, Vector3.zero, Quaternion.Euler(0, Tile.Rotation, 0), Tile.transform);
+				Tile.Spawn(TileObjects, UnityEngine.Random.Range(0, 4) * 90);
 
 				// Cache tile for all tags that the TileObjects specifies
 				foreach (var Tag in TileObjects.GetAllTags())
