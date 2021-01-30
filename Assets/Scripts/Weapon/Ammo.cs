@@ -30,7 +30,7 @@ namespace Tenet.Weapon
         public bool IsFull => CurrentCount == ClipCount;
 
 		public void Refill() => SpareCount -= Add(Mathf.Clamp(ClipCount - CurrentCount, 0, SpareCount));
-		public void Clear() => SpareCount += Remove(CurrentCount);
+		public void Clear() => SpareCount -= Remove(CurrentCount);
 
 		public int Add(int Change = 1) => ChangeCount(Change);
         public int Remove(int Change = 1) => ChangeCount(-Change);

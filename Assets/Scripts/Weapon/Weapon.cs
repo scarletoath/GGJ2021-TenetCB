@@ -105,9 +105,8 @@ namespace Tenet.Weapon
 
         public bool Reload()
         {
-            if (!IsBlackout)
+            if (!IsBlackout && SessionManager.Instance.GameMode.TryReloadAmmo(SessionManager.Instance.CurrentInversionState, CurrentAmmoType))
             {
-                SessionManager.Instance.GameMode.ReloadAmmo(SessionManager.Instance.CurrentInversionState, CurrentAmmoType);
 				EnableBlackout(true);
                 return true;
             }

@@ -60,7 +60,15 @@ namespace Tenet.GameMode
 
 		public bool CanUseWeapon(InversionState InversionState)
 		{
-			return InversionState == InversionState.Normal || true; // TODO : check object history
+			switch (InversionState)
+			{
+				case InversionState.Normal:
+					return true;
+				case InversionState.Inverted:
+					return true; // check object history
+				default:
+					return false;
+			}
 		}
 
 		public void ConsumeAmmo(InversionState InversionState, Ammo Ammo)
@@ -83,17 +91,18 @@ namespace Tenet.GameMode
 			_ => false,
 		};
 
-		public void ReloadAmmo(InversionState InversionState, Ammo Ammo)
+		public bool TryReloadAmmo(InversionState InversionState, Ammo Ammo)
 		{
 			switch (InversionState)
 			{
-				case InversionState.Normal: // max ammo
+				case InversionState.Normal when !Ammo.IsFull: // max ammo
 					Ammo.Refill();
-					break;
-				case InversionState.Inverted: // clear ammo
+					return true;
+				case InversionState.Inverted when !Ammo.IsEmpty: // clear ammo
 					Ammo.Clear();
-					break;
+					return true;
 			}
+			return false;
 		}
 
         public void ApplyInversionEffects(InversionState InversionState)
