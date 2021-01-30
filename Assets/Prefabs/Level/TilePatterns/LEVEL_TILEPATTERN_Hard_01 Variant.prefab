@@ -178,6 +178,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1805383375159230087, guid: ce37e614b72ae2447900f3ea70778cc5, type: 3}
+      propertyPath: _Difficulty
+      value: Hard
+      objectReference: {fileID: 0}
     - target: {fileID: 7562392497104926092, guid: ce37e614b72ae2447900f3ea70778cc5, type: 3}
       propertyPath: m_RootOrder
       value: 0

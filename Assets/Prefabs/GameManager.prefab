@@ -111,6 +111,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultDifficulty: 0
   Difficulties:
+  - Name: Easy
+    MaxPlayerHealth: 100
+    PlayerHealCooldown: 60
+    PlayerHealPercent: 0.5
+    WeaponBlackoutMultiplier: 1
+    InversionMaxDuration: 15
+    InversionHealthLossPercent: 0.02
+    InversionHealthLossInterval: 1
+    ReservedTags:
+    - Tag: Landmark
+      MinCount: 1
+      MaxCount: 1
+    - Tag: InversionForward
+      MinCount: 1
+      MaxCount: 1
+    - Tag: InversionBackward
+      MinCount: 1
+      MaxCount: 1
+    GeneralTags:
+    - Ambush
+    - Destruction
+    - Explosive
+    - Jump
+    - Open
+    - Verticality
+    - Multikill
+    TilePatterns:
+    - {fileID: 1536457501810267314, guid: 8b651033761e9724db6b0deb8852f0d6, type: 3}
+    - {fileID: 6865067194589089316, guid: 74e6d349a8b0fff4088a1d3434fac222, type: 3}
+    - {fileID: 6253324031318218260, guid: b35013d44e886fa4b8c19ef779a67099, type: 3}
   - Name: Normal
     MaxPlayerHealth: 100
     PlayerHealCooldown: 60
@@ -122,13 +152,13 @@ MonoBehaviour:
     ReservedTags:
     - Tag: Landmark
       MinCount: 1
-      MaxCount: 2
+      MaxCount: 1
     - Tag: InversionForward
       MinCount: 1
       MaxCount: 2
     - Tag: InversionBackward
       MinCount: 1
-      MaxCount: 3
+      MaxCount: 2
     GeneralTags:
     - Ambush
     - Destruction
@@ -140,6 +170,37 @@ MonoBehaviour:
     TilePatterns:
     - {fileID: 1536457501810267314, guid: 8b651033761e9724db6b0deb8852f0d6, type: 3}
     - {fileID: 8803991480852554634, guid: 85d0de5db2e12be478f9b3c9344ad26d, type: 3}
+    - {fileID: 8202548836543278150, guid: 10600b4a518959d4a8ceea2bb98c9766, type: 3}
+  - Name: Hard
+    MaxPlayerHealth: 100
+    PlayerHealCooldown: 60
+    PlayerHealPercent: 0.5
+    WeaponBlackoutMultiplier: 1
+    InversionMaxDuration: 5
+    InversionHealthLossPercent: 0.02
+    InversionHealthLossInterval: 1
+    ReservedTags:
+    - Tag: Landmark
+      MinCount: 1
+      MaxCount: 1
+    - Tag: InversionForward
+      MinCount: 2
+      MaxCount: 3
+    - Tag: InversionBackward
+      MinCount: 1
+      MaxCount: 1
+    GeneralTags:
+    - Ambush
+    - Destruction
+    - Explosive
+    - Jump
+    - Open
+    - Verticality
+    - Multikill
+    TilePatterns:
+    - {fileID: 8803991480852554634, guid: 85d0de5db2e12be478f9b3c9344ad26d, type: 3}
+    - {fileID: 8202548836543278150, guid: 10600b4a518959d4a8ceea2bb98c9766, type: 3}
+    - {fileID: 7821118189927091627, guid: 1747380568e13f542a030ef58cf98b4f, type: 3}
 --- !u!114 &5484344037062922497
 MonoBehaviour:
   m_ObjectHideFlags: 0
