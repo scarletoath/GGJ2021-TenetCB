@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Tenet.GameMode;
 using Tenet.Level;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Tenet.Game
 {
@@ -22,6 +23,10 @@ namespace Tenet.Game
 
 		[SerializeField] private LevelGenerator LevelGenerator;
 		[SerializeField] private GameModeBase DefaultGameMode;
+
+		[Space]
+
+		[SerializeField] private Volume InversionVolume;
 
 		public event Action<InversionState> OnInversionStateChanged;
 
@@ -53,6 +58,7 @@ namespace Tenet.Game
 			Player.transform.position = StartTile.transform.position + Vector3.up;
 			Player.transform.LookAt(LookAtLandmark.transform, Vector3.up);
 			Player.Enable(true);
+			RefreshInversion();
 		}
 
 		public void SetGameMode ( GameModeBase GameMode )
@@ -79,7 +85,7 @@ namespace Tenet.Game
 			if (UnityEngine.Debug.isDebugBuild && Input.GetKey(KeyCode.LeftShift) || CanInvertTargetState.HasValue)
 			{
 				CurrentInversionState = CanInvertTargetState.Value;
-				GameMode.ApplyInversionEffects(CurrentInversionState);
+				GameMode.ApplyInversionEffects(CurrentInversionState, InversionVolume);
 				OnInversionStateChanged?.Invoke(CurrentInversionState);
 				InversionTimer.Restart();
 				return true;
@@ -89,7 +95,7 @@ namespace Tenet.Game
 
 		public void RefreshInversion ()
 		{
-			GameMode.ApplyInversionEffects(CurrentInversionState);
+			GameMode.ApplyInversionEffects(CurrentInversionState, InversionVolume);
 			InversionTimer.Restart();
 		}
 

@@ -1,5 +1,53 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3339427316796936123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6625326571692802375}
+  - component: {fileID: 8374794239365783766}
+  m_Layer: 0
+  m_Name: Inversion Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6625326571692802375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3339427316796936123}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3419247899741961476}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8374794239365783766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3339427316796936123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 0}
 --- !u!1 &5299342609732079241
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,7 +77,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 6625326571692802375}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelGenerator: {fileID: 5484344037062922497}
   DefaultGameMode: {fileID: 11400000, guid: c755bfd6eb7e64044a95093f36a34e73, type: 2}
+  InversionVolume: {fileID: 8374794239365783766}
 --- !u!114 &3490528085129546618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +158,9 @@ MonoBehaviour:
   - {fileID: 2671064487810108278, guid: 158bbc642d69df341b36358bf20dbe42, type: 3}
   - {fileID: 7284681621202788697, guid: c1c5ef2c74f8ecf48bc4afa6766bc255, type: 3}
   - {fileID: 8004392159178816825, guid: 3a0db19c6e926f142ac898ed2e4bf6ff, type: 3}
+  - {fileID: 1635921053259121059, guid: 09875491cbfc6a847bed6e6c80bd7198, type: 3}
+  - {fileID: 4716271270065982994, guid: e51ea4b554529e1489d41e301b23a376, type: 3}
+  - {fileID: 2457420385377032638, guid: 6abddfa874af6714da1cc6e774520907, type: 3}
   - {fileID: 1635921053259121059, guid: ad3cc9ef84568dd46870dc6941f5c8e3, type: 3}
   - {fileID: 4716271270065982994, guid: 1b82b4c44944ba140b59c9b1f0ec0e5f, type: 3}
   - {fileID: 2457420385377032638, guid: 8e75942bedd341d479c53701246d7374, type: 3}

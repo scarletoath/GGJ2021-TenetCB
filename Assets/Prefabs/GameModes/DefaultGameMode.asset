@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f443d44f8126a3049b4b766c9c7c8151, type: 3}
   m_Name: DefaultGameMode
   m_EditorClassIdentifier: 
-  InversionStateColors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
+  InversionStateProfiles:
+  - Name: Normal
+    Color: {r: 1, g: 0, b: 0, a: 0}
+    VolumeProfile: {fileID: 11400000, guid: 8323394ffb18b95408d12c39c3d25e93, type: 2}
+  - Name: Inverted
+    Color: {r: 0, g: 0, b: 1, a: 0}
+    VolumeProfile: {fileID: 11400000, guid: d63b9becec8de074d86f7fff977897c7, type: 2}
   ReservedTags:
   - Landmark
   - InversionForward

@@ -47,7 +47,7 @@ namespace Tenet.Weapon
 
 			if (TrailEffect != null)
 			{
-				var Color = SessionManager.Instance.GameMode.GetInversionStateColor(SessionManager.Instance.CurrentInversionState);
+				var Color = SessionManager.Instance.GameMode.GetInversionStateProfile(SessionManager.Instance.CurrentInversionState).Color;
 				var EndColor = Color;
 				EndColor.a = 0;
 				TrailEffect.startColor = Color;

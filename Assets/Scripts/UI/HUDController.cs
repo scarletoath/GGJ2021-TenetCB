@@ -37,7 +37,7 @@ namespace Tenet.UI
 			using (new GUILayout.VerticalScope (GUI.skin.box))
 			{
 			    var InversionState = SessionManager.Instance.CurrentInversionState;
-                GUILayout.Label($"Inversion State : {SessionManager.Instance.CurrentInversionState} ({SessionManager.Instance.GameMode.GetInversionStateColor(SessionManager.Instance.CurrentInversionState)})");
+                GUILayout.Label($"Inversion State : {SessionManager.Instance.CurrentInversionState} ({SessionManager.Instance.GameMode.GetInversionStateProfile(SessionManager.Instance.CurrentInversionState).Color})");
 
                 GUILayout.Label($"Player Health : {SessionManager.Instance.Player.CurrentHealth} / {DifficultySettings.Instance.CurrentDifficulty.MaxPlayerHealth}");
 				if (SessionManager.Instance.Player.CurrentHealth <= DifficultySettings.Instance.CurrentDifficulty.MaxPlayerHealth * HealthWarningPercent)

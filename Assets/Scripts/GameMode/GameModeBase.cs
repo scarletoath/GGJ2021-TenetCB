@@ -8,13 +8,22 @@ using Tenet.Utils.Editor;
 using Tenet.Weapon;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Tenet.GameMode
 {
-    public class GameModeBase : ScriptableObject
+	[Serializable]
+	public class InversionStateProfile
+	{
+		public string Name; // Matches InversionState enum
+		public Color Color;
+		public VolumeProfile VolumeProfile;
+	}
+
+	public class GameModeBase : ScriptableObject
     {
 
-		[SerializeField] private Color[] InversionStateColors = new Color[Enum.GetValues(typeof(InversionState)).Length];
+		[SerializeField] private InversionStateProfile[] InversionStateProfiles = Array.Empty<InversionStateProfile>();
 		[SerializeField] private string[] ReservedTags = { "Landmark", "InversionForward", "InversionBackward" };
 		[SerializeField] private string[] GeneralTags = Array.Empty<string>();
 
@@ -25,10 +34,16 @@ namespace Tenet.GameMode
 		{
 			TagUtils.DirtyTagsForCategory(TagCategory.ReservedTag);
 			TagUtils.DirtyTagsForCategory(TagCategory.GeneralTag);
+
+			var MissingStates = Enum.GetNames(typeof(InversionState)).Where(n => InversionStateProfiles.All(isp => isp.Name != n)).ToArray();
+			if (MissingStates.Length > 0)
+			{
+				InversionStateProfiles = InversionStateProfiles.Concat(MissingStates.Select(s => new InversionStateProfile { Name = s })).ToArray();
+			}
 		}
 #endif
 
-		public Color GetInversionStateColor(InversionState InversionState) => InversionStateColors[Mathf.Clamp((int)InversionState, 0, InversionStateColors.Length)];
+		public InversionStateProfile GetInversionStateProfile(InversionState InversionState) => InversionStateProfiles[Mathf.Clamp((int)InversionState, 0, InversionStateProfiles.Length)];
 
 		public IEnumerable<string> GetReservedTags() => ReservedTags;
 		public IEnumerable<string> GetGeneralTags() => GeneralTags;
@@ -105,11 +120,12 @@ namespace Tenet.GameMode
 			return false;
 		}
 
-        public void ApplyInversionEffects(InversionState InversionState)
+        public void ApplyInversionEffects(InversionState InversionState, Volume InversionVolume)
         {
 			if (InversionRoutine != null)
 				SessionManager.Instance.StopCoroutine(InversionRoutine);
 
+			InversionVolume.sharedProfile = GetInversionStateProfile(InversionState).VolumeProfile;
 			switch (InversionState)
 			{
 				case InversionState.Normal:
