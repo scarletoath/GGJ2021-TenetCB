@@ -224,7 +224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7562392497104926095, guid: ce37e614b72ae2447900f3ea70778cc5, type: 3}
       propertyPath: m_Name
-      value: LEVEL_TILEPATTERN_Hard_01
+      value: LEVEL_TILEPATTERN_Hard_01 Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce37e614b72ae2447900f3ea70778cc5, type: 3}

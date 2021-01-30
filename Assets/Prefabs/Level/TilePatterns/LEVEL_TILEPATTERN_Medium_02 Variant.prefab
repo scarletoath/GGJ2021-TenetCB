@@ -121,6 +121,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1805383375159230087, guid: ce37e614b72ae2447900f3ea70778cc5, type: 3}
+      propertyPath: _Difficulty
+      value: Normal
+      objectReference: {fileID: 0}
     - target: {fileID: 7562392497104926092, guid: ce37e614b72ae2447900f3ea70778cc5, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -167,7 +171,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7562392497104926095, guid: ce37e614b72ae2447900f3ea70778cc5, type: 3}
       propertyPath: m_Name
-      value: LEVEL_TILEPATTERN_Medium_02
+      value: LEVEL_TILEPATTERN_Medium_02 Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce37e614b72ae2447900f3ea70778cc5, type: 3}
