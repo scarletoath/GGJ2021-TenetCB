@@ -66,63 +66,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
       propertyPath: m_RootOrder
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198232719651484246, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
-      propertyPath: m_Name
-      value: Wall_NonDestructible_PartialCover_Railing_2m (4)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
---- !u!1001 &5656468197028375844
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1470719239345053538}
-    m_Modifications:
-    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
-      propertyPath: m_RootOrder
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
@@ -168,6 +111,63 @@ PrefabInstance:
     - target: {fileID: 198232719651484246, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
       propertyPath: m_Name
       value: Wall_NonDestructible_PartialCover_Railing_2m (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+--- !u!1001 &6463820861988134705
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1470719239345053538}
+    m_Modifications:
+    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+      propertyPath: m_RootOrder
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198232719651484245, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198232719651484246, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
+      propertyPath: m_Name
+      value: Wall_NonDestructible_PartialCover_Railing_2m (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b0bcfab7e0809348b53cb6c71d2df64, type: 3}
@@ -919,6 +919,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1470719239345053538}
     m_Modifications:
+    - target: {fileID: 5972675715266753654, guid: 35ccb5d18bef4fe449596327712f583d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972675715266753654, guid: 35ccb5d18bef4fe449596327712f583d, type: 3}
+      propertyPath: m_Color.r
+      value: 0.00030612946
+      objectReference: {fileID: 0}
     - target: {fileID: 5972675716592678138, guid: 35ccb5d18bef4fe449596327712f583d, type: 3}
       propertyPath: m_Name
       value: InversionRoom_Easy
@@ -1385,7 +1393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7027844457000455041, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: m_Name
-      value: LEVEL_TILEOBJECTS_InversionRoom_01 Variant
+      value: LEVEL_TILEOBJECTS_InversionRoomBackward_01 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7027844457000455042, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: m_RootOrder
@@ -1393,7 +1401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7027844457000455042, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 250
+      value: 230
       objectReference: {fileID: 0}
     - target: {fileID: 7027844457000455042, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: m_LocalPosition.y
