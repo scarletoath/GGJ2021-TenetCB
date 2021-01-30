@@ -11,31 +11,35 @@ namespace Tenet.Weapon
     {
 
         [SerializeField] private int MaxCount = 15;
+        [SerializeField] private int ClipCount = 15;
         [SerializeField] private Projectile Projectile;
 
         [SerializeField] private float Damage = 10.0f;
         [SerializeField] private float DamageRadius = 0.0f;
 
+        private int SpareCount;
         private int CurrentCount;
 
-		private void Awake() => Refill();
-
-        public int Count => CurrentCount;
+		private void Awake()
+		{
+            SpareCount = MaxCount;
+			Refill();
+		}
 
 		public bool IsEmpty => CurrentCount == 0;
-        public bool IsFull => CurrentCount == MaxCount;
+        public bool IsFull => CurrentCount == ClipCount;
 
-		public void Refill() => ChangeCount(MaxCount);
-		public void Clear() => ChangeCount(0);
+		public void Refill() => SpareCount -= Add(Mathf.Clamp(ClipCount - CurrentCount, 0, SpareCount));
+		public void Clear() => SpareCount += Remove(CurrentCount);
 
-        public void Add(int Change = 1) => ChangeCount(CurrentCount + Change);
-        public void Remove(int Change = 1) => ChangeCount(CurrentCount - Change);
+		public int Add(int Change = 1) => ChangeCount(Change);
+        public int Remove(int Change = 1) => ChangeCount(-Change);
 
 		private void OnGUI()
 		{
             using (new GUILayout.AreaScope(new Rect(Screen.width - 200, 0, 200, 50), string.Empty, GUI.skin.box))
             {
-                GUILayout.Label($"Ammo Type {name} : {CurrentCount} / {MaxCount}");
+                GUILayout.Label($"Ammo Type {name}\n{CurrentCount} / {ClipCount}, {SpareCount}");
 			}
 		}
 
@@ -79,9 +83,11 @@ namespace Tenet.Weapon
             return HasApplied;
 		}
 
-		private void ChangeCount(int Count)
+		private int ChangeCount(int Change)
         {
-            CurrentCount = Mathf.Clamp(Count, 0, MaxCount);
+            Change = Mathf.Clamp(Change, -CurrentCount, ClipCount - CurrentCount + 1);
+            CurrentCount += Change;
+            return Change;
 		}
     }
 }
