@@ -2035,7 +2035,9 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012950190}
-  m_Text: BARRELS
+  m_Text: 'EXPLOSIVES
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.2
   m_LineSpacing: 1
@@ -4770,6 +4772,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f3597f66b5067340bc0ac404e8edb42, type: 3}
+--- !u!1001 &1821894860685559916
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1821894862407530979, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
+      propertyPath: m_Name
+      value: Obstacle_Destructible_Explosive_AmmoDrop_0.5m
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821894862407531004, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
+      propertyPath: m_RootOrder
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821894862407531004, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821894862407531004, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821894862407531004, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821894862407531004, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821894862407531004, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821894862407531004, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821894862407531004, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821894862407531004, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821894862407531004, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821894862407531004, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3a21dba3ecf3ef043aac621fd9daf002, type: 3}
 --- !u!1001 &2217628280125286819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6537,6 +6596,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4effcc6365fad404798b361a48c4028a, type: 3}
+--- !u!1001 &8844860303558432980
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8844860304514768421, guid: d02f685a101d20141b4ae2202e374364, type: 3}
+      propertyPath: m_Name
+      value: Obstacle_Destructible_Explosive_FloorTrap_1.5m
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844860304514768422, guid: d02f685a101d20141b4ae2202e374364, type: 3}
+      propertyPath: m_RootOrder
+      value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844860304514768422, guid: d02f685a101d20141b4ae2202e374364, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844860304514768422, guid: d02f685a101d20141b4ae2202e374364, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844860304514768422, guid: d02f685a101d20141b4ae2202e374364, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844860304514768422, guid: d02f685a101d20141b4ae2202e374364, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844860304514768422, guid: d02f685a101d20141b4ae2202e374364, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844860304514768422, guid: d02f685a101d20141b4ae2202e374364, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844860304514768422, guid: d02f685a101d20141b4ae2202e374364, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844860304514768422, guid: d02f685a101d20141b4ae2202e374364, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844860304514768422, guid: d02f685a101d20141b4ae2202e374364, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844860304514768422, guid: d02f685a101d20141b4ae2202e374364, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d02f685a101d20141b4ae2202e374364, type: 3}
 --- !u!1001 &8973039704658510850
 PrefabInstance:
   m_ObjectHideFlags: 0
