@@ -16,6 +16,11 @@ namespace Tenet.Level
 
 		public void Spawn(TileObjects TileObjects, float Rotation)
 		{
+			// Disable any debug markers
+			foreach (Transform Child in transform)
+			{
+				Child.gameObject.SetActive(false);
+			}
 			this.Rotation = Rotation;
 			this.TileObjects = Instantiate(TileObjects, transform.position, Quaternion.Euler(0, Rotation, 0), transform);
 		}
