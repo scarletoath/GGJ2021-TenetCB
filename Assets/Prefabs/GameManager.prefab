@@ -69,8 +69,22 @@ MonoBehaviour:
     InversionMaxDuration: 5
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 1
-    LevelTemplates:
-    - {fileID: 0}
+    ReservedTags:
+    - Tag: Landmark
+      MinCount: 1
+      MaxCount: 2
+    - Tag: InversionForward
+      MinCount: 1
+      MaxCount: 2
+    - Tag: InversionBackward
+      MinCount: 1
+      MaxCount: 3
+    GeneralTags:
+    - Destruction
+    - Explosive
+    TilePatterns:
+    - {fileID: 1536457501810267314, guid: 8b651033761e9724db6b0deb8852f0d6, type: 3}
+    - {fileID: 8803991480852554634, guid: 85d0de5db2e12be478f9b3c9344ad26d, type: 3}
 --- !u!114 &5484344037062922497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,3 +98,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TileSize: 20
+  TileObjectsLibrary:
+  - {fileID: 2342362802191556183, guid: 0f7c55f3fb903c64493c324e05cb9b7e, type: 3}
+  - {fileID: 5868541219604983472, guid: 8478770f0b3e546498ddc14f8236ba64, type: 3}
+  - {fileID: 3074577429622904430, guid: 683864e16928f5849b0df12a10857f32, type: 3}
+  - {fileID: 631331234106530659, guid: c26fb961187b1534faef378457b58370, type: 3}
+  - {fileID: 354665779795649017, guid: 49d5d29d2ab13484689ebe5e7c3574fd, type: 3}
+  - {fileID: 218054301831675771, guid: bea98a8b3eade63408f850fc41eb1f8f, type: 3}
+  - {fileID: 2671064487810108278, guid: 158bbc642d69df341b36358bf20dbe42, type: 3}
+  - {fileID: 7284681621202788697, guid: c1c5ef2c74f8ecf48bc4afa6766bc255, type: 3}
+  - {fileID: 8004392159178816825, guid: 3a0db19c6e926f142ac898ed2e4bf6ff, type: 3}
+  - {fileID: 1635921053259121059, guid: ad3cc9ef84568dd46870dc6941f5c8e3, type: 3}
+  - {fileID: 4716271270065982994, guid: 1b82b4c44944ba140b59c9b1f0ec0e5f, type: 3}
+  - {fileID: 2457420385377032638, guid: 8e75942bedd341d479c53701246d7374, type: 3}
+  - {fileID: 8907920362732355421, guid: 71e2d0e5f6661484396484f7792244da, type: 3}
+  - {fileID: 4527896319330534406, guid: c5b0d0c0c407e4d41b790cf9c915e4cd, type: 3}
+  - {fileID: 5945654246894898266, guid: adf33c4bde3d1c14a81d42af149ba89f, type: 3}
+  - {fileID: 9172283356343815651, guid: 645d01d452244f345a4a7099ee805227, type: 3}
+  - {fileID: 3352475960597075511, guid: d099a0b683ebed545aebb5c3f90e830a, type: 3}
+  - {fileID: 8320030435046449024, guid: 62d2823b32b3a314c840693bd4704aaa, type: 3}
+  - {fileID: 7156946673620137644, guid: 682b7d53dc3d0a7488562fc5b86c5a94, type: 3}
+  - {fileID: 4608397448320867099, guid: a55c3cef28a62df49a6ae1d98ee4cc7e, type: 3}
+  - {fileID: 3804950212962199406, guid: 1f7f89f937754e240a5f7ad2c7e95033, type: 3}
+  - {fileID: 3943701181330585250, guid: a3309c744633ebd4e921c3668911f4cb, type: 3}
+  - {fileID: 4060681835615404841, guid: ac3a9100a47187d4cbfcf0ff7441a730, type: 3}
+  - {fileID: 2043758407094607547, guid: c69575a4694daf144ad8d172f1ecef5e, type: 3}
+  - {fileID: 8362151653252601897, guid: 0e29f0a7a7d8b0141b78fdb9d67eed2b, type: 3}
+  - {fileID: 4803323430585882721, guid: 9bb6e8d31beee154e870bbaf4dbdcf34, type: 3}
+  - {fileID: 7392381964990212656, guid: b361b0f7d2bf1ab4d87ee418ab7f8e3b, type: 3}

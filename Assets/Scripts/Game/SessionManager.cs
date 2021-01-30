@@ -44,10 +44,14 @@ namespace Tenet.Game
 
 		internal void StartLevel()
 		{
-			var Templates = DifficultySettings.Instance.CurrentDifficulty.LevelTemplates;
-			var StartTile = LevelGenerator.Generate(Templates[UnityEngine.Random.Range(0, Templates.Length)]);
+			string LevelTag = DifficultySettings.Instance.CurrentDifficulty.GetRandomGeneralTag();
+			var Pattern = DifficultySettings.Instance.CurrentDifficulty.GetRandomPattern();
+			var StartTile = LevelGenerator.Generate(Pattern, LevelTag, DifficultySettings.Instance.CurrentDifficulty.ReservedTags);
+			var Landmarks = LevelGenerator.GetTilesForTag("Landmark"); // Hard-coded like a MF, no good place to store this
+			var LookAtLandmark = Landmarks[UnityEngine.Random.Range(0, Landmarks.Count)];
+			UnityEngine.Debug.Log($"Player start facing {LookAtLandmark.name}", LookAtLandmark);
 			Player.transform.position = StartTile.transform.position + Vector3.up;
-			Player.transform.forward = StartTile.GetRandomNeighborDir();
+			Player.transform.LookAt(LookAtLandmark.transform, Vector3.up);
 			Player.Enable(true);
 		}
 

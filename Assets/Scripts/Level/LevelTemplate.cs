@@ -9,24 +9,23 @@ using UnityEditor;
 
 namespace Tenet.Level
 {
+	public enum TileUsage
+	{
+		__ = 0, // None
+
+		Random,
+		Normal,
+		Destructible,
+		PlayerStart,
+		Landmark,
+	}
+
+	[Obsolete]
 	public class LevelTemplate : ScriptableObject
 	{
 
 		[SerializeField] private Vector2Int Dimensions = new Vector2Int(2, 2);
 		[SerializeField] private TileUsage[] Layout = Array.Empty<TileUsage>();
-		[SerializeField] private Tile[] TileLlibrary = Array.Empty<Tile>();
-
-		private readonly Dictionary<TileUsage, List<Tile>> TileMap = new Dictionary<TileUsage, List<Tile>>();
-
-		private void OnEnable ()
-		{
-			foreach (var Tile in TileLlibrary)
-			{
-				if (!TileMap.TryGetValue(Tile.Usage, out var Tiles))
-					TileMap.Add(Tile.Usage, Tiles = new List<Tile>());
-				Tiles.Add(Tile);
-			}
-		}
 
 		public TileUsage this[int x, int y]
 		{
@@ -39,16 +38,6 @@ namespace Tenet.Level
 
 		public int Width => Dimensions.x;
 		public int Height => Dimensions.y;
-
-		public Tile GetRandomTile(TileUsage Usage)
-		{
-			var Tiles = GetTiles(Usage);
-			return Tiles != null ? Tiles[UnityEngine.Random.Range(0, Tiles.Count)] : null;
-		}
-		public Tile GetRandomTile(int x, int y) => x < Dimensions.x && y < Dimensions.y ? GetRandomTile(this[x, y]) : null;
-
-		public List<Tile> GetTiles(TileUsage Usage) => TileMap.TryGetValue(Usage, out var Tiles) ? Tiles : null;
-		public List<Tile> GetTiles(int x, int y) => x < Dimensions.x && y < Dimensions.y ? GetTiles(this[x, y]) : null;
 
 		public IEnumerable<(int x, int y, TileUsage Usage)> GetTileInfos()
 		{
@@ -122,7 +111,6 @@ namespace Tenet.Level
 		{
 			private SerializedProperty DimensionsSP;
 			private SerializedProperty LayoutSP;
-			private SerializedProperty TileLibrarySP;
 
 			private static TileUsage DefaultUsage = TileUsage.Normal;
 			private Vector2Int NewDimensions;
@@ -144,7 +132,6 @@ namespace Tenet.Level
 			{
 				DimensionsSP = serializedObject.FindProperty(nameof(Dimensions));
 				LayoutSP = serializedObject.FindProperty(nameof(Layout));
-				TileLibrarySP = serializedObject.FindProperty(nameof(TileLlibrary));
 
 				NewDimensions = DimensionsSP.vector2IntValue;
 				Undo.undoRedoPerformed += OnUndoRedo;
@@ -196,17 +183,6 @@ namespace Tenet.Level
 							}
 						}
 					}
-					if (ChangeCheck.changed)
-					{
-						serializedObject.ApplyModifiedProperties();
-						GUIUtility.ExitGUI();
-					}
-				}
-				EditorGUILayout.Space();
-
-				using (var ChangeCheck = new EditorGUI.ChangeCheckScope())
-				{
-					EditorGUILayout.PropertyField(TileLibrarySP, true);
 					if (ChangeCheck.changed)
 					{
 						serializedObject.ApplyModifiedProperties();

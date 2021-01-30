@@ -1,7 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Tenet.Game;
 using UnityEngine;
-using UnityEngine.EventSystems;
+#if UNITY_EDITOR
+using System.Linq;
+using UnityEditor;
+#endif
 
 namespace Tenet.Level
 {
@@ -9,55 +14,146 @@ namespace Tenet.Level
     {
 
 		[SerializeField] private float TileSize = 20.0f;
+		[SerializeField] private TileObjects[] TileObjectsLibrary = Array.Empty<TileObjects>();
 
-		private LevelTemplate LevelTemplate;
+		private TilePattern LevelPattern;
 		private Transform Root;
-		private readonly Dictionary<Vector2Int, Tile> Tiles = new Dictionary<Vector2Int, Tile>();
+		private readonly List<TileSpawnMarker> Tiles = new List<TileSpawnMarker>();
+		private readonly Dictionary<string, List<TileSpawnMarker>> TileObjectsMap = new Dictionary<string, List<TileSpawnMarker>>(); // In spawned level
+
+		private readonly Dictionary<string, List<TileObjects>> TileObjectLibrarysMap = new Dictionary<string, List<TileObjects>>(); // From complete library
 
 		public float TileLength => TileSize;
-		public LevelTemplate CurrentTemplate => LevelTemplate;
+		public TilePattern CurrentTemplate => LevelPattern;
 
-		public Tile Generate(LevelTemplate Template) // Returns randomized player start tile
+		private void OnEnable()
 		{
-			Root ??= new GameObject("LevelRoot").transform;
-			LevelTemplate = Template;
-
-			var PlayerStarts = new List<Tile>();
-			var Offset = Vector2.one * (TileSize * 0.5f);
-			// Generate all
-			foreach ((int x, int y, TileUsage Usage) in Template.GetTileInfos())
+			foreach (var TileObjects in TileObjectsLibrary)
 			{
-				var SpawnPos = new Vector3(x * TileSize + Offset.x, 0, y * TileSize + Offset.y);
-				var Tile = Instantiate(LevelTemplate.GetRandomTile(Usage), SpawnPos, Quaternion.identity, Root);
-				Tile.Configure(x, y);
-				Tiles.Add(new Vector2Int(x, y), Tile);
-				if (Tile.Usage == TileUsage.PlayerStart)
+				foreach (var Tag in TileObjects.GetAllTags())
+				{
+					if (!TileObjectLibrarysMap.TryGetValue(Tag, out var TileObjectsSubLibrary))
+						TileObjectLibrarysMap.Add(Tag, TileObjectsSubLibrary = new List<TileObjects>());
+					TileObjectsSubLibrary.Add(TileObjects);
+				}
+			}
+		}
+
+#if UNITY_EDITOR
+		private static bool IsObjectsDirty;
+
+		public static void RefreshTileObjectsLibrary()
+		{
+			if (IsObjectsDirty)
+				return;
+			IsObjectsDirty = true;
+			EditorApplication.delayCall += Refresh;
+
+			void Refresh()
+			{
+				var LevelGen = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GameManager.prefab").GetComponentInChildren<LevelGenerator>(true);
+
+				// Auto-search for and add TileObjects
+				LevelGen.TileObjectsLibrary = AssetDatabase.FindAssets($"t:Prefab", new[] { "Assets/Prefabs/Level/TileObjects" })
+															.Select(AssetDatabase.GUIDToAssetPath)
+															.Select(AssetDatabase.LoadAssetAtPath<GameObject>)
+															.Select(p => p.GetComponentInChildren<TileObjects>(true))
+															.Where(to => to != null).ToArray();
+				EditorUtility.SetDirty(LevelGen);
+				IsObjectsDirty = false;
+			}
+		}
+#endif
+
+		public TileSpawnMarker Generate(TilePattern Pattern, string LevelTag, ReservedTagInfo[] ReservedTags) // Returns randomized player start tile
+		{
+			Debug.Log($"Generating level using Pattern {Pattern?.name} with level tag = {LevelTag} ...", Pattern);
+			LevelPattern = Pattern;
+
+			var PlayerStarts = new List<TileSpawnMarker>();
+			var Offset = Vector2.one * (TileSize * 0.5f);
+
+			Root = Instantiate(Pattern, Vector3.zero, Quaternion.identity).transform;
+			Root.GetComponentsInChildren(true, Tiles);
+			ShuffleList(Tiles);
+
+			int TileIndex = 0;
+			foreach (var Tag in ReservedTags)
+			{
+				var TagCount = UnityEngine.Random.Range(Tag.MinCount, Tag.MaxCount + 1);
+				Debug.Log($"- Reserved {TagCount} tiles for reserved tag = {Tag.Tag}.");
+				for (int i = 0; i < TagCount; i++, TileIndex++)
+				{
+					var Tile = Tiles[TileIndex];
+					Tile.AssignedTag = Tag.Tag;
+				}
+			}
+
+			foreach (var Tile in Tiles)
+			{
+				string TileObjectsTargetTag = string.IsNullOrEmpty(Tile.AssignedTag) ? LevelTag : Tile.AssignedTag; // Use reserved if assigned, else use level tag
+				if (!TileObjectLibrarysMap.TryGetValue(TileObjectsTargetTag, out var TileObjectsForTag))
+				{
+					Debug.LogWarning($"Skipped spawning TileObjects for TileSpawnMarker {Tile?.name} as there are no TileObjects for tag : {TileObjectsTargetTag}.", Tile);
+					continue;
+				}
+
+				// Spawn TileObjects layer
+				var TileObjects = TileObjectsForTag[UnityEngine.Random.Range(0, TileObjectsForTag.Count)];
+				Tile.Rotation = UnityEngine.Random.Range(0, 4) * 90;
+				Tile.TileObjects = Instantiate(TileObjects, Vector3.zero, Quaternion.Euler(0, Tile.Rotation, 0), Tile.transform);
+
+				// Cache tile for all tags that the TileObjects specifies
+				foreach (var Tag in TileObjects.GetAllTags())
+				{
+					if (!TileObjectsMap.TryGetValue(Tag, out var TilesForTag))
+						TileObjectsMap.Add(Tag, TilesForTag = new List<TileSpawnMarker>());
+					TilesForTag.Add(Tile);
+				}
+
+				// Cache if player can start on tile
+				if (Tile.IsPlayerSpawnable)
 					PlayerStarts.Add(Tile);
 			}
 
-			// Assign neighbors
-			foreach (var Tile in Tiles)
-			{
-				Vector2Int Coord = Tile.Value.Coord;
-				if (Tiles.TryGetValue(Coord + Vector2Int.left, out var NeighborTile)) Tile.Value.SetNeighbor(MoveDirection.Left, NeighborTile);
-				if (Tiles.TryGetValue(Coord + Vector2Int.right, out NeighborTile)) Tile.Value.SetNeighbor(MoveDirection.Right, NeighborTile);
-				if (Tiles.TryGetValue(Coord + Vector2Int.up, out NeighborTile)) Tile.Value.SetNeighbor(MoveDirection.Up, NeighborTile);
-				if (Tiles.TryGetValue(Coord + Vector2Int.down, out NeighborTile)) Tile.Value.SetNeighbor(MoveDirection.Down, NeighborTile);
-			}
+			Debug.Log($"> Spawned {Tiles.Count(t => t.TileObjects != null)}/{Tiles.Count} TileObjects.\n{string.Join("\n", Tiles.OrderBy(t => t.name).Select(t => $"  - {t.name} : {t.TileObjects?.name} @ {t.Rotation}"))}");
 
+			// Return randomized start tile
 			if (PlayerStarts.Count == 0)
-				PlayerStarts.AddRange(Tiles.Values);
-			return PlayerStarts[Random.Range(0, PlayerStarts.Count)];
+			{
+				Debug.LogWarning("> Did not find any available tiles for spawning player. Randomizing from all tiles ...");
+				PlayerStarts.AddRange(Tiles);
+			}
+			return PlayerStarts[UnityEngine.Random.Range(0, PlayerStarts.Count)];
 		}
+
+		public List<TileSpawnMarker> GetTilesForTag(string Tag) => TileObjectsMap.TryGetValue(Tag, out var TilesForTag) ? TilesForTag : null;
 
 		public void Clear()
 		{
 			Tiles.Clear();
+			TileObjectsMap.Clear();
 			if (Root != null)
 			{
 				Destroy(Root.gameObject);
 			}
-			LevelTemplate = null;
+			LevelPattern = null;
+		}
+
+		/// <summary>
+		/// https://stackoverflow.com/questions/273313/randomize-a-listt
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="List"></param>
+		private static void ShuffleList <T> (List<T> List)
+		{
+			int n = List.Count;
+			while (n > 1)
+			{
+				n--;
+				int k = UnityEngine.Random.Range(0, n + 1);
+				(List[k], List[n]) = (List[n], List[k]);
+			}
 		}
 
 	}
