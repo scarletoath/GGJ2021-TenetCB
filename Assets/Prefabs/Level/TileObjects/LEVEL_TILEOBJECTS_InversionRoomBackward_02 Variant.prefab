@@ -914,6 +914,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5414979399765617390, guid: 4effcc6365fad404798b361a48c4028a, type: 3}
+      propertyPath: TargetState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5818557473064617100, guid: 4effcc6365fad404798b361a48c4028a, type: 3}
       propertyPath: m_Name
       value: InversionRoom_Medium
