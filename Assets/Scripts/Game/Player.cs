@@ -35,7 +35,11 @@ namespace Tenet.Game
     public class Player : MonoBehaviour , IHealth
     {
 
+        private bool IsActive = false;
+
 		private float Health;
+
+        private CharacterController Controller;
 
 		private Weapon.Weapon[] Weapons;
         private Weapon.Weapon CurrentWeapon;
@@ -48,6 +52,7 @@ namespace Tenet.Game
 
         private void Awake()
         {
+            TryGetComponent(out Controller);
 			SessionManager.Instance.SetPlayer(this);
         }
 
@@ -59,12 +64,17 @@ namespace Tenet.Game
                 Weapon.Activate(false);
 			}
             ChangeHealth(DifficultySettings.Instance.CurrentDifficulty.MaxPlayerHealth);
-            ChangeWeapon(0);			
+            ChangeWeapon(0);
+
+            SessionManager.Instance.StartLevel();
 		}
 
 		// Update is called once per frame
 		void Update()
         {
+            if (!IsActive)
+                return;
+
             TickHealCooldown();
 
             CheckWeaponInput();
@@ -80,7 +90,13 @@ namespace Tenet.Game
             }
         }
 
-        public float CurrentHealth => Health;
+		public void Enable(bool IsEnable)
+		{
+            IsActive = IsEnable;
+            Controller.enabled = IsEnable;
+		}
+
+		public float CurrentHealth => Health;
 
 		public float Damage(float Amount) => ChangeHealth(-Amount);
         public float DamagePercent(float Percent) => Damage(Percent * DifficultySettings.Instance.CurrentDifficulty.MaxPlayerHealth);

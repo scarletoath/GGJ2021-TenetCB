@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Tenet.GameMode;
+using Tenet.Level;
 using UnityEngine;
 
 namespace Tenet.Game
@@ -19,6 +20,7 @@ namespace Tenet.Game
 
 		public static SessionManager Instance { get; private set; }
 
+		[SerializeField] private LevelGenerator LevelGenerator;
 		[SerializeField] private GameModeBase DefaultGameMode;
 
 		public event Action<InversionState> OnInversionStateChanged;
@@ -40,6 +42,15 @@ namespace Tenet.Game
 		public InversionState CurrentInversionState { get; private set; } = InversionState.Normal;
 		public float CurrentInversionStateDuration => (float)InversionTimer.Elapsed.TotalSeconds;
 
+		internal void StartLevel()
+		{
+			var Templates = DifficultySettings.Instance.CurrentDifficulty.LevelTemplates;
+			var StartTile = LevelGenerator.Generate(Templates[UnityEngine.Random.Range(0, Templates.Length)]);
+			Player.transform.position = StartTile.transform.position + Vector3.up;
+			Player.transform.forward = StartTile.GetRandomNeighborDir();
+			Player.Enable(true);
+		}
+
 		public void SetGameMode ( GameModeBase GameMode )
 		{
 			this.GameMode = GameMode;
@@ -48,6 +59,7 @@ namespace Tenet.Game
 		public void SetPlayer ( Player Player )
 		{
 			this.Player = Player;
+			Player.Enable(false);
 		}
 
 		public void SetInvertability ( InversionState? TargetState , Collider other )

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3419247899741961476}
   - component: {fileID: -6587502913467125622}
   - component: {fileID: 3490528085129546618}
+  - component: {fileID: 5484344037062922497}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74fe11e456da2ab4e98e438f9eed6318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelGenerator: {fileID: 5484344037062922497}
   DefaultGameMode: {fileID: 11400000, guid: c755bfd6eb7e64044a95093f36a34e73, type: 2}
 --- !u!114 &3490528085129546618
 MonoBehaviour:
@@ -67,3 +69,18 @@ MonoBehaviour:
     InversionMaxDuration: 5
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 1
+    LevelTemplates:
+    - {fileID: 0}
+--- !u!114 &5484344037062922497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5299342609732079241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f33c0d117e35db48a993610f1c50028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TileSize: 20

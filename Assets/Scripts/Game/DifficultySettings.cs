@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Tenet.Level;
 using UnityEngine;
 
 namespace Tenet.Game
@@ -20,6 +22,8 @@ namespace Tenet.Game
             public float InversionMaxDuration = 5.0f; // seconds
             public float InversionHealthLossPercent = 0.02f;
             public float InversionHealthLossInterval = 1.0f; // seconds
+
+            public LevelTemplate[] LevelTemplates = Array.Empty<LevelTemplate>();
         }
 
         public static DifficultySettings Instance { get; private set; }
