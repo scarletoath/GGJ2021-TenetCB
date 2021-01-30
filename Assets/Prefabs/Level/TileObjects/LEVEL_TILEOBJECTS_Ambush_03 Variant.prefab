@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2063469343876016829, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: GeneralTags.Array.data[0]
-      value: Explosive
+      value: Ambush
       objectReference: {fileID: 0}
     - target: {fileID: 7027844457000455041, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: m_Name

@@ -130,8 +130,13 @@ MonoBehaviour:
       MinCount: 1
       MaxCount: 3
     GeneralTags:
+    - Ambush
     - Destruction
     - Explosive
+    - Jump
+    - Open
+    - Verticality
+    - Multikill
     TilePatterns:
     - {fileID: 1536457501810267314, guid: 8b651033761e9724db6b0deb8852f0d6, type: 3}
     - {fileID: 8803991480852554634, guid: 85d0de5db2e12be478f9b3c9344ad26d, type: 3}

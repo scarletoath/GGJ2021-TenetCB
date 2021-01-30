@@ -235,9 +235,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2063469343876016829, guid: c1230030723cc584fba477209f998f2f, type: 3}
+      propertyPath: GeneralTags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2063469343876016829, guid: c1230030723cc584fba477209f998f2f, type: 3}
+      propertyPath: GeneralTags.Array.data[0]
+      value: Open
+      objectReference: {fileID: 0}
     - target: {fileID: 7027844457000455041, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: m_Name
-      value: LEVEL_TILEOBJECTS_Open_01
+      value: LEVEL_TILEOBJECTS_Open_01 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7027844457000455042, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: m_RootOrder
