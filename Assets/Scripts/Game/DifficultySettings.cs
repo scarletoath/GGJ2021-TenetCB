@@ -58,7 +58,7 @@ namespace Tenet.Game
         private void Awake()
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
 
             SetDifficulty(DefaultDifficulty);
         }

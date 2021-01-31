@@ -6,6 +6,7 @@ using Tenet.GameMode;
 using Tenet.Level;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 namespace Tenet.Game
 {
@@ -33,9 +34,17 @@ namespace Tenet.Game
 		private void Awake()
 		{
             Instance = this;
-			DontDestroyOnLoad(gameObject);
+			//DontDestroyOnLoad(gameObject);
 
 			GameMode = DefaultGameMode;
+		}
+
+		private void Update()
+		{
+			if (Input.GetKeyUp(KeyCode.Delete)) // Restart
+			{
+				SceneManager.LoadScene(gameObject.scene.name);
+			}
 		}
 
 		private readonly Stopwatch InversionTimer = new Stopwatch();
