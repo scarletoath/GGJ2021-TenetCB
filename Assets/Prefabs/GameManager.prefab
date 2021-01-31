@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3c07092afd346498566dac3b79985a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultDifficulty: 2
+  DefaultDifficulty: 1
   Difficulties:
   - Name: Easy
     MaxPlayerHealth: 120
@@ -134,7 +134,7 @@ MonoBehaviour:
     - InversionState: 1
       Percent: 0.1
     LevelTagPercent: 0.9
-    ExpendedAmmoRange: {x: 0, y: 0}
+    ExpendedAmmoRange: {x: 125, y: 350}
     AdditionalEnemiesRange: {x: 0, y: 0}
     ReservedTags:
     - Tag: Landmark
@@ -179,7 +179,7 @@ MonoBehaviour:
     - InversionState: 1
       Percent: 0.25
     LevelTagPercent: 0.8
-    ExpendedAmmoRange: {x: 0, y: 0}
+    ExpendedAmmoRange: {x: 75, y: 250}
     AdditionalEnemiesRange: {x: 0, y: 0}
     ReservedTags:
     - Tag: Landmark
@@ -224,7 +224,7 @@ MonoBehaviour:
     - InversionState: 1
       Percent: 0.5
     LevelTagPercent: 0.65
-    ExpendedAmmoRange: {x: 0, y: 0}
+    ExpendedAmmoRange: {x: 25, y: 125}
     AdditionalEnemiesRange: {x: 0, y: 0}
     ReservedTags:
     - Tag: Landmark
