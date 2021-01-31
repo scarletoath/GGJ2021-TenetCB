@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Tenet.Game;
 using UnityEngine;
 using Tenet.Triggers;
 #if UNITY_EDITOR
-using System.Linq;
 using UnityEditor;
 #endif
 

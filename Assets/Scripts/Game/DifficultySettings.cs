@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Tenet.Level;
 using UnityEngine;
 using Tenet.Utils.Editor;
 using Tenet.UI;
 #if UNITY_EDITOR
-using System.Linq;
 using UnityEditor;
 #endif
 
