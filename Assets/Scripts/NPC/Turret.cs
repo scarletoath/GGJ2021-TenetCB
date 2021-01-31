@@ -12,17 +12,20 @@ namespace Tenet.NPC
 		[SerializeField] float durationToReachMaxAccuracy	= 5.0f;
 		float currAccuracy									= 0.0f;
 
-		Weapon.Weapon weapon								= null;
 		float autoShootEndTime								= 0.0f;
 		[SerializeField] float autoShootDuration			= 20.0f;
 		float shootDuration;
 		Vector3 positionToShootAt;
 		private Vector3 velocity = Vector3.zero;
 
+		Weapon.Weapon weapon = null;
+		[SerializeField] readonly Weapon.Weapon [] UsableWeapons;
+
 		// Start is called before the first frame update
 		void Start()
         {
-			weapon			= gameObject.GetComponentInChildren<Weapon.Weapon>();
+
+			weapon			= Instantiate(UsableWeapons[Random.Range(0,2)], transform);
 			currAccuracy	= baseAccuracy;
 			shootDuration	= autoShootDuration;
 		}

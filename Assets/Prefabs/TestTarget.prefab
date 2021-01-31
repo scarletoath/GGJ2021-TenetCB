@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 0
+  isForward: 0
   detectionRadius: 0
   isDebug: 0
   ForwardDeathParticle: {fileID: 8194911512057338182, guid: c721dbd3fb932ca49b7bb10ca894423a, type: 3}
@@ -78,7 +79,9 @@ MonoBehaviour:
   maxAccuracy: 1
   durationToReachMaxAccuracy: 10
   autoShootDuration: 20
-  isDead: 0
+  UsableWeapons:
+  - {fileID: -4987184342446102107, guid: 1bd7e537bb54cef488c8cd8f7dc3d429, type: 3}
+  - {fileID: -4987184342446102107, guid: 5d37b5a2202454149a606c2da1767ffd, type: 3}
 --- !u!136 &-2180519383272149991
 CapsuleCollider:
   m_ObjectHideFlags: 0
