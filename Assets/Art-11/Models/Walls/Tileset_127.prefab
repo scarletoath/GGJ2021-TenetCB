@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 619650873888745247}
   - component: {fileID: 4555015791269456058}
   - component: {fileID: 1788595301938486384}
+  - component: {fileID: 2009621347218665746}
   m_Layer: 0
   m_Name: Tileset_127
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6475159198141517755}
+  - {fileID: 7230176824873715167}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c2f655a1c9968fc439db4784ba03c28f, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,7 +83,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &6797862058884425808
+--- !u!64 &2009621347218665746
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275460112650763685}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 338149936022715138, guid: 9fd8b004c9022b346a4b9b4b79283dd2, type: 3}
+--- !u!1001 &7195633995363738164
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -133,14 +148,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9fd8b004c9022b346a4b9b4b79283dd2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 733cf65b1fcbd4f41b664969577e14c1, type: 2}
     - target: {fileID: 919132149155446097, guid: 9fd8b004c9022b346a4b9b4b79283dd2, type: 3}
       propertyPath: m_Name
       value: Tileset_127
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fd8b004c9022b346a4b9b4b79283dd2, type: 3}
---- !u!4 &6475159198141517755 stripped
+--- !u!4 &7230176824873715167 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9fd8b004c9022b346a4b9b4b79283dd2, type: 3}
-  m_PrefabInstance: {fileID: 6797862058884425808}
+  m_PrefabInstance: {fileID: 7195633995363738164}
   m_PrefabAsset: {fileID: 0}

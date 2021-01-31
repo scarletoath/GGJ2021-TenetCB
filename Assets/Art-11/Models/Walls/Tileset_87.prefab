@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4954246843149960063}
   - component: {fileID: 8317830564073884890}
   - component: {fileID: 6091727204076632080}
+  - component: {fileID: 6205910215436416574}
   m_Layer: 0
   m_Name: Tileset_87
   m_TagString: Untagged
@@ -60,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7fb26a3fda873f842920194d525bac6b, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,6 +83,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6205910215436416574
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5731628693243926981}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7040087422193955383, guid: 6a7e3779783671945b6c447a766dd89f, type: 3}
 --- !u!1001 &6773389191831211230
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95,15 +110,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6a7e3779783671945b6c447a766dd89f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.8662176
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6a7e3779783671945b6c447a766dd89f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.521767
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6a7e3779783671945b6c447a766dd89f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.224893
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6a7e3779783671945b6c447a766dd89f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -133,6 +148,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 6a7e3779783671945b6c447a766dd89f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ca28f1e0e3adab4ab6c13090efd2be4, type: 2}
     - target: {fileID: 919132149155446097, guid: 6a7e3779783671945b6c447a766dd89f, type: 3}
       propertyPath: m_Name
       value: Tileset_87
