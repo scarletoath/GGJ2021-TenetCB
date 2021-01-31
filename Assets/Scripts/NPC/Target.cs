@@ -15,11 +15,12 @@ namespace Tenet.NPC
 		Collider playerCollider			= null;
 		int playerLayerMask				= 0;
 		bool isPlayerDetected			= false;
+		[SerializeField] bool isDebug	= false;
 
         // Start is called before the first frame update
         void Start()
 		{
-			Debug.DrawLine( transform.position, transform.position + new Vector3( 0, 1, 0 ) * 1000, Color.blue, 10.0f );
+			turret = GetComponent<Turret>();
 		}
 
         // Update is called once per frame
@@ -32,18 +33,27 @@ namespace Tenet.NPC
 				playerDir.Normalize();
 				RaycastHit hit;
 
-				Debug.DrawLine(playerPos, playerPos + new Vector3(0,1,0) * 1000, Color.blue, 2.0f);
 				if(Physics.Raycast(transform.position, playerDir, out hit, Mathf.Infinity, playerLayerMask ) )
 				{
-					Debug.DrawLine(transform.position, playerDir * hit.distance, Color.green, 2.0f );
-					//Debug.Log( "raycast hit" );
+					isPlayerDetected	= true;
+					if( turret != null )
+					{
+						turret.StartShootingAtPosition( playerPos );
+					}
+
+					if( isDebug )
+					{
+						Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.green, 2.0f );
+					}
 				}
 				else
 				{
-					Debug.DrawRay( transform.position, playerDir * 1000, Color.red, 2.0f );
-					//Debug.Log( "raycast NO hit" );
+					isPlayerDetected	= false;
+					if( isDebug )
+					{
+						Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.red, 2.0f );
+					}					
 				}
-				//Debug.Log( "Mask : " + playerLayerMask );
 			}
 
 		}
