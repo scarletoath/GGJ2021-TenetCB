@@ -27,6 +27,8 @@ namespace Tenet.Weapon
 		private Vector3 InitialDirection = Vector3.down;
 		private Transform Target;
 
+		private bool IsConsumed;
+
 		private void Update()
 		{
 			if (Target != null) // tracking target => face and move towards source
@@ -83,7 +85,11 @@ namespace Tenet.Weapon
 			}
 		}
 
-		private void ApplyDamage() => ApplyDamage(null, transform.position, DefaultDamageDirection, $"damage after duration {MaxLifetime}s");
+		private void ApplyDamage()
+		{
+			if (!IsConsumed)
+				ApplyDamage(null, transform.position, DefaultDamageDirection, $"damage after duration {MaxLifetime}s");
+		}
 
 		private void ApplyDamage(GameObject Target, Vector3 Location, Vector3 Direction, string DebugMessage)
 		{
@@ -101,11 +107,13 @@ namespace Tenet.Weapon
 
 			if (DamageEffect != null)
 				Instantiate(DamageEffect, transform.position, transform.rotation);
+
+			IsConsumed = true; // Ensure that multiple collisions in same frame do not trigger
 		}
 
 		private void OnCollisionEnter(Collision collision)
 		{
-			if (DamageOnCollision)
+			if (!IsConsumed && DamageOnCollision)
 			{
 				ApplyDamage(collision.gameObject, collision.GetContact(0).point, collision.GetContact(0).normal, $"hit {collision.gameObject}");
 				if (Rigidbody != null)

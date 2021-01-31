@@ -7,11 +7,25 @@ namespace Tenet.Triggers
 {
     public class HistoryTarget : MonoBehaviour
     {
-        private readonly List<HistoryMarker> Markers = new List<HistoryMarker>();
+        private readonly HashSet<HistoryMarker> Markers = new HashSet<HistoryMarker>();
 
-        public void RecordMarker(HistoryMarker Marker)
+		public void Enable (bool IsEnable)
+		{
+			enabled = IsEnable;
+			foreach (var Marker in Markers)
+			{
+				Marker.Enable(IsEnable);
+			}
+		}
+
+        public void RegisterMarker(HistoryMarker Marker)
         {
 			Markers.Add(Marker);
+		}
+
+		public void UnregisterMarker(HistoryMarker Marker)
+		{
+			Markers.Remove(Marker);
 		}
 
 #if UNITY_EDITOR
@@ -21,6 +35,17 @@ namespace Tenet.Triggers
 			public override void OnInspectorGUI()
 			{
 				var Target = (HistoryTarget)target;
+
+				using (var ChangeCheck = new EditorGUI.ChangeCheckScope())
+				{
+					bool NewEnabled = EditorGUILayout.Toggle("Enabled", Target.enabled);
+					if (ChangeCheck.changed)
+					{
+						Target.Enable(NewEnabled);
+					}
+				}
+
+				EditorGUILayout.Space();
 				EditorGUILayout.LabelField(nameof(Markers));
 				foreach (var Marker in Target.Markers)
 				{

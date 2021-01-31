@@ -75,7 +75,7 @@ namespace Tenet.Weapon
 		{
             var Marker = GetOrCreateMarker(TargetPoint, Direction);
 			Marker.CreateRecord();
-			if (DamageRadius <= 0)
+			if (Marker.TriggerRadius <= 0)
 			{
                 ApplyDamage(TargetGameObject, Marker);
 			}
@@ -89,12 +89,12 @@ namespace Tenet.Weapon
         {
 			if (TargetGameObject != null)
 			{
-				if (TargetGameObject.TryGetComponent(out HistoryTarget Target))
+				if (TargetGameObject.GetComponentInParent<HistoryTarget>() is HistoryTarget Target) // TODO : Also check if can affect target; e.g. only explosive can affect destructible target
 				{
-					Target.RecordMarker(Marker);
+					Target.RegisterMarker(Marker);
 					Marker.GetLastRecord().AffectedTargets.Add(Target);
 				}
-				if (TargetGameObject.TryGetComponent(out IHealth IHealth))
+				if (TargetGameObject.GetComponentInParent<IHealth>() is IHealth IHealth)
 				{
 					IHealth.Damage(Damage);
 					return true;
@@ -106,7 +106,7 @@ namespace Tenet.Weapon
 
         private bool ApplyDamage(Vector3 TargetPoint, HistoryMarker Marker)
         {
-            var Colliders = Physics.OverlapSphere(TargetPoint, DamageRadius);
+            var Colliders = Physics.OverlapSphere(TargetPoint, Marker.TriggerRadius);
             bool HasApplied = false;
 			foreach (var Collider in Colliders)
 			{

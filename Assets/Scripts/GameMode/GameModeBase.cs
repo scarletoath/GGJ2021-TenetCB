@@ -112,6 +112,13 @@ namespace Tenet.GameMode
 					Ammo.Remove();
 					break;
 				case InversionState.Inverted: // increase ammo
+					foreach (var HistoryInfo in Marker.GetInfos()) // Remove marker from all affected targets
+					{
+						foreach (var Target in HistoryInfo.AffectedTargets)
+						{
+							Target.UnregisterMarker(Marker);
+						}
+					}
 					int NewAmmoCount = Marker.DequeueAll();
 					var InitialDirection = (Origin.position - Marker.transform.position).normalized;
 					Ammo.CreateProjectile(Marker.transform.position + InitialDirection * 0.25f, Quaternion.LookRotation(InitialDirection), Origin); // Small depentration to prevent self-collision with original target

@@ -10,7 +10,7 @@ namespace Tenet.Triggers
 	public class HistoryInfo
 	{
 		public long Timestamp;
-		public readonly List<HistoryTarget> AffectedTargets = new List<HistoryTarget>();
+		public readonly HashSet<HistoryTarget> AffectedTargets = new HashSet<HistoryTarget>();
 
 		public bool IsConsumed { get; private set; }
 		public HistoryInfo Consume ()
@@ -55,6 +55,13 @@ namespace Tenet.Triggers
 			this.AmmoType = AmmoType;
 		}
 
+		public void Enable (bool IsEnable)
+		{
+			enabled = Trigger.enabled = IsEnable;
+		}
+
+		public IEnumerable<HistoryInfo> GetInfos() => History;
+
 		public HistoryInfo GetLastRecord() => History.Count > 0 ? History.Peek() : null;
 
 		public HistoryInfo CreateRecord()
@@ -97,6 +104,7 @@ namespace Tenet.Triggers
 				EditorGUILayout.Space();
 
 				var Marker = (HistoryMarker)target;
+				EditorGUILayout.Toggle("Enabled", Marker.enabled);
 				EditorGUILayout.ObjectField(nameof(AmmoType), Marker.AmmoType, typeof(Ammo), true);
 				EditorGUILayout.LabelField(nameof(History), EditorStyles.boldLabel);
 				foreach (var HistoryInfo in Marker.History)
