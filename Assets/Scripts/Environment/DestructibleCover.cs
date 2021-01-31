@@ -21,6 +21,10 @@ namespace Tenet.Environment
 		[SerializeField] private HistoryTarget HistoryTarget;
 		[SerializeField] private DamageType DamageType;
 
+		[Space]
+
+		[SerializeField] private AudioSource AudioSource;
+
 		private Animation[] DestructionAnims;
 		private Coroutine AnimCoroutine;
 
@@ -33,6 +37,11 @@ namespace Tenet.Environment
 			}
 
 			HistoryTarget.OnMarkerChanged += CheckDestroyRebuild;
+			if (AudioSource != null)
+			{
+				AudioSource.playOnAwake = false;
+				AudioSource.Stop();
+			}
 		}
 
 		public bool IsDestroyed { get; private set; }
@@ -57,6 +66,8 @@ namespace Tenet.Environment
 			}
 			if (AnimCoroutine != null)
 				StopCoroutine(AnimCoroutine);
+			if (AudioSource != null)
+				AudioSource.Play();
 			AnimCoroutine = null;
 			IsDestroyed = true;
 		}
