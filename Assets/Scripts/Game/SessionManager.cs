@@ -54,9 +54,10 @@ namespace Tenet.Game
 			var StartTile = LevelGenerator.Generate(Pattern, LevelTag, DifficultySettings.Instance.CurrentDifficulty.ReservedTags);
 			var Landmarks = LevelGenerator.GetTilesForTag("Landmark"); // Hard-coded like a MF, no good place to store this
 			var LookAtLandmark = Landmarks[UnityEngine.Random.Range(0, Landmarks.Count)];
-			UnityEngine.Debug.Log($"Player start facing {LookAtLandmark.name}", LookAtLandmark);
+			var LookAtDir = Vector3.ProjectOnPlane(LookAtLandmark.transform.position - Player.transform.position, Vector3.up).normalized;
+			UnityEngine.Debug.Log($"Player start facing {LookAtLandmark.name} with rotation : {Quaternion.LookRotation(LookAtDir).eulerAngles}", LookAtLandmark);
 			Player.transform.position = StartTile.transform.position + Vector3.up;
-			Player.transform.LookAt(LookAtLandmark.transform, Vector3.up);
+			Player.transform.forward = LookAtDir;
 			Player.Enable(true);
 			RefreshInversion();
 		}
