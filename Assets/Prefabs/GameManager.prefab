@@ -109,13 +109,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3c07092afd346498566dac3b79985a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultDifficulty: 1
+  DefaultDifficulty: 2
   Difficulties:
   - Name: Easy
     MaxPlayerHealth: 120
     PlayerHealCooldown: 10
     PlayerHealPercent: 0.9
-    WeaponBlackoutMultiplier: 1
+    WeaponBlackoutMultiplier: 0.2
     WeaponConfigurations:
     - Name: Pistol
       StartInClipRange: {x: 4, y: 7}
@@ -137,13 +137,13 @@ MonoBehaviour:
     ReservedTags:
     - Tag: Landmark
       MinCount: 1
-      MaxCount: 1
+      MaxCount: 2
     - Tag: InversionForward
       MinCount: 1
-      MaxCount: 1
+      MaxCount: 2
     - Tag: InversionBackward
       MinCount: 1
-      MaxCount: 1
+      MaxCount: 2
     GeneralTags:
     - Ambush
     - Destruction
@@ -162,7 +162,7 @@ MonoBehaviour:
     MaxPlayerHealth: 110
     PlayerHealCooldown: 15
     PlayerHealPercent: 0.6
-    WeaponBlackoutMultiplier: 1
+    WeaponBlackoutMultiplier: 0.2
     WeaponConfigurations:
     - Name: Pistol
       StartInClipRange: {x: 2, y: 5}
@@ -175,22 +175,22 @@ MonoBehaviour:
     InversionHealthLossInterval: 0.85
     StartInversionStateProbabilities:
     - InversionState: 0
-      Percent: 0.5
+      Percent: 0.75
     - InversionState: 1
-      Percent: 0.5
+      Percent: 0.25
     LevelTagPercent: 0.8
     ExpendedAmmoRange: {x: 0, y: 0}
     AdditionalEnemiesRange: {x: 0, y: 0}
     ReservedTags:
     - Tag: Landmark
-      MinCount: 1
-      MaxCount: 1
+      MinCount: 2
+      MaxCount: 3
     - Tag: InversionForward
-      MinCount: 1
-      MaxCount: 2
+      MinCount: 2
+      MaxCount: 3
     - Tag: InversionBackward
-      MinCount: 1
-      MaxCount: 2
+      MinCount: 2
+      MaxCount: 3
     GeneralTags:
     - Ambush
     - Destruction
@@ -199,18 +199,13 @@ MonoBehaviour:
     - Verticality
     - Complex
     TilePatterns:
-    - {fileID: 8202548836543278150, guid: 10600b4a518959d4a8ceea2bb98c9766, type: 3}
     - {fileID: 4187642526057872996, guid: 89533f5868b1a0043bff769cf2baa930, type: 3}
     - {fileID: 7556789858751074586, guid: 132f0436eeaa9504d8a280edb11fa0a6, type: 3}
-    - {fileID: 7566012063200091201, guid: 0870562f69d4a274e90b4db944d3a238, type: 3}
-    - {fileID: 2579119152743999946, guid: ad651e7071955c84ea27fd639ea98322, type: 3}
-    - {fileID: 6089528923706106570, guid: 42dc7f9a5ff77c44ab10b9f16691d189, type: 3}
-    - {fileID: 6125799596308722165, guid: a77aeb5c7d9b381479f543fd28aa3f61, type: 3}
   - Name: Hard
     MaxPlayerHealth: 100
     PlayerHealCooldown: 20
     PlayerHealPercent: 0.4
-    WeaponBlackoutMultiplier: 1
+    WeaponBlackoutMultiplier: 0.2
     WeaponConfigurations:
     - Name: Pistol
       StartInClipRange: {x: 0, y: 2}
@@ -223,22 +218,22 @@ MonoBehaviour:
     InversionHealthLossInterval: 0.75
     StartInversionStateProbabilities:
     - InversionState: 0
-      Percent: 0.1
+      Percent: 0.5
     - InversionState: 1
-      Percent: 0.9
+      Percent: 0.5
     LevelTagPercent: 0.65
     ExpendedAmmoRange: {x: 0, y: 0}
     AdditionalEnemiesRange: {x: 0, y: 0}
     ReservedTags:
     - Tag: Landmark
-      MinCount: 1
-      MaxCount: 1
+      MinCount: 3
+      MaxCount: 4
     - Tag: InversionForward
-      MinCount: 2
-      MaxCount: 3
+      MinCount: 3
+      MaxCount: 4
     - Tag: InversionBackward
-      MinCount: 1
-      MaxCount: 1
+      MinCount: 3
+      MaxCount: 4
     GeneralTags:
     - Ambush
     - Destruction
@@ -247,10 +242,7 @@ MonoBehaviour:
     - Verticality
     - Extreme
     TilePatterns:
-    - {fileID: 7566012063200091201, guid: 0870562f69d4a274e90b4db944d3a238, type: 3}
-    - {fileID: 6125799596308722165, guid: a77aeb5c7d9b381479f543fd28aa3f61, type: 3}
-    - {fileID: 8202548836543278150, guid: 10600b4a518959d4a8ceea2bb98c9766, type: 3}
-    - {fileID: 7821118189927091627, guid: 1747380568e13f542a030ef58cf98b4f, type: 3}
+    - {fileID: 2579119152743999946, guid: ad651e7071955c84ea27fd639ea98322, type: 3}
 --- !u!114 &5484344037062922497
 MonoBehaviour:
   m_ObjectHideFlags: 0
