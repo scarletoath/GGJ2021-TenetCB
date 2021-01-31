@@ -224,6 +224,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HistoryMarker_Grenade
       objectReference: {fileID: 0}
+    - target: {fileID: 3081154810636895017, guid: 8d3df749a9168fe4ebcae0623af41b57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8083404954046973235, guid: 8d3df749a9168fe4ebcae0623af41b57, type: 3}
       propertyPath: m_RootOrder
       value: 1

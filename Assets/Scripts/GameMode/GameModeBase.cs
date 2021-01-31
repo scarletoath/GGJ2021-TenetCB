@@ -19,6 +19,7 @@ namespace Tenet.GameMode
 		public string Name; // Matches InversionState enum
 		public Color Color;
 		public VolumeProfile VolumeProfile;
+		public GameObject MarkerVisual;
 	}
 
 	public class GameModeBase : ScriptableObject
