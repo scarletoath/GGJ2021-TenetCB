@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 114382165986233747}
   - component: {fileID: 114382165986233746}
+  - component: {fileID: 6447267959708036528}
+  - component: {fileID: 3363990653049970984}
   m_Layer: 0
   m_Name: DestructibleBall
   m_TagString: Untagged
@@ -47,6 +49,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NormalObject: {fileID: 114382166124882414}
   DestructionObject: {fileID: 961294394672750037}
+  TargetRebuildDuration: 0.3
+  HistoryTarget: {fileID: 6447267959708036528}
+--- !u!114 &6447267959708036528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114382165986233757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a5bb14cc7e8a74cb9955e63d836ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &3363990653049970984
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114382165986233757}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &114382166124882414
 GameObject:
   m_ObjectHideFlags: 0

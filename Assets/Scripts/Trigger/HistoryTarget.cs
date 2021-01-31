@@ -11,6 +11,8 @@ namespace Tenet.Triggers
     {
         private readonly HashSet<HistoryMarker> Markers = new HashSet<HistoryMarker>();
 
+		public event System.Action<HistoryMarker, bool> OnMarkerChanged;
+
 		public void Enable (bool IsEnable)
 		{
 			enabled = IsEnable;
@@ -22,12 +24,14 @@ namespace Tenet.Triggers
 
         public void RegisterMarker(HistoryMarker Marker)
         {
-			Markers.Add(Marker);
+			if (Markers.Add(Marker))
+				OnMarkerChanged?.Invoke(Marker, true);
 		}
 
 		public void UnregisterMarker(HistoryMarker Marker)
 		{
-			Markers.Remove(Marker);
+			if (Markers.Remove(Marker))
+				OnMarkerChanged?.Invoke(Marker, false);
 		}
 
 #if UNITY_EDITOR

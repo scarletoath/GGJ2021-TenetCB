@@ -25,11 +25,11 @@ namespace Tenet.Triggers
 	public class HistoryMarker : MonoBehaviour
 	{
 
+		[SerializeField] private DamageType DamageType;
 		[SerializeField] private SphereCollider Trigger;
 
         private readonly Stack<HistoryInfo> History = new Stack<HistoryInfo>();
 
-		public Ammo AmmoType { get; private set; }
 		public float TriggerRadius => Trigger.radius;
 
 		public HistoryMarker FindAtLocation(Vector3 Location)
@@ -39,7 +39,7 @@ namespace Tenet.Triggers
 			HistoryMarker ClosestMarker = null;
 			foreach (var Trigger in CandidateTriggers)
 			{
-				if (Trigger.TryGetComponent(out HistoryMarker Marker) && Marker.AmmoType == AmmoType)
+				if (Trigger.TryGetComponent(out HistoryMarker Marker) && Marker.DamageType == DamageType)
 				{
 					float SqrDistancce = (Trigger.transform.position - Location).sqrMagnitude;
 					if (SqrDistancce < ClosestSqrDistance)
@@ -52,15 +52,12 @@ namespace Tenet.Triggers
 			return ClosestMarker;
 		}
 
-		public void Configure(Ammo AmmoType)
-		{
-			this.AmmoType = AmmoType;
-		}
-
 		public void Enable (bool IsEnable)
 		{
 			enabled = Trigger.enabled = IsEnable;
 		}
+
+		public DamageType Type => DamageType;
 
 		public IEnumerable<HistoryInfo> GetInfos() => History;
 
@@ -107,7 +104,6 @@ namespace Tenet.Triggers
 
 				var Marker = (HistoryMarker)target;
 				EditorGUILayout.Toggle("Enabled", Marker.enabled);
-				EditorGUILayout.ObjectField(nameof(AmmoType), Marker.AmmoType, typeof(Ammo), true);
 				EditorGUILayout.LabelField(nameof(History), EditorStyles.boldLabel);
 				foreach (var HistoryInfo in Marker.History)
 				{

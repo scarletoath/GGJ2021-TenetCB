@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1c85a2513ae8841badda6a8289c975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DamageType: 1
   MaxCount: 25
   ClipCount: 5
   Projectile: {fileID: 2401635985543485413, guid: a7d9426a12d959c4c89d3221093100f3, type: 3}

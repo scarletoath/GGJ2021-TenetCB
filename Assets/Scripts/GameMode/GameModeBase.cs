@@ -74,7 +74,7 @@ namespace Tenet.GameMode
 			return Value;
 		}
 
-		public bool CanUseWeapon(InversionState InversionState, Transform StartPoint, out HistoryMarker Marker)
+		public bool CanUseWeapon(InversionState InversionState, Ammo AmmoType, Transform StartPoint, out HistoryMarker Marker)
 		{
 			Marker = null;
 			switch (InversionState)
@@ -97,7 +97,7 @@ namespace Tenet.GameMode
 						}
 					}
 					Debug.Log($"Raycast {Results.Length} results at {Hit.point} and found marker={Marker} :\n{string.Join<Collider>("\n", Results)}", Marker);
-					return Marker != null; // check object history
+					return Marker != null && Marker.Type == AmmoType.Type; // check object history
 				default:
 					return false;
 			}
