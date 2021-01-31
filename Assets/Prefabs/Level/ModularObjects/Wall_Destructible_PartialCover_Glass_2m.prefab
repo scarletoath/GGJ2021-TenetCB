@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2284420008753075449}
+  - component: {fileID: 8114977812867202975}
+  - component: {fileID: 9185617172249794788}
+  - component: {fileID: 269834575021055116}
   m_Layer: 0
   m_Name: Wall_Destructible_PartialCover_Glass_2m
   m_TagString: Untagged
@@ -28,9 +31,52 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2284420010491479158}
+  - {fileID: 1665150687894111117}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8114977812867202975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284420008753075448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c09bb8b1477b43408e5607a3ba30611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NormalObject: {fileID: 2284420010491479157}
+  DestructionObject: {fileID: 2040162615482472759}
+  TargetRebuildDuration: 0.3
+  HistoryTarget: {fileID: 9185617172249794788}
+  DamageType: 0
+--- !u!114 &9185617172249794788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284420008753075448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a5bb14cc7e8a74cb9955e63d836ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &269834575021055116
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284420008753075448}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1, z: 0.1}
+  m_Center: {x: 1, y: 0.5, z: 0.05}
 --- !u!1 &2284420010491479157
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,3 +172,70 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &1193863774542521446
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2284420008753075449}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+      propertyPath: m_Name
+      value: Wall_Destructible_PartialCover_Glass_2m
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+--- !u!1 &2040162615482472759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+  m_PrefabInstance: {fileID: 1193863774542521446}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1665150687894111117 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: df76fe0d2ecca5e4ba0819bd5a8d543d, type: 3}
+  m_PrefabInstance: {fileID: 1193863774542521446}
+  m_PrefabAsset: {fileID: 0}
