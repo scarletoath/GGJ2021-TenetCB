@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6069472936056680329}
   - component: {fileID: 2360660739847546451}
   - component: {fileID: -2668083528043476996}
+  - component: {fileID: 60343464712467305}
   - component: {fileID: -3058602289987463726}
   - component: {fileID: -1351477078239643844}
   - component: {fileID: 5980671696824582416}
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd13214c9803f14ca280b837bcbb688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDebug: 0
 --- !u!33 &-2668083528043476996
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -55,6 +57,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449382730220950064}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &60343464712467305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449382730220950064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5298222768100449f267c9af62b157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseAccuracy: 0.75
+  maxAccuracy: 1
+  durationToReachMaxAccuracy: 10
+  autoShootDuration: 20
 --- !u!54 &-3058602289987463726
 Rigidbody:
   m_ObjectHideFlags: 0

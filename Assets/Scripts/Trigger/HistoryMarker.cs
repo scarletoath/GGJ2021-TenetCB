@@ -2,15 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Tenet.Weapon;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Tenet.Triggers
 {
 	public class HistoryInfo
 	{
 		public long Timestamp;
-		public readonly List<HistoryTarget> AffectedTargets = new List<HistoryTarget>();
+		public readonly HashSet<HistoryTarget> AffectedTargets = new HashSet<HistoryTarget>();
 
 		public bool IsConsumed { get; private set; }
 		public HistoryInfo Consume ()
@@ -23,11 +25,11 @@ namespace Tenet.Triggers
 	public class HistoryMarker : MonoBehaviour
 	{
 
+		[SerializeField] private DamageType DamageType;
 		[SerializeField] private SphereCollider Trigger;
 
         private readonly Stack<HistoryInfo> History = new Stack<HistoryInfo>();
 
-		public Ammo AmmoType { get; private set; }
 		public float TriggerRadius => Trigger.radius;
 
 		public HistoryMarker FindAtLocation(Vector3 Location)
@@ -37,7 +39,7 @@ namespace Tenet.Triggers
 			HistoryMarker ClosestMarker = null;
 			foreach (var Trigger in CandidateTriggers)
 			{
-				if (Trigger.TryGetComponent(out HistoryMarker Marker) && Marker.AmmoType == AmmoType)
+				if (Trigger.TryGetComponent(out HistoryMarker Marker) && Marker.DamageType == DamageType)
 				{
 					float SqrDistancce = (Trigger.transform.position - Location).sqrMagnitude;
 					if (SqrDistancce < ClosestSqrDistance)
@@ -50,10 +52,14 @@ namespace Tenet.Triggers
 			return ClosestMarker;
 		}
 
-		public void Configure(Ammo AmmoType)
+		public void Enable (bool IsEnable)
 		{
-			this.AmmoType = AmmoType;
+			enabled = Trigger.enabled = IsEnable;
 		}
+
+		public DamageType Type => DamageType;
+
+		public IEnumerable<HistoryInfo> GetInfos() => History;
 
 		public HistoryInfo GetLastRecord() => History.Count > 0 ? History.Peek() : null;
 
@@ -97,7 +103,7 @@ namespace Tenet.Triggers
 				EditorGUILayout.Space();
 
 				var Marker = (HistoryMarker)target;
-				EditorGUILayout.ObjectField(nameof(AmmoType), Marker.AmmoType, typeof(Ammo), true);
+				EditorGUILayout.Toggle("Enabled", Marker.enabled);
 				EditorGUILayout.LabelField(nameof(History), EditorStyles.boldLabel);
 				foreach (var HistoryInfo in Marker.History)
 				{

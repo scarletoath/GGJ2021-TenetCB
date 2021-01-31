@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2063469343876016829, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: GeneralTags.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2063469343876016829, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: GeneralTags.Array.data[0]
@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2063469343876016829, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: GeneralTags.Array.data[1]
-      value: Open
+      value: Verticality
       objectReference: {fileID: 0}
     - target: {fileID: -2063469343876016829, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: GeneralTags.Array.data[2]

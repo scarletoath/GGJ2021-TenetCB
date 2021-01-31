@@ -74,7 +74,7 @@ namespace Tenet.GameMode
 			return Value;
 		}
 
-		public bool CanUseWeapon(InversionState InversionState, Transform StartPoint, out HistoryMarker Marker)
+		public bool CanUseWeapon(InversionState InversionState, Ammo AmmoType, Transform StartPoint, out HistoryMarker Marker)
 		{
 			Marker = null;
 			switch (InversionState)
@@ -97,7 +97,7 @@ namespace Tenet.GameMode
 						}
 					}
 					Debug.Log($"Raycast {Results.Length} results at {Hit.point} and found marker={Marker} :\n{string.Join<Collider>("\n", Results)}", Marker);
-					return Marker != null; // check object history
+					return Marker != null && Marker.Type == AmmoType.Type; // check object history
 				default:
 					return false;
 			}
@@ -112,6 +112,13 @@ namespace Tenet.GameMode
 					Ammo.Remove();
 					break;
 				case InversionState.Inverted: // increase ammo
+					foreach (var HistoryInfo in Marker.GetInfos()) // Remove marker from all affected targets
+					{
+						foreach (var Target in HistoryInfo.AffectedTargets)
+						{
+							Target.UnregisterMarker(Marker);
+						}
+					}
 					int NewAmmoCount = Marker.DequeueAll();
 					var InitialDirection = (Origin.position - Marker.transform.position).normalized;
 					Ammo.CreateProjectile(Marker.transform.position + InitialDirection * 0.25f, Quaternion.LookRotation(InitialDirection), Origin); // Small depentration to prevent self-collision with original target

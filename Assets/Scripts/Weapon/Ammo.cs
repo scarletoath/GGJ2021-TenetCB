@@ -8,8 +8,18 @@ using UnityEngine;
 namespace Tenet.Weapon
 {
 
-    public class Ammo : MonoBehaviour
+	public enum DamageType
+	{
+		Normal,
+		Explosive,
+	}
+
+	public class Ammo : MonoBehaviour
     {
+
+		[SerializeField] private DamageType DamageType = DamageType.Normal;
+
+		[Space]
 
         [SerializeField] private int MaxCount = 15;
         [SerializeField] private int ClipCount = 15;
@@ -30,10 +40,18 @@ namespace Tenet.Weapon
 		private void Awake()
 		{
 			Marker.gameObject.SetActive(false);
-			Marker.Configure(this);
             SpareCount = MaxCount;
 			Refill();
 		}
+
+		public void Configure(int InClipCount, int TotalCount)
+		{
+			Debug.Log($"{name}/{Type} configured with in clip = {InClipCount}, total = {TotalCount}", this);
+			CurrentCount = InClipCount;
+			SpareCount = TotalCount;
+		}
+
+		public DamageType Type => DamageType;
 
 		public bool IsEmpty => CurrentCount == 0;
         public bool IsFull => CurrentCount == ClipCount;
@@ -65,7 +83,6 @@ namespace Tenet.Weapon
 			if (MarkerInstance == null)
 			{
 				MarkerInstance = Instantiate(Marker, Position, Quaternion.LookRotation(Direction));
-				MarkerInstance.Configure(this);
 				MarkerInstance.gameObject.SetActive(true);
 			}
             return MarkerInstance;
@@ -75,7 +92,7 @@ namespace Tenet.Weapon
 		{
             var Marker = GetOrCreateMarker(TargetPoint, Direction);
 			Marker.CreateRecord();
-			if (DamageRadius <= 0)
+			if (Marker.TriggerRadius <= 0)
 			{
                 ApplyDamage(TargetGameObject, Marker);
 			}
@@ -89,12 +106,12 @@ namespace Tenet.Weapon
         {
 			if (TargetGameObject != null)
 			{
-				if (TargetGameObject.TryGetComponent(out HistoryTarget Target))
+				if (TargetGameObject.GetComponentInParent<HistoryTarget>() is HistoryTarget Target) // TODO : Also check if can affect target; e.g. only explosive can affect destructible target
 				{
-					Target.RecordMarker(Marker);
+					Target.RegisterMarker(Marker);
 					Marker.GetLastRecord().AffectedTargets.Add(Target);
 				}
-				if (TargetGameObject.TryGetComponent(out IHealth IHealth))
+				if (TargetGameObject.GetComponentInParent<IHealth>() is IHealth IHealth)
 				{
 					IHealth.Damage(Damage);
 					return true;
@@ -106,7 +123,7 @@ namespace Tenet.Weapon
 
         private bool ApplyDamage(Vector3 TargetPoint, HistoryMarker Marker)
         {
-            var Colliders = Physics.OverlapSphere(TargetPoint, DamageRadius);
+            var Colliders = Physics.OverlapSphere(TargetPoint, Marker.TriggerRadius);
             bool HasApplied = false;
 			foreach (var Collider in Colliders)
 			{

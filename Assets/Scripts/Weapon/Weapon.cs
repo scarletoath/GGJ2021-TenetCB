@@ -29,8 +29,17 @@ namespace Tenet.Weapon
             ChangeMode(0);
         }
 
-        // Update is called once per frame
-        void Update()
+		private void Start()
+		{
+            var Config = DifficultySettings.Instance.CurrentDifficulty.GetWeaponConfig(this);
+			if (Config != null)
+			{
+                CurrentAmmoType.Configure(Config.StartInClipRange.GetRandom(), Config.StartTotalRange.GetRandom());
+			}
+		}
+
+		// Update is called once per frame
+		void Update()
         {
             if (IsBlackout && Time.time >= BlackoutEndTime)
             {
@@ -87,7 +96,7 @@ namespace Tenet.Weapon
 
         public bool TryShoot ()
         {
-            if (!SessionManager.Instance.GameMode.CanUseWeapon(SessionManager.Instance.CurrentInversionState, ProjectileSpawnPoint, out var Marker))
+            if (!SessionManager.Instance.GameMode.CanUseWeapon(SessionManager.Instance.CurrentInversionState, CurrentAmmoType, ProjectileSpawnPoint, out var Marker))
             {
                 return false;
 			}
