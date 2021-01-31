@@ -12,6 +12,7 @@ namespace Tenet.Environment
 
         [SerializeField] private GameObject NormalObject;
         [SerializeField] private GameObject DestructionObject;
+		[SerializeField] private float TargetRebuildDuration = 0.3f; // seconds
 
 		private Animation[] DestructionAnims;
 		private Coroutine AnimCoroutine;
@@ -53,14 +54,21 @@ namespace Tenet.Environment
 			foreach (var Anim in DestructionAnims)
 			{
 				var State = Anim[Anim.clip.name];
-				State.speed = -1;
-				State.normalizedTime = 1;
 				MaxDuration = Mathf.Max(MaxDuration, State.length);
+			}
+
+			bool OverrideRebuildDuration = TargetRebuildDuration > 0 && TargetRebuildDuration < MaxDuration;
+			float TargetSpeed = OverrideRebuildDuration ? -MaxDuration / TargetRebuildDuration : -1f;
+			foreach (var Anim in DestructionAnims)
+			{
+				var State = Anim[Anim.clip.name];
+				State.speed = TargetSpeed;
+				State.normalizedTime = 1;
 				Anim.Play(State.name);
 			}
 			if (AnimCoroutine != null)
 				StopCoroutine(AnimCoroutine);
-			AnimCoroutine = StartCoroutine(WaitForAnimCompletion(MaxDuration));
+			AnimCoroutine = StartCoroutine(WaitForAnimCompletion(OverrideRebuildDuration ? TargetRebuildDuration : MaxDuration));
 			IsDestroyed = false;
 
 			IEnumerator WaitForAnimCompletion (float Duration)
