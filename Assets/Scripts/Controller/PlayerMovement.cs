@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+
+    public AudioSource AudioSource;
+    private bool isPlaying = true;
     
 
     Vector3 velocity;
@@ -48,8 +51,8 @@ public class PlayerMovement : MonoBehaviour
     }
 #endif
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
     {
         float x;
         float z;
@@ -74,6 +77,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector3 move = transform.right * x + transform.forward * z;
+        if(move.sqrMagnitude > 0)
+        {
+            if (!isPlaying) AudioSource.UnPause();
+            isPlaying = true;
+		}
+		else
+		{
+            if (isPlaying) AudioSource.Pause();
+            isPlaying = false;
+		}
 
         controller.Move(move * speed * Time.deltaTime);
 

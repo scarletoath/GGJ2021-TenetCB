@@ -16,11 +16,13 @@ MonoBehaviour:
   - Name: Normal
     Color: {r: 1, g: 0, b: 0, a: 1}
     VolumeProfile: {fileID: 11400000, guid: 8323394ffb18b95408d12c39c3d25e93, type: 2}
+    SoundClip: {fileID: 8300000, guid: 8da9d5e503b3a734faea4f61998fb002, type: 3}
     MarkerVisual: {fileID: 5667290273926175009, guid: 29362668090bc624a90c3090a944c0d6, type: 3}
     MarkerVisualHighlighted: {fileID: 0}
   - Name: Inverted
     Color: {r: 0, g: 0, b: 1, a: 1}
     VolumeProfile: {fileID: 11400000, guid: d63b9becec8de074d86f7fff977897c7, type: 2}
+    SoundClip: {fileID: 8300000, guid: 4d4e3dbbb904ce84db481816afc1fa3b, type: 3}
     MarkerVisual: {fileID: 3312974420882932165, guid: cab4e4fb89ee5de4b93bfd18e9c79058, type: 3}
     MarkerVisualHighlighted: {fileID: 5596193978774159224, guid: 01e2049ab85388143bda9b92f1aaf09c, type: 3}
   ReservedTags:

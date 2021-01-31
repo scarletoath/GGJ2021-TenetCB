@@ -56,6 +56,8 @@ MonoBehaviour:
   Rigidbody: {fileID: 1676144803591018585}
   DamageEffect: {fileID: 3257303971836066033, guid: a74498fd74ba280428935177523984f8, type: 3}
   TrailEffect: {fileID: 7176931986450988652}
+  DamageSound: {fileID: 8300000, guid: e2a0b5d451f0e7d45be52863ebfdb4bc, type: 3}
+  DefaultDamageDirection: {x: 0, y: -1, z: 0}
 --- !u!54 &1676144803591018585
 Rigidbody:
   m_ObjectHideFlags: 0
