@@ -113,6 +113,7 @@ namespace Tenet.Game
             SetDifficulty(DefaultDifficulty);
         }
 
+		public int Default => DefaultDifficulty;
         public DifficultyConfig CurrentDifficulty { get; private set; }
 
         public IEnumerable<DifficultyConfig> GetDifficulties() => Difficulties;
