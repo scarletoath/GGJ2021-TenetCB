@@ -119,6 +119,14 @@ MonoBehaviour:
     InversionMaxDuration: 15
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 1
+    StartInversionStateProbabilities:
+    - InversionState: 0
+      Percent: 1
+    - InversionState: 1
+      Percent: 1
+    LevelTagPercent: 0.8
+    ExpendedAmmoRange: {x: 0, y: 0}
+    AdditionalEnemiesRange: {x: 0, y: 0}
     ReservedTags:
     - Tag: Landmark
       MinCount: 1
@@ -150,6 +158,14 @@ MonoBehaviour:
     InversionMaxDuration: 7
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 0.85
+    StartInversionStateProbabilities:
+    - InversionState: 0
+      Percent: 1
+    - InversionState: 1
+      Percent: 1
+    LevelTagPercent: 0.8
+    ExpendedAmmoRange: {x: 0, y: 0}
+    AdditionalEnemiesRange: {x: 0, y: 0}
     ReservedTags:
     - Tag: Landmark
       MinCount: 1
@@ -182,6 +198,14 @@ MonoBehaviour:
     InversionMaxDuration: 2
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 0.75
+    StartInversionStateProbabilities:
+    - InversionState: 0
+      Percent: 1
+    - InversionState: 1
+      Percent: 1
+    LevelTagPercent: 0.8
+    ExpendedAmmoRange: {x: 0, y: 0}
+    AdditionalEnemiesRange: {x: 0, y: 0}
     ReservedTags:
     - Tag: Landmark
       MinCount: 1

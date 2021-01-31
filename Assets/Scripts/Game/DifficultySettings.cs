@@ -20,6 +20,14 @@ namespace Tenet.Game
         public int GetRandomCount() => UnityEngine.Random.Range(MinCount, MaxCount + 1);
 	}
 
+	[Serializable]
+	public class InversionStateProbability
+	{
+		public InversionState InversionState;
+		[Range(0, 1)]
+		public float Percent = 1.0f;
+	}
+
 	public class DifficultySettings : MonoBehaviour
 	{
 
@@ -27,18 +35,32 @@ namespace Tenet.Game
         public class DifficultyConfig
         {
             public string Name = "Normal";
-
-            public float MaxPlayerHealth = 100.0f;
+			
+			[Header("Player")]
+            
+			public float MaxPlayerHealth = 100.0f;
             public float PlayerHealCooldown = 60.0f; // seconds
-            public float PlayerHealPercent = 0.5f;
-
-            public float WeaponBlackoutMultiplier = 1.0f;
+			[Range(0, 1)]
+			public float PlayerHealPercent = 0.5f;
+			
+			[Header("Weapons")]
+            
+			public float WeaponBlackoutMultiplier = 1.0f;
+			
+			[Header("Inversion")]
 
             public float InversionMaxDuration = 5.0f; // seconds
-            public float InversionHealthLossPercent = 0.02f;
+			[Range(0, 1)]
+			public float InversionHealthLossPercent = 0.02f;
             public float InversionHealthLossInterval = 1.0f; // seconds
+			public InversionStateProbability[] StartInversionStateProbabilities = Enum.GetValues(typeof(InversionState)).Cast<InversionState>().Select(s => new InversionStateProbability { InversionState = s }).ToArray();
 
-            [Space]
+			[Header("Level Parameters")]
+
+			[Range(0, 1)]
+			public float LevelTagPercent = 0.8f;
+			public Vector2Int ExpendedAmmoRange = Vector2Int.zero;
+			public Vector2Int AdditionalEnemiesRange = Vector2Int.zero;
 
             public ReservedTagInfo[] ReservedTags = { new ReservedTagInfo { Tag = "Landmark" }, new ReservedTagInfo { Tag = "InversionForward" }, new ReservedTagInfo { Tag = "InversionBackward" } };
             [Tag(TagCategory.GeneralTag)] public string[] GeneralTags = Array.Empty<string>();
@@ -46,6 +68,17 @@ namespace Tenet.Game
 
             public TilePattern GetRandomPattern() => TilePatterns[UnityEngine.Random.Range(0, TilePatterns.Length)];
             public string GetRandomGeneralTag() => GeneralTags[UnityEngine.Random.Range(0, GeneralTags.Length)];
+			public InversionState GetRandomInversionState()
+			{
+				float Roll = UnityEngine.Random.Range(0f, 1f);
+				foreach (var State in StartInversionStateProbabilities)
+				{
+					if (Roll < State.Percent)
+						return State.InversionState;
+					Roll -= State.Percent;
+				}
+				return InversionState.Normal;
+			}
         }
 
         public static DifficultySettings Instance { get; private set; }
@@ -115,6 +148,16 @@ namespace Tenet.Game
 				}
 				EditorUtility.SetDirty(DifficultySettings);
 				IsPatternsDirty = false;
+			}
+		}
+
+		[CustomPropertyDrawer(typeof(InversionStateProbability))]
+		private class InversionStateProbabilityDrawer : PropertyDrawer
+		{
+			public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+			{
+				EditorGUI.PropertyField(new Rect(position) { width = EditorGUIUtility.labelWidth }, property.FindPropertyRelative(nameof(InversionStateProbability.InversionState)), GUIContent.none, true);
+				EditorGUI.PropertyField(new Rect(position) { xMin = position.xMin + EditorGUIUtility.labelWidth + 4 }, property.FindPropertyRelative(nameof(InversionStateProbability.Percent)), GUIContent.none, true);
 			}
 		}
 #endif

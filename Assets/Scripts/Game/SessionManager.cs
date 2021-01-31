@@ -60,15 +60,16 @@ namespace Tenet.Game
 		{
 			string LevelTag = DifficultySettings.Instance.CurrentDifficulty.GetRandomGeneralTag();
 			var Pattern = DifficultySettings.Instance.CurrentDifficulty.GetRandomPattern();
-			var StartTile = LevelGenerator.Generate(Pattern, LevelTag, DifficultySettings.Instance.CurrentDifficulty.ReservedTags);
+			var StartTile = LevelGenerator.Generate(Pattern, LevelTag, DifficultySettings.Instance.CurrentDifficulty.LevelTagPercent, DifficultySettings.Instance.CurrentDifficulty.ReservedTags, DifficultySettings.Instance.CurrentDifficulty.GeneralTags);
 			var Landmarks = LevelGenerator.GetTilesForTag("Landmark"); // Hard-coded like a MF, no good place to store this
 			var LookAtLandmark = Landmarks[UnityEngine.Random.Range(0, Landmarks.Count)];
 			var LookAtDir = Vector3.ProjectOnPlane(LookAtLandmark.transform.position - Player.transform.position, Vector3.up).normalized;
-			UnityEngine.Debug.Log($"Player start facing {LookAtLandmark.name} with rotation : {Quaternion.LookRotation(LookAtDir).eulerAngles}", LookAtLandmark);
 			Player.transform.position = StartTile.transform.position + Vector3.up;
 			Player.transform.forward = LookAtDir;
 			Player.Enable(true);
+			CurrentInversionState = DifficultySettings.Instance.CurrentDifficulty.GetRandomInversionState();
 			RefreshInversion();
+			UnityEngine.Debug.Log($"Player start facing {LookAtLandmark.name} with rotation = {Quaternion.LookRotation(LookAtDir).eulerAngles} and initial inversion state = {CurrentInversionState}", LookAtLandmark);
 		}
 
 		public void SetGameMode ( GameModeBase GameMode )

@@ -65,7 +65,7 @@ namespace Tenet.Level
 		}
 #endif
 
-		public TileSpawnMarker Generate(TilePattern Pattern, string LevelTag, ReservedTagInfo[] ReservedTags) // Returns randomized player start tile
+		public TileSpawnMarker Generate(TilePattern Pattern, string LevelTag, float LevelTagPercent, ReservedTagInfo[] ReservedTags, string[] GeneralTags) // Returns randomized player start tile
 		{
 			Debug.Log($"Generating level using Pattern {Pattern?.name} with level tag = {LevelTag} ...", Pattern);
 			LevelPattern = Pattern;
@@ -77,7 +77,7 @@ namespace Tenet.Level
 			Root.GetComponentsInChildren(true, Tiles);
 			ShuffleList(Tiles);
 
-			int TileIndex = 0;
+			int TileIndex = 0; // also tracks total number of reserved tiles
 			foreach (var Tag in ReservedTags)
 			{
 				var TagCount = UnityEngine.Random.Range(Tag.MinCount, Tag.MaxCount + 1);
@@ -89,9 +89,29 @@ namespace Tenet.Level
 				}
 			}
 
+			int LevelTagTilesCount = Mathf.FloorToInt((Tiles.Count - TileIndex) * LevelTagPercent);
+			int NumLevelTagTilesCreated = 0;
 			foreach (var Tile in Tiles)
 			{
-				string TileObjectsTargetTag = string.IsNullOrEmpty(Tile.AssignedTag) ? LevelTag : Tile.AssignedTag; // Use reserved if assigned, else use level tag
+				string TileObjectsTargetTag;
+				if (string.IsNullOrEmpty(Tile.AssignedTag))
+				{
+					if (NumLevelTagTilesCreated + 1 < LevelTagTilesCount) // Use level tag up to desired amount
+					{
+						++NumLevelTagTilesCreated;
+						TileObjectsTargetTag = LevelTag;
+					}
+					else // Randomize then rest
+					{
+						TileObjectsTargetTag = GeneralTags[UnityEngine.Random.Range(0, GeneralTags.Length)];
+					}
+					Tile.AssignedTag = TileObjectsTargetTag;
+				}
+				else
+				{
+					TileObjectsTargetTag = Tile.AssignedTag; // Use reserved if assigned
+				}
+				
 				if (!TileObjectLibrarysMap.TryGetValue(TileObjectsTargetTag, out var TileObjectsForTag))
 				{
 					Debug.LogWarning($"Skipped spawning TileObjects for TileSpawnMarker {Tile?.name} as there are no TileObjects for tag : {TileObjectsTargetTag}.", Tile);
@@ -115,7 +135,7 @@ namespace Tenet.Level
 					PlayerStarts.Add(Tile);
 			}
 
-			Debug.Log($"> Spawned {Tiles.Count(t => t.TileObjects != null)}/{Tiles.Count} TileObjects.\n{string.Join("\n", Tiles.OrderBy(t => t.name).Select(t => $"  - {t.name} : {t.TileObjects?.name} @ {t.Rotation}"))}");
+			Debug.Log($"> Spawned {Tiles.Count(t => t.TileObjects != null)}/{Tiles.Count} TileObjects ({TileIndex} reserved, {LevelTagTilesCount} level tag '{LevelTag}').\n{string.Join("\n", Tiles.OrderBy(t => t.name).Select(t => $"  - {t.name} : {t.AssignedTag} / {t.TileObjects?.name} @ {t.Rotation}"))}");
 
 			// Return randomized start tile
 			if (PlayerStarts.Count == 0)
