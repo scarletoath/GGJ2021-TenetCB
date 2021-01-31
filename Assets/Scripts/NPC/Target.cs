@@ -18,6 +18,8 @@ namespace Tenet.NPC
 		int playerLayerMask						= 0;
 		[SerializeField] float detectionRadius	= 0.0f;
 		[SerializeField] bool isDebug			= false;
+		[SerializeField] Object ForwardDeathParticle = null;
+		[SerializeField] Object InverseDeathParticle = null;
 
 		// Start is called before the first frame update
 		void Start()
@@ -84,8 +86,10 @@ namespace Tenet.NPC
 
 		void OnDeath()
 		{
-			Debug.Log( "TestTarget OnDeath!" );
-			//TODO : Change to destroy + play particle / animation
+			Debug.Log( "TestTarget OnDeath!" );			
+			var particle = Instantiate(ForwardDeathParticle, transform.position, Quaternion.identity);
+			Destroy(gameObject);
+
 			isDead	= true;
 			if( turret != null )
 			{
