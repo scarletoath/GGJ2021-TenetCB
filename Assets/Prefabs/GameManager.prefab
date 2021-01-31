@@ -113,18 +113,18 @@ MonoBehaviour:
   Difficulties:
   - Name: Easy
     MaxPlayerHealth: 120
-    PlayerHealCooldown: 60
-    PlayerHealPercent: 0.5
+    PlayerHealCooldown: 10
+    PlayerHealPercent: 0.9
     WeaponBlackoutMultiplier: 1
     InversionMaxDuration: 15
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 1
     StartInversionStateProbabilities:
     - InversionState: 0
-      Percent: 1
+      Percent: 0.9
     - InversionState: 1
-      Percent: 1
-    LevelTagPercent: 0.8
+      Percent: 0.1
+    LevelTagPercent: 0.9
     ExpendedAmmoRange: {x: 0, y: 0}
     AdditionalEnemiesRange: {x: 0, y: 0}
     ReservedTags:
@@ -152,17 +152,17 @@ MonoBehaviour:
     - {fileID: 5908972753514939868, guid: d4e494cdf969c944682405b3e643f561, type: 3}
   - Name: Normal
     MaxPlayerHealth: 110
-    PlayerHealCooldown: 70
-    PlayerHealPercent: 0.4
+    PlayerHealCooldown: 15
+    PlayerHealPercent: 0.6
     WeaponBlackoutMultiplier: 1
     InversionMaxDuration: 7
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 0.85
     StartInversionStateProbabilities:
     - InversionState: 0
-      Percent: 1
+      Percent: 0.5
     - InversionState: 1
-      Percent: 1
+      Percent: 0.5
     LevelTagPercent: 0.8
     ExpendedAmmoRange: {x: 0, y: 0}
     AdditionalEnemiesRange: {x: 0, y: 0}
@@ -192,18 +192,18 @@ MonoBehaviour:
     - {fileID: 6125799596308722165, guid: a77aeb5c7d9b381479f543fd28aa3f61, type: 3}
   - Name: Hard
     MaxPlayerHealth: 100
-    PlayerHealCooldown: 80
-    PlayerHealPercent: 0.3
+    PlayerHealCooldown: 20
+    PlayerHealPercent: 0.4
     WeaponBlackoutMultiplier: 1
     InversionMaxDuration: 2
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 0.75
     StartInversionStateProbabilities:
     - InversionState: 0
-      Percent: 1
+      Percent: 0.1
     - InversionState: 1
-      Percent: 1
-    LevelTagPercent: 0.8
+      Percent: 0.9
+    LevelTagPercent: 0.65
     ExpendedAmmoRange: {x: 0, y: 0}
     AdditionalEnemiesRange: {x: 0, y: 0}
     ReservedTags:
