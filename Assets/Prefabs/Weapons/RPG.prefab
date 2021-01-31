@@ -65,7 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageType: 1
   MaxCount: 25
-  ClipCount: 5
+  ClipCount: 2
   Projectile: {fileID: 2401635985543485413, guid: a7d9426a12d959c4c89d3221093100f3, type: 3}
   Damage: 25
   DamageRadius: 2
