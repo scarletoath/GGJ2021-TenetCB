@@ -19,6 +19,10 @@ namespace Tenet.UI
         [SerializeField] private Image WeaponPistol;
         [SerializeField] private Image WeaponRPG;
 
+        [SerializeField] private Image HealthBarMax;
+        [SerializeField] private Image HealthBar;
+        [SerializeField] private float PixelsPerHealth = 100.0f / 25.0f;
+
         private float PromptEndTIme;
         private string PromptText;
 
@@ -30,6 +34,7 @@ namespace Tenet.UI
             SessionManager.Instance.Player.OnHealFailed += ShowHealFailReason;
             SessionManager.Instance.Player.OnWeaponChanged += UpdateWeaponVisuals;
 
+            HealthBarMax.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, SessionManager.Instance.Player.CurrentHealth * PixelsPerHealth);
             UpdateWeaponVisuals(SessionManager.Instance.Player.CurrentWeapon);
             UpdateInversionStateVisuals(SessionManager.Instance.CurrentInversionState);
             UpdateHealthVisuals(new HealthChangeArgs { Current = SessionManager.Instance.Player.CurrentHealth });
@@ -97,7 +102,7 @@ namespace Tenet.UI
 
         private void UpdateHealthVisuals(HealthChangeArgs HealthChangeArgs)
         {
-
+            HealthBar.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, HealthChangeArgs.Current * PixelsPerHealth);
         }
 
         private void ShowHealFailReason(HealFailReason HealFailReason)

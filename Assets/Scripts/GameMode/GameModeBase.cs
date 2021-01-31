@@ -162,8 +162,12 @@ namespace Tenet.GameMode
 				SessionManager.Instance.StopCoroutine(InversionRoutine);
 
 			InversionVolume.sharedProfile = GetInversionStateProfile(InversionState).VolumeProfile;
-			SessionManager.Instance.BGMAudioSource.clip = GetInversionStateProfile(InversionState).SoundClip;
-			SessionManager.Instance.BGMAudioSource.Play();
+			var TargetClip = GetInversionStateProfile(InversionState).SoundClip;
+			if (SessionManager.Instance.BGMAudioSource.clip != TargetClip)
+			{
+				SessionManager.Instance.BGMAudioSource.clip = TargetClip;
+				SessionManager.Instance.BGMAudioSource.Play();
+			}
 			switch (InversionState)
 			{
 				case InversionState.Normal:

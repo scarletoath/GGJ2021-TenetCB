@@ -127,7 +127,7 @@ namespace Tenet.Weapon
 					{
 						if ( IHealth.Damage( Damage ) <= 0.0f )
 						{
-							UnityEngine.SceneManagement.SceneManager.LoadScene( "Main Menu", UnityEngine.SceneManagement.LoadSceneMode.Single );
+							SessionManager.Instance.EndLevel(false);
 						}
 					}
 					else if( TargetGameObject.layer == 10 && IsPlayer )

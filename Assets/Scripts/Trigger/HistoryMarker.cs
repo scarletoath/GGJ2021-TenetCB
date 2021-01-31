@@ -59,9 +59,7 @@ namespace Tenet.Triggers
 
 		public void ChangeVisuals(InversionState InversionState)
 		{
-			if (CurrentVisual != null)
-				CurrentVisual.SetActive(false);
-			var InversionStateKey = IsHighlighted ? (InversionState) -(int)InversionState : InversionState;
+			var InversionStateKey = IsHighlighted ? (InversionState)(-(int)InversionState) : InversionState;
 			if (!StateVisuals.TryGetValue(InversionStateKey, out var Visual))
 			{
 				var Profile = SessionManager.Instance.GameMode.GetInversionStateProfile(InversionState);
@@ -72,9 +70,14 @@ namespace Tenet.Triggers
 					StateVisuals.Add(InversionStateKey, Visual);
 				}
 			}
-			CurrentVisual = Visual;
-			if (!Visual.activeSelf)
-				Visual.SetActive(true);
+			if (CurrentVisual != Visual)
+			{
+				if (CurrentVisual != null)
+					CurrentVisual.SetActive(false);
+				CurrentVisual = Visual;
+				if (!Visual.activeSelf)
+					Visual.SetActive(true);
+			}
 		}
 
 		public HistoryMarker FindAtLocation(Vector3 Location)
