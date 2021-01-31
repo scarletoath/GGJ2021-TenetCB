@@ -31,22 +31,25 @@ namespace Tenet.NPC
         // Update is called once per frame
         void Update()
         {
-			if (Time.time < autoShootEndTime)
+			if( !isDead )
 			{
-				shootDuration += Time.deltaTime;
-				if( shootDuration < durationToReachMaxAccuracy )
+				if( Time.time < autoShootEndTime )
 				{
-					currAccuracy = shootDuration / durationToReachMaxAccuracy * ( maxAccuracy - baseAccuracy ) + baseAccuracy;
+					shootDuration += Time.deltaTime;
+					if( shootDuration < durationToReachMaxAccuracy )
+					{
+						currAccuracy = shootDuration / durationToReachMaxAccuracy * ( maxAccuracy - baseAccuracy ) + baseAccuracy;
+					}
+					else
+					{
+						currAccuracy = maxAccuracy;
+					}
+					RotateAndShoot();
 				}
 				else
 				{
-					currAccuracy = maxAccuracy;
+					shootDuration = 0.0f;
 				}
-				RotateAndShoot();
-			}
-			else
-			{
-				shootDuration = 0.0f;
 			}
 		}
 

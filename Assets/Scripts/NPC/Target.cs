@@ -85,6 +85,7 @@ namespace Tenet.NPC
 		void OnDeath()
 		{
 			Debug.Log( "TestTarget OnDeath!" );
+			//TODO : Change to destroy + play particle / animation
 			isDead	= true;
 			if( turret != null )
 			{
