@@ -5,17 +5,20 @@ using UnityEngine;
 namespace Tenet.NPC
 {
     public class Turret : MonoBehaviour
-    {
-		[SerializeField] float baseAccuracy;
-		[SerializeField] float maxAccuracy;
-		[SerializeField] float durationToReachMaxAccuracy;
-		float currAccuracy;
+	{
+		bool isAutoShooting									= false;
+		[SerializeField] float baseAccuracy					= 0.75f;
+		[SerializeField] float maxAccuracy					= 1.0f;
+		[SerializeField] float durationToReachMaxAccuracy	= 5.0f;
+		float currAccuracy									= 0.0f;
 
-		Weapon.Weapon weapon;
-		float autoShootEndTime;
-		[SerializeField] float autoShootDuration;
+		Weapon.Weapon weapon								= null;
+		float autoShootEndTime								= 0.0f;
+		[SerializeField] float autoShootDuration			= 20.0f;
 		float shootDuration;
 		Vector3 positionToShootAt;
+		private Vector3 velocity = Vector3.zero;
+		public bool isDead									= false;
 
 		// Start is called before the first frame update
 		void Start()
@@ -28,16 +31,25 @@ namespace Tenet.NPC
         // Update is called once per frame
         void Update()
         {
-			if ( shootDuration < autoShootDuration )
+			if( !isDead )
 			{
-				shootDuration += Time.deltaTime;
-
-				if( shootDuration < durationToReachMaxAccuracy )
+				if( Time.time < autoShootEndTime )
 				{
-					currAccuracy = shootDuration / durationToReachMaxAccuracy * ( maxAccuracy - baseAccuracy ) + baseAccuracy;
+					shootDuration += Time.deltaTime;
+					if( shootDuration < durationToReachMaxAccuracy )
+					{
+						currAccuracy = shootDuration / durationToReachMaxAccuracy * ( maxAccuracy - baseAccuracy ) + baseAccuracy;
+					}
+					else
+					{
+						currAccuracy = maxAccuracy;
+					}
+					RotateAndShoot();
 				}
-
-				RotateAndShoot();
+				else
+				{
+					shootDuration = 0.0f;
+				}
 			}
 		}
 
@@ -45,18 +57,19 @@ namespace Tenet.NPC
 		{
 			autoShootEndTime	= Time.time + autoShootDuration;
 			positionToShootAt	= targetPosition;
-			RotateAndShoot();
 		}
 
-		public void RotateAndShoot()
+		void RotateAndShoot()
 		{
 			Vector3 shootDir = positionToShootAt - weapon.gameObject.transform.position;
 			shootDir.Normalize();
-			Quaternion rot = Quaternion.FromToRotation( weapon.gameObject.transform.forward, shootDir );
 			float percentageAccuracy = currAccuracy / maxAccuracy;
-			//Debug.Log( "Rotate n shoot : " + percentageAccuracy );
-			weapon.gameObject.transform.rotation = Quaternion.Lerp( weapon.gameObject.transform.rotation, rot, percentageAccuracy );			
-			weapon.TryShoot();
+			weapon.gameObject.transform.forward = Vector3.SmoothDamp( weapon.gameObject.transform.forward, shootDir, ref velocity, 0.3f);
+			if (!weapon.TryShoot())
+			{
+				// check if weapon does not have ammo, reload if true
+				//weapon.
+			}
 		}
 
 		void ResetAccuracy()

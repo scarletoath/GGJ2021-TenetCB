@@ -776,7 +776,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 475417591}
-  m_Text: Light
+  m_Text: Simple
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -1509,7 +1509,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016586808}
-  m_Text: Normal
+  m_Text: Complex
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -1604,7 +1604,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046812594}
-  m_Text: Complex
+  m_Text: Extreme
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

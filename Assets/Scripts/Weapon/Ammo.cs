@@ -12,6 +12,8 @@ namespace Tenet.Weapon
 	{
 		Normal,
 		Explosive,
+
+		Random = 1000,
 	}
 
 	public class Ammo : MonoBehaviour
@@ -52,6 +54,7 @@ namespace Tenet.Weapon
 		}
 
 		public DamageType Type => DamageType;
+		public HistoryMarker MarkerPrefab => Marker;
 
 		public bool IsEmpty => CurrentCount == 0;
         public bool IsFull => CurrentCount == ClipCount;
@@ -127,7 +130,11 @@ namespace Tenet.Weapon
             bool HasApplied = false;
 			foreach (var Collider in Colliders)
 			{
-                HasApplied |= ApplyDamage(Collider.gameObject, Marker);
+				// 9 is player, 10 is enemy
+				if( Collider.gameObject.layer >= 9 )
+				{
+					HasApplied |= ApplyDamage( Collider.gameObject, Marker );
+				}
 			}
             return HasApplied;
 		}

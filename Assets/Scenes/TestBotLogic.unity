@@ -123,32 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &72942601 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1449382730220950064, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
-  m_PrefabInstance: {fileID: 1264365638}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &72942607 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6069472936056680329, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
   m_PrefabInstance: {fileID: 1264365638}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &72942608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 72942601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c5298222768100449f267c9af62b157, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseAccuracy: 0.75
-  maxAccuracy: 1
-  durationToReachMaxAccuracy: 20
-  autoShootDuration: 20
 --- !u!1 &774246365
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,9 +446,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2180519383272149991, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -1351477078239643844, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
       propertyPath: m_Radius
-      value: 50
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: -1351477078239643844, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1449382730220950064, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
       propertyPath: m_Name
@@ -477,7 +464,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2360660739847546451, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
       propertyPath: isDebug
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2360660739847546451, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
+      propertyPath: maxHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2360660739847546451, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
+      propertyPath: detectionRadius
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6069472936056680329, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
       propertyPath: m_RootOrder

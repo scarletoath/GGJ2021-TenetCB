@@ -30,4 +30,7 @@ MonoBehaviour:
   - Jump
   - Open
   - Verticality
-  - Multikill
+  - Multikill_Deprecated
+  - Simple
+  - Complex
+  - Extreme
