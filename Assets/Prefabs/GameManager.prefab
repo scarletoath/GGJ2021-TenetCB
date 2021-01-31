@@ -138,7 +138,7 @@ MonoBehaviour:
     - Verticality
     - Multikill
     TilePatterns:
-    - {fileID: 1536457501810267314, guid: 8b651033761e9724db6b0deb8852f0d6, type: 3}
+    - {fileID: 4187642526057872996, guid: 89533f5868b1a0043bff769cf2baa930, type: 3}
     - {fileID: 1892286679096750158, guid: f4085ceab26924b469b13bea0a45e9f0, type: 3}
     - {fileID: 1384766325256355178, guid: 61916f947c0c23143be71b9093303e7c, type: 3}
     - {fileID: 5043371017637219315, guid: 9d4516efc40ad6a43aeb7a5020857075, type: 3}
@@ -171,9 +171,10 @@ MonoBehaviour:
     - Verticality
     - Multikill
     TilePatterns:
-    - {fileID: 1536457501810267314, guid: 8b651033761e9724db6b0deb8852f0d6, type: 3}
-    - {fileID: 8803991480852554634, guid: 85d0de5db2e12be478f9b3c9344ad26d, type: 3}
     - {fileID: 8202548836543278150, guid: 10600b4a518959d4a8ceea2bb98c9766, type: 3}
+    - {fileID: 4187642526057872996, guid: 89533f5868b1a0043bff769cf2baa930, type: 3}
+    - {fileID: 7556789858751074586, guid: 132f0436eeaa9504d8a280edb11fa0a6, type: 3}
+    - {fileID: 7566012063200091201, guid: 0870562f69d4a274e90b4db944d3a238, type: 3}
   - Name: Hard
     MaxPlayerHealth: 100
     PlayerHealCooldown: 80
@@ -201,7 +202,7 @@ MonoBehaviour:
     - Verticality
     - Multikill
     TilePatterns:
-    - {fileID: 8803991480852554634, guid: 85d0de5db2e12be478f9b3c9344ad26d, type: 3}
+    - {fileID: 7566012063200091201, guid: 0870562f69d4a274e90b4db944d3a238, type: 3}
     - {fileID: 8202548836543278150, guid: 10600b4a518959d4a8ceea2bb98c9766, type: 3}
     - {fileID: 7821118189927091627, guid: 1747380568e13f542a030ef58cf98b4f, type: 3}
 --- !u!114 &5484344037062922497
