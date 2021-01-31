@@ -8,7 +8,7 @@ namespace Tenet.NPC
 	{
 		float health;
 		[SerializeField] float maxHealth;
-		bool isDead;
+		[SerializeField] bool isForward;
 
 		//float moveSpeed;
 		//float turnSpeed;
@@ -18,45 +18,43 @@ namespace Tenet.NPC
 		int playerLayerMask						= 0;
 		[SerializeField] float detectionRadius	= 0.0f;
 		[SerializeField] bool isDebug			= false;
+		[SerializeField] Object ForwardDeathParticle = null;
+		[SerializeField] Object InverseDeathParticle = null;
 
 		// Start is called before the first frame update
 		void Start()
 		{
 			turret	= GetComponent<Turret>();
 			health	= maxHealth;
-			isDead	= false;
 		}
 
         // Update is called once per frame
         void Update()
 		{
-			if (!isDead)
+			if( playerCollider != null )
 			{
-				if( playerCollider != null )
+				Vector3 playerPos = playerCollider.transform.position;
+				Vector3 playerDir = playerPos - transform.position;
+				playerDir.Normalize();
+				RaycastHit hit;
+
+				if( Physics.Raycast( transform.position, playerDir, out hit, Mathf.Infinity, playerLayerMask ) )
 				{
-					Vector3 playerPos = playerCollider.transform.position;
-					Vector3 playerDir = playerPos - transform.position;
-					playerDir.Normalize();
-					RaycastHit hit;
-
-					if( Physics.Raycast( transform.position, playerDir, out hit, Mathf.Infinity, playerLayerMask ) )
+					if( turret != null )
 					{
-						if( turret != null )
-						{
-							turret.StartShootingAtPosition( playerPos );
-						}
-
-						if( isDebug )
-						{
-							Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.green, 2.0f );
-						}
+						turret.StartShootingAtPosition( playerPos );
 					}
-					else
+
+					if( isDebug )
 					{
-						if( isDebug )
-						{
-							Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.red, 2.0f );
-						}
+						Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.green, 2.0f );
+					}
+				}
+				else
+				{
+					if( isDebug )
+					{
+						Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.red, 2.0f );
 					}
 				}
 			}
@@ -64,33 +62,26 @@ namespace Tenet.NPC
 
 		void FixedUpdate()
 		{
-			if(!isDead)
-			{
-				var Colliders = Physics.OverlapSphere( transform.position, detectionRadius );
+			var Colliders = Physics.OverlapSphere( transform.position, detectionRadius );
 
-				playerCollider = null;
-				foreach( var Collider in Colliders )
+			playerCollider = null;
+			foreach( var Collider in Colliders )
+			{
+				Game.Player player = Collider.gameObject.GetComponent<Game.Player>();
+				if( player != null )
 				{
-					Game.Player player = Collider.gameObject.GetComponent<Game.Player>();
-					if( player != null )
-					{
-						playerLayerMask = 1 << player.gameObject.layer;
-						playerCollider = player.GetComponent<Collider>();
-						playerCollider = Collider;
-					}
+					playerLayerMask = 1 << player.gameObject.layer;
+					playerCollider = player.GetComponent<Collider>();
+					playerCollider = Collider;
 				}
-			}			
+			}
 		}
 
 		void OnDeath()
 		{
-			Debug.Log( "TestTarget OnDeath!" );
-			//TODO : Change to destroy + play particle / animation
-			isDead	= true;
-			if( turret != null )
-			{
-				turret.isDead = true;
-			}
+			Object particle = isForward ? ForwardDeathParticle : InverseDeathParticle;
+			Instantiate( particle, transform.position, Quaternion.identity);
+			Destroy(gameObject);
 		}
 
 		// IHealth interface functions
@@ -109,7 +100,7 @@ namespace Tenet.NPC
 			}
 
 			Debug.Log("TestTarget Health : " + health);
-			if(health <= 0.0f && !isDead )
+			if(health <= 0.0f)
 			{
 				OnDeath();
 			}

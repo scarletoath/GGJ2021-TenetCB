@@ -158,6 +158,17 @@ namespace Tenet.Level
 
 		public List<TileSpawnMarker> GetTilesForTag(string Tag) => TileObjectsMap.TryGetValue(Tag, out var TilesForTag) ? TilesForTag : null;
 
+		public Bounds GetBounds()
+		{
+			var Renderers = Root.GetComponentsInChildren<Renderer>();
+			var Bounds = new Bounds(Root.position, Vector3.zero);
+			foreach (var Renderer in Renderers)
+			{
+				Bounds.Encapsulate(Renderer.bounds);
+			}
+			return Bounds;
+		}
+
 		public void Clear()
 		{
 			Tiles.Clear();

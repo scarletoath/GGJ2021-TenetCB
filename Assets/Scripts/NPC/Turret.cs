@@ -18,7 +18,6 @@ namespace Tenet.NPC
 		float shootDuration;
 		Vector3 positionToShootAt;
 		private Vector3 velocity = Vector3.zero;
-		public bool isDead									= false;
 
 		// Start is called before the first frame update
 		void Start()
@@ -31,25 +30,22 @@ namespace Tenet.NPC
         // Update is called once per frame
         void Update()
         {
-			if( !isDead )
+			if( Time.time < autoShootEndTime )
 			{
-				if( Time.time < autoShootEndTime )
+				shootDuration += Time.deltaTime;
+				if( shootDuration < durationToReachMaxAccuracy )
 				{
-					shootDuration += Time.deltaTime;
-					if( shootDuration < durationToReachMaxAccuracy )
-					{
-						currAccuracy = shootDuration / durationToReachMaxAccuracy * ( maxAccuracy - baseAccuracy ) + baseAccuracy;
-					}
-					else
-					{
-						currAccuracy = maxAccuracy;
-					}
-					RotateAndShoot();
+					currAccuracy = shootDuration / durationToReachMaxAccuracy * ( maxAccuracy - baseAccuracy ) + baseAccuracy;
 				}
 				else
 				{
-					shootDuration = 0.0f;
+					currAccuracy = maxAccuracy;
 				}
+				RotateAndShoot();
+			}
+			else
+			{
+				shootDuration = 0.0f;
 			}
 		}
 
