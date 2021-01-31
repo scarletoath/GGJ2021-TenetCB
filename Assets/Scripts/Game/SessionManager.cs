@@ -83,9 +83,10 @@ namespace Tenet.Game
 
 		public bool ActivateInversion ()
 		{
+			var NewInversionState = CanInvertTargetState.HasValue ? CanInvertTargetState.Value : (CurrentInversionState == InversionState.Normal ? InversionState.Inverted : InversionState.Normal);
 			if (UnityEngine.Debug.isDebugBuild && Input.GetKey(KeyCode.LeftShift) || CanInvertTargetState.HasValue)
 			{
-				CurrentInversionState = CanInvertTargetState.Value;
+				CurrentInversionState = NewInversionState;
 				GameMode.ApplyInversionEffects(CurrentInversionState, InversionVolume);
 				OnInversionStateChanged?.Invoke(CurrentInversionState);
 				InversionTimer.Restart();
