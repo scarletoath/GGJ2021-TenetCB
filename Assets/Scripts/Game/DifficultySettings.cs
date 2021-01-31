@@ -28,6 +28,14 @@ namespace Tenet.Game
 		public float Percent = 1.0f;
 	}
 
+	[Serializable]
+	public class WeaponConfiguration
+	{
+		public string Name;
+		public Vector2Int StartInClipRange = Vector2Int.one;
+		public Vector2Int StartTotalRange = Vector2Int.one * 10;
+	}
+
 	public class DifficultySettings : MonoBehaviour
 	{
 
@@ -46,6 +54,7 @@ namespace Tenet.Game
 			[Header("Weapons")]
             
 			public float WeaponBlackoutMultiplier = 1.0f;
+			public WeaponConfiguration[] WeaponConfigurations = Array.Empty<WeaponConfiguration>();
 			
 			[Header("Inversion")]
 
@@ -78,6 +87,14 @@ namespace Tenet.Game
 					Roll -= State.Percent;
 				}
 				return InversionState.Normal;
+			}
+
+			public WeaponConfiguration GetWeaponConfig(Weapon.Weapon Weapon)
+			{
+				foreach (var Config in WeaponConfigurations)
+					if (Config.Name == Weapon.name)
+						return Config;
+				return null;
 			}
         }
 
@@ -114,11 +131,10 @@ namespace Tenet.Game
 
             if (Difficulties?.Length <= 0)
 				Difficulties = new DifficultyConfig[1]; // Make sure there is always at least one difficulty config
-
         }
 
 		private static bool IsPatternsDirty;
-
+		[MenuItem("Level/Refresh Tile Patterns Library")]
 		public static void RefreshTilePatternsLibrary()
 		{
 			if (IsPatternsDirty)
@@ -147,7 +163,39 @@ namespace Tenet.Game
 					TempList.Clear();
 				}
 				EditorUtility.SetDirty(DifficultySettings);
+				AssetDatabase.SaveAssets();
 				IsPatternsDirty = false;
+			}
+		}
+
+		private static bool IsWeaponConfigDirty;
+		[MenuItem("Level/Refresh Weapon Configurations")]
+		public static void RefreshWeaponConfigurations()
+		{
+			if (IsWeaponConfigDirty)
+				return;
+			IsWeaponConfigDirty = true;
+			EditorApplication.delayCall += Refresh;
+
+			void Refresh()
+			{
+				var DifficultySettings = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GameManager.prefab").GetComponentInChildren<DifficultySettings>(true);
+				var Weapons = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GamePlayer.prefab").GetComponentsInChildren<Weapon.Weapon>(true);
+
+				// Auto-search for and add Weapons
+				var TempList = new List<Weapon.Weapon>();
+				foreach (var Difficulty in DifficultySettings.Difficulties)
+				{
+					TempList.AddRange(Weapons.Where(w => Difficulty.WeaponConfigurations.All(wc => wc.Name != w.name)));
+					if (TempList.Count > 0)
+					{
+						Difficulty.WeaponConfigurations = Difficulty.WeaponConfigurations.Concat(TempList.Select(w => new WeaponConfiguration { Name = w.name })).ToArray();
+					}
+					TempList.Clear();
+				}
+				EditorUtility.SetDirty(DifficultySettings);
+				AssetDatabase.SaveAssets();
+				IsWeaponConfigDirty = false;
 			}
 		}
 
@@ -163,4 +211,9 @@ namespace Tenet.Game
 #endif
 
     }
+
+	public static class Extensions
+	{
+		public static int GetRandom(this Vector2Int Range) => UnityEngine.Random.Range(Range.x, Range.y + 1);
+	}
 }

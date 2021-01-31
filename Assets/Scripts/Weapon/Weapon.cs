@@ -29,8 +29,17 @@ namespace Tenet.Weapon
             ChangeMode(0);
         }
 
-        // Update is called once per frame
-        void Update()
+		private void Start()
+		{
+            var Config = DifficultySettings.Instance.CurrentDifficulty.GetWeaponConfig(this);
+			if (Config != null)
+			{
+                CurrentAmmoType.Configure(Config.StartInClipRange.GetRandom(), Config.StartTotalRange.GetRandom());
+			}
+		}
+
+		// Update is called once per frame
+		void Update()
         {
             if (IsBlackout && Time.time >= BlackoutEndTime)
             {

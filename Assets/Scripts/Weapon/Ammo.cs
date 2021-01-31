@@ -44,6 +44,13 @@ namespace Tenet.Weapon
 			Refill();
 		}
 
+		public void Configure(int InClipCount, int TotalCount)
+		{
+			Debug.Log($"{name}/{Type} configured with in clip = {InClipCount}, total = {TotalCount}", this);
+			CurrentCount = InClipCount;
+			SpareCount = TotalCount;
+		}
+
 		public DamageType Type => DamageType;
 
 		public bool IsEmpty => CurrentCount == 0;

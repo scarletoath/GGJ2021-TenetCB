@@ -116,6 +116,13 @@ MonoBehaviour:
     PlayerHealCooldown: 10
     PlayerHealPercent: 0.9
     WeaponBlackoutMultiplier: 1
+    WeaponConfigurations:
+    - Name: Pistol
+      StartInClipRange: {x: 1, y: 1}
+      StartTotalRange: {x: 10, y: 10}
+    - Name: RPG
+      StartInClipRange: {x: 1, y: 1}
+      StartTotalRange: {x: 10, y: 10}
     InversionMaxDuration: 15
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 1
@@ -155,6 +162,13 @@ MonoBehaviour:
     PlayerHealCooldown: 15
     PlayerHealPercent: 0.6
     WeaponBlackoutMultiplier: 1
+    WeaponConfigurations:
+    - Name: Pistol
+      StartInClipRange: {x: 5, y: 15}
+      StartTotalRange: {x: 100, y: 200}
+    - Name: RPG
+      StartInClipRange: {x: 1, y: 5}
+      StartTotalRange: {x: 15, y: 30}
     InversionMaxDuration: 7
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 0.85
@@ -195,6 +209,13 @@ MonoBehaviour:
     PlayerHealCooldown: 20
     PlayerHealPercent: 0.4
     WeaponBlackoutMultiplier: 1
+    WeaponConfigurations:
+    - Name: Pistol
+      StartInClipRange: {x: 1, y: 1}
+      StartTotalRange: {x: 10, y: 10}
+    - Name: RPG
+      StartInClipRange: {x: 1, y: 1}
+      StartTotalRange: {x: 10, y: 10}
     InversionMaxDuration: 2
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 0.75
