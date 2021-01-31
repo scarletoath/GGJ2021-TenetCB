@@ -122,7 +122,15 @@ namespace Tenet.Weapon
 
 				if (TargetGameObject.GetComponentInParent<IHealth>() is IHealth IHealth)
 				{
-					if(( TargetGameObject.layer == 9 && !IsPlayer ) || ( TargetGameObject.layer == 10 && IsPlayer ))
+					Debug.Log( "TargetGameObject.layer : " + TargetGameObject.layer + " | IsPlayer? " + IsPlayer);
+					if( TargetGameObject.layer == 9 && !IsPlayer )
+					{
+						if ( IHealth.Damage( Damage ) <= 0.0f )
+						{
+							UnityEngine.SceneManagement.SceneManager.LoadScene( "Main Menu", UnityEngine.SceneManagement.LoadSceneMode.Single );
+						}
+					}
+					else if( TargetGameObject.layer == 10 && IsPlayer )
 					{
 						IHealth.Damage(Damage);
 					}
