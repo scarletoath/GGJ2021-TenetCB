@@ -45,13 +45,13 @@ namespace Tenet.Game
         private CharacterController Controller;
 
 		private Weapon.Weapon[] Weapons;
-        private Weapon.Weapon CurrentWeapon;
         private int CurrentWeaponIndex = -1;
 
         private float RemainingHealCooldown;
 
         public event Action<HealthChangeArgs> OnHealthChanged;
         public event Action<HealFailReason> OnHealFailed;
+        public event Action<Weapon.Weapon> OnWeaponChanged;
 
         private void Awake()
         {
@@ -100,6 +100,7 @@ namespace Tenet.Game
 		}
 
 		public float CurrentHealth => Health;
+		public Weapon.Weapon CurrentWeapon { get; private set; }
 
 		public float Damage(float Amount) => ChangeHealth(-Amount);
         public float DamagePercent(float Percent) => Damage(Percent * DifficultySettings.Instance.CurrentDifficulty.MaxPlayerHealth);
@@ -126,6 +127,7 @@ namespace Tenet.Game
                 CurrentWeapon = NewWeapon;
                 CurrentWeaponIndex = WeaponIndex;
                 CurrentWeapon?.Activate(true);
+                OnWeaponChanged?.Invoke(CurrentWeapon);
             }
 		}
 
