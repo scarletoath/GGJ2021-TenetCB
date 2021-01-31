@@ -732,7 +732,8 @@ MonoBehaviour:
   m_text: "<align=\"center\"><size=96>CREDITS</size>\n\n<size=48>Global Game Jam
     2021 Austin Texas - Play My CB</size></align>\n\n\t\t\t\tEngineers\n\t\t\t\t\tSee
     Shuen Leong (Sam)\n\t\t\t\t\tWei Liang Tan\n\n\t\t\t\tDesigners\n\t\t\t\t\tSee
-    Ming Leong\n\n\t\t\t\t2D Art/Textures\n\t\t\t\t\tKillian\n\t\t\t\t\tDustin Lynch\n\n\t\t\t\tModelling/Animation\n\t\t\t\t\tRemus\n\t\t\t\t\tMimi\n\n\t\t\t\tMusic/Sound\n\t\t\t\t\tBeck"
+    Ming Leong\n\n\t\t\t\t2D Art/Textures\n\t\t\t\t\tKillian\n\t\t\t\t\tDustin Lynch\n\n\t\t\t\tModelling/Animation\n\t\t\t\t\tRemus
+    Wong\n\t\t\t\t\tMimi Kwan\n\n\t\t\t\tMusic/Sound\n\t\t\t\t\tBeck Rivera"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
