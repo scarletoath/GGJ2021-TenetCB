@@ -12,9 +12,9 @@ FBXHeaderExtension:  {
 		Month: 1
 		Day: 31
 		Hour: 7
-		Minute: 35
-		Second: 43
-		Millisecond: 599
+		Minute: 49
+		Second: 34
+		Millisecond: 690
 	}
 	Creator: "FBX SDK/FBX Plugins version 2016.1.1"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -77,7 +77,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 99633100544, "", "Scene" {
+	Document: 98190361344, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -198,7 +198,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 99632977920, "Geometry::Ground_NonDestructible_Floor_2m", "Mesh" {
+	Geometry: 99483197440, "Geometry::normal9", "Mesh" {
 		Vertices: *24 {
 			a: 0.100000001490116,-0.025000000372529,0.100000001490116,-0.100000001490116,-0.025000000372529,0.100000001490116,0.100000001490116,0.025000000372529,0.100000001490116,-0.100000001490116,0.025000000372529,0.100000001490116,-0.100000001490116,-0.025000000372529,-0.100000001490116,0.100000001490116,-0.025000000372529,-0.100000001490116,-0.100000001490116,0.025000000372529,-0.100000001490116,0.100000001490116,0.025000000372529,-0.100000001490116
 		} 
@@ -206,8 +206,110 @@ Objects:  {
 			a: 2,3,1,-1,6,7,5,-5,3,2,7,-7,0,1,4,-6,7,2,0,-6,3,6,4,-2
 		} 
 		GeometryVersion: 124
+		LayerElementNormal: 0 {
+			Version: 102
+			Name: "N"
+			MappingInformationType: "ByPolygonVertex"
+			ReferenceInformationType: "Direct"
+			Normals: *72 {
+				a: -0,-0,1,-0,-0,1,-0,-0,1,0,0,1,-0,-0,-1,-0,0,-1,-0,-0,-1,0,-0,-1,0,1,0,-0,1,-0,-0,1,-0,-0,1,-0,0,-1,-0,-0,-1,-0,-0,-1,0,-0,-1,-0,1,0,0,1,-0,-0,1,-0,-0,1,-0,-0,-1,-0,0,-1,-0,-0,-1,0,-0,-1,-0,-0
+			} 
+			NormalsW: *24 {
+				a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+			} 
+		}
+		LayerElementUV: 0 {
+			Version: 101
+			Name: "uv"
+			MappingInformationType: "ByPolygonVertex"
+			ReferenceInformationType: "IndexToDirect"
+			UV: *32 {
+				a: 0.442859321832657,0.996570229530334,0.442859292030334,0.5556640625,0.553085803985596,0.555664122104645,0.55308586359024,0.996570289134979,0.112179793417454,0.001953125,0.553085923194885,0.00195314828306437,0.553085923194885,0.112179666757584,0.112179726362228,0.112179644405842,0.00195317808538675,0.996570289134979,0.001953125,0.55566418170929,0.55308586359024,0.55308586359024,0.112179704010487,0.553085803985596,0.663312435150146,0.112179733812809,0.663312435150146,0.55308586359024,0.001953125,0.553085803985596,0.00195320742204785,0.112179636955261
+			} 
+			UVIndex: *24 {
+				a: 0,1,2,3,4,5,6,7,1,0,8,9,10,11,7,6,12,13,10,6,14,15,7,11
+			} 
+		}
+		LayerElementUserData: 0 {
+			Version: 101
+			Name: "UserDataLayer0"
+			MappingInformationType: "ByVertice"
+			ReferenceInformationType: "Direct"
+			UserDataId: 0
+			UserDataArray:  {
+				UserDataType: "Float"
+				UserDataName: "curvature"
+				UserData: *8 {
+					a: 1.570796,1.570796,1.570796,1.570796,1.570796,1.570796,1.570796,1.570796
+				} 
+			}
+		}
+		LayerElementUserData: 1 {
+			Version: 101
+			Name: "UserDataLayer1"
+			MappingInformationType: "ByPolygon"
+			ReferenceInformationType: "Direct"
+			UserDataId: 1
+			UserDataArray:  {
+				UserDataType: "Integer"
+				UserDataName: "__island_num__"
+				UserData: *6 {
+					a: 0,1,0,1,1,1
+				} 
+			}
+		}
+		LayerElementUserData: 2 {
+			Version: 101
+			Name: "UserDataLayer2"
+			MappingInformationType: "AllSame"
+			ReferenceInformationType: "Direct"
+			UserDataId: 2
+			UserDataArray:  {
+				UserDataType: "Float"
+				UserDataName: "coverage"
+				UserData: *1 {
+					a: 0.5831947
+				} 
+			}
+			UserDataArray:  {
+				UserDataType: "Integer"
+				UserDataName: "numnonpacked"
+				UserData: *1 {
+					a: 0
+				} 
+			}
+		}
+		Layer: 0 {
+			Version: 100
+			LayerElement:  {
+				Type: "LayerElementNormal"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementUserData"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementUV"
+				TypedIndex: 0
+			}
+		}
+		Layer: 1 {
+			Version: 100
+			LayerElement:  {
+				Type: "LayerElementUserData"
+				TypedIndex: 1
+			}
+		}
+		Layer: 2 {
+			Version: 100
+			LayerElement:  {
+				Type: "LayerElementUserData"
+				TypedIndex: 2
+			}
+		}
 	}
-	Model: 99632453120, "Model::Ground_NonDestructible_Floor_2m", "Mesh" {
+	Model: 99527379840, "Model::normal9", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
@@ -224,11 +326,11 @@ Objects:  {
 
 Connections:  {
 	
-	;Model::Ground_NonDestructible_Floor_2m, Model::RootNode
-	C: "OO",99632453120,0
+	;Model::normal9, Model::RootNode
+	C: "OO",99527379840,0
 	
-	;Geometry::Ground_NonDestructible_Floor_2m, Model::Ground_NonDestructible_Floor_2m
-	C: "OO",99632977920,99632453120
+	;Geometry::normal9, Model::normal9
+	C: "OO",99483197440,99527379840
 }
 ;Takes section
 ;----------------------------------------------------
