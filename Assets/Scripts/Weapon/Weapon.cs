@@ -14,6 +14,11 @@ namespace Tenet.Weapon
         [SerializeField] private Transform ProjectileSpawnPoint;
         [SerializeField] private Ammo[] AmmoTypes;
 
+        [Space]
+        [SerializeField] private AudioSource AudioSource;
+        [SerializeField] private AudioClip ShootSound;
+        [SerializeField] private float ShootSoundVolume = 0.05f;
+
         private int Mode = -1;
         private Ammo CurrentAmmoType;
 
@@ -121,6 +126,7 @@ namespace Tenet.Weapon
 				}
 				else
 				{
+                    if (ShootSound != null) AudioSource.PlayOneShot(ShootSound, ShootSoundVolume);
                     SessionManager.Instance.GameMode.ConsumeAmmo(SessionManager.Instance.CurrentInversionState, CurrentAmmoType, ProjectileSpawnPoint, Marker);
                     EnableBlackout(true);
 				}

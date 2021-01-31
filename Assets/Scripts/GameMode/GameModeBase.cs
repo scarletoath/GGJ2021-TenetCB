@@ -19,6 +19,7 @@ namespace Tenet.GameMode
 		public string Name; // Matches InversionState enum
 		public Color Color;
 		public VolumeProfile VolumeProfile;
+		public AudioClip SoundClip;
 		public GameObject MarkerVisual;
 		public GameObject MarkerVisualHighlighted;
 	}
@@ -161,6 +162,8 @@ namespace Tenet.GameMode
 				SessionManager.Instance.StopCoroutine(InversionRoutine);
 
 			InversionVolume.sharedProfile = GetInversionStateProfile(InversionState).VolumeProfile;
+			SessionManager.Instance.BGMAudioSource.clip = GetInversionStateProfile(InversionState).SoundClip;
+			SessionManager.Instance.BGMAudioSource.Play();
 			switch (InversionState)
 			{
 				case InversionState.Normal:

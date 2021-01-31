@@ -24,6 +24,7 @@ namespace Tenet.Game
 
 		[SerializeField] private LevelGenerator LevelGenerator;
 		[SerializeField] private GameModeBase DefaultGameMode;
+		[SerializeField] private AudioSource BGMSource;
 
 		[Space]
 
@@ -51,6 +52,7 @@ namespace Tenet.Game
 
 		public GameModeBase GameMode { get; private set; }
 		public Player Player { get; private set; }
+		public AudioSource BGMAudioSource => BGMSource;
 
 		public InversionState? CanInvertTargetState { get; private set; } = null;
 		public InversionState CurrentInversionState { get; private set; } = InversionState.Normal;

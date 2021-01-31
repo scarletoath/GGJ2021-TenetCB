@@ -20,6 +20,7 @@ namespace Tenet.Weapon
 
 		[SerializeField] private GameObject DamageEffect;
 		[SerializeField] private TrailRenderer TrailEffect;
+		[SerializeField] private AudioClip DamageSound;
 
 		[SerializeField] private Vector3 DefaultDamageDirection = Vector3.down;
 
@@ -95,6 +96,7 @@ namespace Tenet.Weapon
 		{
 			Debug.Log($"Projectile {SourceAmmo.name} {DebugMessage}.");
 			SourceAmmo.ApplyDamage(Target, Location, Direction);
+			if (DamageSound != null) AudioSource.PlayClipAtPoint(DamageSound, transform.position);
 
 			if (KinematicOnDamage && Rigidbody != null)
 			{

@@ -51,6 +51,8 @@ MonoBehaviour:
   ProjectileSpawnPoint: {fileID: 8181691417911815208}
   AmmoTypes:
   - {fileID: 8737095034837787183}
+  ShootSound: {fileID: 8300000, guid: 707b55036362a3349a4e73cebc3c8ab5, type: 3}
+  ShootSoundVolume: 0.025
 --- !u!114 &8737095034837787183
 MonoBehaviour:
   m_ObjectHideFlags: 0
