@@ -129,7 +129,8 @@ namespace Tenet.Game
 
 		private void TickHealCooldown()
 		{
-            RemainingHealCooldown = SessionManager.Instance.GameMode.CalculateValue(SessionManager.Instance.CurrentInversionState, RemainingHealCooldown, 0, DifficultySettings.Instance.CurrentDifficulty.PlayerHealCooldown, Time.deltaTime);
+			if (RemainingHealCooldown > 0)
+				RemainingHealCooldown = SessionManager.Instance.GameMode.CalculateValue(SessionManager.Instance.CurrentInversionState, RemainingHealCooldown, 0, DifficultySettings.Instance.CurrentDifficulty.PlayerHealCooldown, Time.deltaTime);
 		}
 
 		private void CheckWeaponInput()
