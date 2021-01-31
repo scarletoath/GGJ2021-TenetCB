@@ -36,6 +36,8 @@ namespace Tenet.Game
     public class Player : MonoBehaviour , IHealth
     {
 
+        [SerializeField] private float DetectionRadius = 1.0f;
+
         private bool IsActive = false;
 
 		private float Health;

@@ -38,6 +38,7 @@ namespace Tenet.Triggers
 
 		private readonly Dictionary<InversionState, GameObject> StateVisuals = new Dictionary<InversionState, GameObject>();
 		private GameObject CurrentVisual;
+		private bool IsHighlighted;
 
 		public float TriggerRadius => Trigger.radius;
 
@@ -56,17 +57,19 @@ namespace Tenet.Triggers
 			SessionManager.Instance.OnInversionStateChanged -= ChangeVisuals;
 		}
 
-		private void ChangeVisuals(InversionState InversionState)
+		public void ChangeVisuals(InversionState InversionState)
 		{
 			if (CurrentVisual != null)
 				CurrentVisual.SetActive(false);
-			if (!StateVisuals.TryGetValue(InversionState, out var Visual))
+			var InversionStateKey = IsHighlighted ? (InversionState) -(int)InversionState : InversionState;
+			if (!StateVisuals.TryGetValue(InversionStateKey, out var Visual))
 			{
-				Visual = SessionManager.Instance.GameMode.GetInversionStateProfile(InversionState)?.MarkerVisual; // prefab
+				var Profile = SessionManager.Instance.GameMode.GetInversionStateProfile(InversionState);
+				Visual = IsHighlighted ? Profile?.MarkerVisualHighlighted : Profile?.MarkerVisual; // prefab
 				if (Visual != null)
 				{
 					Visual = Instantiate(Visual, RendererRoot.position, RendererRoot.rotation, RendererRoot); // instance
-					StateVisuals.Add(InversionState, Visual);
+					StateVisuals.Add(InversionStateKey, Visual);
 				}
 			}
 			CurrentVisual = Visual;
@@ -134,6 +137,24 @@ namespace Tenet.Triggers
 				return Info;
 			}
 			return null;
+		}
+
+		private void OnTriggerEnter(Collider other)
+		{
+			if (other.GetComponentInParent<Player>())
+			{
+				IsHighlighted = true;
+				ChangeVisuals(SessionManager.Instance.CurrentInversionState);
+			}
+		}
+
+		private void OnTriggerExit(Collider other)
+		{
+			if (other.GetComponentInParent<Player>())
+			{
+				IsHighlighted = false;
+				ChangeVisuals(SessionManager.Instance.CurrentInversionState);
+			}
 		}
 
 #if UNITY_EDITOR

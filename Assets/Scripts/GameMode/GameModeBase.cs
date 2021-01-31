@@ -20,6 +20,7 @@ namespace Tenet.GameMode
 		public Color Color;
 		public VolumeProfile VolumeProfile;
 		public GameObject MarkerVisual;
+		public GameObject MarkerVisualHighlighted;
 	}
 
 	public class GameModeBase : ScriptableObject
@@ -176,6 +177,25 @@ namespace Tenet.GameMode
 						{
 							SessionManager.Instance.Player.DamagePercent(Config.InversionHealthLossPercent);
 							yield return HealthLossInterval;
+						}
+					}
+					break;
+			}
+		}
+
+		public void HighlightMarkers(InversionState InversionState, Transform Source, float DetectionRadius)
+		{
+			switch (InversionState)
+			{
+				case InversionState.Normal:
+					break;
+				case InversionState.Inverted:
+					var Results = Physics.SphereCastAll(Source.position, DetectionRadius, Source.forward);
+					foreach (var Result in Results)
+					{
+						if (Result.transform.GetComponentInParent<HistoryMarker>() is HistoryMarker Marker)
+						{
+							Marker.ChangeVisuals(InversionState);
 						}
 					}
 					break;
