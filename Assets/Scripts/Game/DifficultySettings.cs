@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Tenet.Level;
 using UnityEngine;
 using Tenet.Utils.Editor;
+using Tenet.UI;
 #if UNITY_EDITOR
 using System.Linq;
 using UnityEditor;
@@ -110,7 +111,7 @@ namespace Tenet.Game
             Instance = this;
             //DontDestroyOnLoad(gameObject);
 
-            SetDifficulty(DefaultDifficulty);
+            SetDifficulty(MainMenuController.Difficulty < 0 ? DefaultDifficulty : MainMenuController.Difficulty);
         }
 
 		public int Default => DefaultDifficulty;
