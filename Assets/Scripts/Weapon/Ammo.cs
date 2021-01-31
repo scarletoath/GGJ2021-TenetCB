@@ -12,6 +12,8 @@ namespace Tenet.Weapon
 	{
 		Normal,
 		Explosive,
+
+		Random = 1000,
 	}
 
 	public class Ammo : MonoBehaviour
