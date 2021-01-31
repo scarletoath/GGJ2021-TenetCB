@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4722384088147044639}
   - component: {fileID: 4722384088147044638}
   - component: {fileID: 4722384088147044625}
+  - component: {fileID: -2496627135999062909}
   m_Layer: 0
   m_Name: PH_VFX_Explosion_Inverted_Death
   m_TagString: Untagged
@@ -46,7 +47,7 @@ ParticleSystem:
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -4863,3 +4864,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-2496627135999062909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4722384088147044624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949e7ccd93784f747a11a8a0690f0f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
