@@ -36,6 +36,7 @@ namespace Tenet.Weapon
             {
                 EnableBlackout(false);
             }
+            Debug.DrawRay(ProjectileSpawnPoint.position, ProjectileSpawnPoint.forward * 100, Color.green);
         }
 
         private void OnGUI()
@@ -84,18 +85,22 @@ namespace Tenet.Weapon
             }
 		}
 
-        public bool Shoot ()
+        public bool TryShoot ()
         {
-            if (!IsBlackout)
+            if (!SessionManager.Instance.GameMode.CanUseWeapon(SessionManager.Instance.CurrentInversionState, ProjectileSpawnPoint, out var Marker))
             {
+                return false;
+			}
+
+			if (!IsBlackout)
+			{
 				if (SessionManager.Instance.GameMode.ShouldAutoReload(SessionManager.Instance.CurrentInversionState, CurrentAmmoType))
 				{
                     Reload();
 				}
 				else
 				{
-                    CurrentAmmoType.CreateProjectile(ProjectileSpawnPoint.position, ProjectileSpawnPoint.rotation);
-                    SessionManager.Instance.GameMode.ConsumeAmmo(SessionManager.Instance.CurrentInversionState, CurrentAmmoType);
+                    SessionManager.Instance.GameMode.ConsumeAmmo(SessionManager.Instance.CurrentInversionState, CurrentAmmoType, ProjectileSpawnPoint, Marker);
                     EnableBlackout(true);
 				}
                 return true;

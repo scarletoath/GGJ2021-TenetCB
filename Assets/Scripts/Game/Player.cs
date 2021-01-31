@@ -135,10 +135,7 @@ namespace Tenet.Game
 		{
 			if (Input.GetButtonUp("Fire1"))
 			{
-				if (SessionManager.Instance.GameMode.CanUseWeapon(SessionManager.Instance.CurrentInversionState))
-				{
-                    CurrentWeapon.Shoot();
-				}
+				CurrentWeapon.TryShoot();
 			}
 			if (Input.GetButtonDown("Swap")) // TODO : Swap weapon input
 			{

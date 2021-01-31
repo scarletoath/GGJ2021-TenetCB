@@ -49,7 +49,7 @@ MonoBehaviour:
   Speed: 30
   MaxLifetime: 1
   DestroyAfterLifetime: 0
-  DestroyOnDamage: 0
+  DestroyOnDamage: 1
   DamageOnCollision: 1
   KinematicOnDamage: 1
   RandomSpin: 0

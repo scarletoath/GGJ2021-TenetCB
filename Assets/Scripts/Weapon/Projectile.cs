@@ -22,27 +22,53 @@ namespace Tenet.Weapon
 		[SerializeField] private TrailRenderer TrailEffect;
 
         private Ammo SourceAmmo;
+		private Vector3 InitialDirection = Vector3.down;
+		private Transform Target;
 
 		private void Update()
 		{
-			if (Rigidbody == null)
+			if (Target != null) // tracking target => face and move towards source
+			{
+				transform.LookAt(Target);
 				transform.Translate(0, 0, Speed * Time.deltaTime, Space.Self);
+				if (Vector3.Distance(transform.position, Target.position) < 0.5f)
+				{
+					Destroy(gameObject);
+				}
+			}
+			else if (Rigidbody == null) // not return and not using physics -> manual move
+			{
+				transform.Translate(0, 0, Speed * Time.deltaTime, Space.Self);
+			}
 		}
 
-		public void Configure(Ammo SourceAmmo)
+		public void Configure(Ammo SourceAmmo, Transform Target = null)
         {
             this.SourceAmmo = SourceAmmo;
+			this.Target = Target;
 			if (DestroyAfterLifetime)
 				Destroy(gameObject, MaxLifetime);
 
-			if (!DamageOnCollision)
-				Invoke(nameof(ApplyDamage), MaxLifetime);
-
-			if (Rigidbody != null)
+			if (Target != null)
 			{
-				Rigidbody.velocity = transform.forward * Speed;
-				if (RandomSpin)
-					Rigidbody.angularVelocity = Random.onUnitSphere;
+				if (Rigidbody != null)
+				{
+					Rigidbody.detectCollisions = false; // disable collisions
+				}
+			}
+			else
+			{
+				if (!DamageOnCollision)
+					Invoke(nameof(ApplyDamage), MaxLifetime);
+				else
+					InitialDirection = transform.forward;
+
+				if (Rigidbody != null)
+				{
+					Rigidbody.velocity = transform.forward * Speed;
+					if (RandomSpin)
+						Rigidbody.angularVelocity = Random.onUnitSphere;
+				}
 			}
 
 			if (TrailEffect != null)
@@ -55,12 +81,12 @@ namespace Tenet.Weapon
 			}
 		}
 
-		private void ApplyDamage() => ApplyDamage(null, transform.position, $"damage after duration {MaxLifetime}s");
+		private void ApplyDamage() => ApplyDamage(null, transform.position, Vector3.zero, $"damage after duration {MaxLifetime}s");
 
-		private void ApplyDamage(GameObject Target, Vector3 Location, string DebugMessage)
+		private void ApplyDamage(GameObject Target, Vector3 Location, Vector3 Direction, string DebugMessage)
 		{
 			Debug.Log($"Projectile {SourceAmmo.name} {DebugMessage}.");
-			SourceAmmo.ApplyDamage(Target, Location);
+			SourceAmmo.ApplyDamage(Target, Location, Direction);
 
 			if (KinematicOnDamage && Rigidbody != null)
 			{
@@ -78,7 +104,11 @@ namespace Tenet.Weapon
 		private void OnCollisionEnter(Collision collision)
 		{
 			if (DamageOnCollision)
-				ApplyDamage(collision.gameObject, collision.GetContact(0).point, $"hit {collision.gameObject}");
+			{
+				ApplyDamage(collision.gameObject, collision.GetContact(0).point, InitialDirection, $"hit {collision.gameObject}");
+				if (Rigidbody != null)
+					Rigidbody.detectCollisions = false;
+			}
 		}
 	}
 }

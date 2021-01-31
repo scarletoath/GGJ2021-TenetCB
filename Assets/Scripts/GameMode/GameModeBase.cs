@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Tenet.Game;
 using Tenet.GameMode;
+using Tenet.Triggers;
 using Tenet.Utils.Editor;
 using Tenet.Weapon;
 using UnityEditor;
@@ -73,28 +74,48 @@ namespace Tenet.GameMode
 			return Value;
 		}
 
-		public bool CanUseWeapon(InversionState InversionState)
+		public bool CanUseWeapon(InversionState InversionState, Transform StartPoint, out HistoryMarker Marker)
 		{
+			Marker = null;
 			switch (InversionState)
 			{
 				case InversionState.Normal:
 					return true;
 				case InversionState.Inverted:
-					return true; // check object history
+					var HasResult = Physics.Raycast(StartPoint.position, StartPoint.forward, out var Hit, float.MaxValue, 0xFFFF, QueryTriggerInteraction.Collide);
+					if (!HasResult)
+						return false;
+
+					var Results = Physics.OverlapSphere(Hit.point, 1, 0xFFFF, QueryTriggerInteraction.Collide);
+					long NewestTimestamp = long.MinValue;
+					foreach (var Result in Results)
+					{
+						if (Result.TryGetComponent(out HistoryMarker ResultMarker) && ResultMarker.GetLastRecord().Timestamp > NewestTimestamp) // assume if it exists it has a record; if no records it should already be removed
+						{
+							Marker = ResultMarker;
+							NewestTimestamp = ResultMarker.GetLastRecord().Timestamp;
+						}
+					}
+					Debug.Log($"Raycast {Results.Length} results at {Hit.point} and found marker={Marker} :\n{string.Join<Collider>("\n", Results)}", Marker);
+					return Marker != null; // check object history
 				default:
 					return false;
 			}
 		}
 
-		public void ConsumeAmmo(InversionState InversionState, Ammo Ammo)
+		public void ConsumeAmmo(InversionState InversionState, Ammo Ammo, Transform Origin, HistoryMarker Marker)
 		{
 			switch (InversionState)
 			{
 				case InversionState.Normal: // decrease ammo
+					Ammo.CreateProjectile(Origin.position, Origin.rotation, null);
 					Ammo.Remove();
 					break;
 				case InversionState.Inverted: // increase ammo
-					Ammo.Add();
+					int NewAmmoCount = Marker.DequeueAll();
+					var InitialDirection = (Origin.position - Marker.transform.position).normalized;
+					Ammo.CreateProjectile(Marker.transform.position + InitialDirection * 0.25f, Quaternion.LookRotation(InitialDirection), Origin); // Small depentration to prevent self-collision with original target
+					Ammo.Add(NewAmmoCount, true);
 					break;
 			}
 		}
