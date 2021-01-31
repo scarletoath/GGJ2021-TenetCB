@@ -4,77 +4,117 @@ using UnityEngine;
 
 namespace Tenet.NPC
 {
-    public class Target : MonoBehaviour
-    {
-		int health;
-		bool isForward;
-		float moveSpeed;
-		float turnSpeed;
-		//bool isNormalPatrol; //TBC, check if this is a thing
-		Turret turret					= null;
-		Collider playerCollider			= null;
-		int playerLayerMask				= 0;
-		bool isPlayerDetected			= false;
-		[SerializeField] bool isDebug	= false;
+    public class Target : MonoBehaviour, Game.IHealth
+	{
+		float health;
+		[SerializeField] float maxHealth;
+		bool isDead;
 
-        // Start is called before the first frame update
-        void Start()
+		//float moveSpeed;
+		//float turnSpeed;
+		//bool isNormalPatrol; //TBC, check if this is a thing
+		Turret turret							= null;
+		Collider playerCollider					= null;
+		int playerLayerMask						= 0;
+		[SerializeField] float detectionRadius	= 0.0f;
+		[SerializeField] bool isDebug			= false;
+
+		// Start is called before the first frame update
+		void Start()
 		{
-			turret = GetComponent<Turret>();
+			turret	= GetComponent<Turret>();
+			health	= maxHealth;
+			isDead	= false;
 		}
 
         // Update is called once per frame
         void Update()
-        {
-			if ( playerCollider != null)
+		{
+			if (!isDead)
 			{
-				Vector3 playerPos	= playerCollider.transform.position;
-				Vector3 playerDir	= playerPos - transform.position;
-				playerDir.Normalize();
-				RaycastHit hit;
-
-				if(Physics.Raycast(transform.position, playerDir, out hit, Mathf.Infinity, playerLayerMask ) )
+				if( playerCollider != null )
 				{
-					isPlayerDetected	= true;
-					if( turret != null )
-					{
-						turret.StartShootingAtPosition( playerPos );
-					}
+					Vector3 playerPos = playerCollider.transform.position;
+					Vector3 playerDir = playerPos - transform.position;
+					playerDir.Normalize();
+					RaycastHit hit;
 
-					if( isDebug )
+					if( Physics.Raycast( transform.position, playerDir, out hit, Mathf.Infinity, playerLayerMask ) )
 					{
-						Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.green, 2.0f );
+						if( turret != null )
+						{
+							turret.StartShootingAtPosition( playerPos );
+						}
+
+						if( isDebug )
+						{
+							Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.green, 2.0f );
+						}
 					}
-				}
-				else
-				{
-					isPlayerDetected	= false;
-					if( isDebug )
+					else
 					{
-						Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.red, 2.0f );
-					}					
+						if( isDebug )
+						{
+							Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.red, 2.0f );
+						}
+					}
 				}
 			}
-
 		}
 
-		private void OnTriggerEnter( Collider other )
+		void FixedUpdate()
 		{
-			Game.Player player = other.gameObject.GetComponent<Game.Player>();
-			if(player != null)
+			if(!isDead)
 			{
-				playerLayerMask = 1 << player.gameObject.layer;
-				playerCollider = player.GetComponent<Collider>();
+				var Colliders = Physics.OverlapSphere( transform.position, detectionRadius );
+
+				playerCollider = null;
+				foreach( var Collider in Colliders )
+				{
+					Game.Player player = Collider.gameObject.GetComponent<Game.Player>();
+					if( player != null )
+					{
+						playerLayerMask = 1 << player.gameObject.layer;
+						playerCollider = player.GetComponent<Collider>();
+						playerCollider = Collider;
+					}
+				}
 			}			
 		}
 
-		private void OnTriggerExit( Collider other )
+		void OnDeath()
 		{
-			Game.Player player = other.gameObject.GetComponent<Game.Player>();
-			if( player != null )
+			Debug.Log( "TestTarget OnDeath!" );
+			//TODO : Change to destroy + play particle / animation
+			isDead	= true;
+			if( turret != null )
 			{
-				playerCollider = null;
+				turret.isDead = true;
 			}
+		}
+
+		// IHealth interface functions
+		public float CurrentHealth => health;
+		public float Damage( float Amount ) => ChangeHealth( -Amount );
+		public float DamagePercent( float Percent ) => Damage( Percent * maxHealth );
+		public float Heal( float Amount ) { return 0.0f; }
+		public float HealPercent( float Percent ) { return 0.0f; }
+		
+		private float ChangeHealth( float Amount )
+		{
+			if( !Mathf.Approximately( Amount, 0.0f ) )
+			{
+				float PreviousHealth = health;
+				health = Mathf.Clamp( health + Amount, 0, maxHealth );
+			}
+
+			Debug.Log("TestTarget Health : " + health);
+			if(health <= 0.0f && !isDead )
+			{
+				OnDeath();
+			}
+
+			return health;
 		}
 	}
 }

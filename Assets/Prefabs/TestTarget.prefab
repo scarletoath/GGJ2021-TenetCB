@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 2360660739847546451}
   - component: {fileID: -2668083528043476996}
   - component: {fileID: 60343464712467305}
+  - component: {fileID: -2180519383272149991}
   - component: {fileID: -3058602289987463726}
   - component: {fileID: -1351477078239643844}
   - component: {fileID: 5980671696824582416}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: TestTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd13214c9803f14ca280b837bcbb688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
+  detectionRadius: 0
   isDebug: 0
 --- !u!33 &-2668083528043476996
 MeshFilter:
@@ -73,6 +76,20 @@ MonoBehaviour:
   maxAccuracy: 1
   durationToReachMaxAccuracy: 10
   autoShootDuration: 20
+--- !u!136 &-2180519383272149991
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449382730220950064}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &-3058602289987463726
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -98,7 +115,7 @@ SphereCollider:
   m_GameObject: {fileID: 1449382730220950064}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 50
   m_Center: {x: 0, y: 0, z: 0}

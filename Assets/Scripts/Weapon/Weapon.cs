@@ -60,6 +60,8 @@ namespace Tenet.Weapon
 
         public bool IsBlackout { get; private set; } // prevents any weapon-related actions, triggered when shot
 
+        public Ammo CurrentAmmo => CurrentAmmoType;
+
         public void Activate(bool IsActivated)
         {
             if (enabled != IsActivated)
@@ -96,14 +98,18 @@ namespace Tenet.Weapon
 
         public bool TryShoot ()
         {
-            if (!SessionManager.Instance.GameMode.CanUseWeapon(SessionManager.Instance.CurrentInversionState, CurrentAmmoType, ProjectileSpawnPoint, out var Marker))
+            if (!SessionManager.Instance.GameMode.CanUseWeapon(SessionManager.Instance.CurrentInversionState, CurrentAmmoType, ProjectileSpawnPoint, out var Marker, out var AmmoDrop))
             {
                 return false;
 			}
 
 			if (!IsBlackout)
 			{
-				if (SessionManager.Instance.GameMode.ShouldAutoReload(SessionManager.Instance.CurrentInversionState, CurrentAmmoType))
+				if (AmmoDrop != null)
+				{
+                    SessionManager.Instance.Player.CollectAmmoDrop(AmmoDrop);
+				}
+				else if (SessionManager.Instance.GameMode.ShouldAutoReload(SessionManager.Instance.CurrentInversionState, CurrentAmmoType))
 				{
                     Reload();
 				}

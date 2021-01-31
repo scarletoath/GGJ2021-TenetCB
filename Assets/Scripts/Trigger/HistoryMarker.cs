@@ -11,6 +11,8 @@ namespace Tenet.Triggers
 {
 	public class HistoryInfo
 	{
+		public static readonly HistoryInfo Empty = new HistoryInfo();
+
 		public long Timestamp;
 		public readonly HashSet<HistoryTarget> AffectedTargets = new HashSet<HistoryTarget>();
 
@@ -25,12 +27,22 @@ namespace Tenet.Triggers
 	public class HistoryMarker : MonoBehaviour
 	{
 
+		private static readonly int NumNonRandomDamageTypes = Enum.GetValues(typeof(DamageType)).Length - 1;
+
 		[SerializeField] private DamageType DamageType;
 		[SerializeField] private SphereCollider Trigger;
 
         private readonly Stack<HistoryInfo> History = new Stack<HistoryInfo>();
 
 		public float TriggerRadius => Trigger.radius;
+
+		private void Awake()
+		{
+			if (DamageType == DamageType.Random)
+			{
+				DamageType = (DamageType)(UnityEngine.Random.Range(0, (int)DamageType.Random) % NumNonRandomDamageTypes);
+			}
+		}
 
 		public HistoryMarker FindAtLocation(Vector3 Location)
 		{
@@ -61,7 +73,7 @@ namespace Tenet.Triggers
 
 		public IEnumerable<HistoryInfo> GetInfos() => History;
 
-		public HistoryInfo GetLastRecord() => History.Count > 0 ? History.Peek() : null;
+		public HistoryInfo GetLastRecord() => History.Count > 0 ? History.Peek() : HistoryInfo.Empty;
 
 		public HistoryInfo CreateRecord()
 		{

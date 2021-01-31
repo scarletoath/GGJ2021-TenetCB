@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Tenet.Game;
 using UnityEngine;
+using Tenet.Triggers;
 #if UNITY_EDITOR
 using System.Linq;
 using UnityEditor;
@@ -146,6 +147,15 @@ namespace Tenet.Level
 			return PlayerStarts[UnityEngine.Random.Range(0, PlayerStarts.Count)];
 		}
 
+		public void Configure(int NumExpendedAmmo)
+		{
+			var Markers = Root.GetComponentsInChildren<HistoryMarker>();
+			ShuffleList(Markers);
+			for (int i = NumExpendedAmmo; i < Markers.Length; i++)
+				Markers[i].gameObject.SetActive(false);
+			Debug.Log($"Disabled {Markers.Length - NumExpendedAmmo} markers to result in {NumExpendedAmmo} / {Markers.Length} active markers.");
+		}
+
 		public List<TileSpawnMarker> GetTilesForTag(string Tag) => TileObjectsMap.TryGetValue(Tag, out var TilesForTag) ? TilesForTag : null;
 
 		public void Clear()
@@ -164,7 +174,7 @@ namespace Tenet.Level
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="List"></param>
-		private static void ShuffleList <T> (List<T> List)
+		private static void ShuffleList <T> (IList<T> List)
 		{
 			int n = List.Count;
 			while (n > 1)
