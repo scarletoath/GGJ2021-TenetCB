@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1270381458851965357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1552284081457942480}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1552284081457942480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 2810280079161880369, guid: 7c8aafc86fd9cef4390271e0ba5f60f6, type: 3}
+  m_PrefabInstance: {fileID: 3641948590517493985}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270381458851965357}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7407218792578564340}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6643238156570471222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8478098476548220483}
+  m_Layer: 0
+  m_Name: Area Light (2) (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8478098476548220483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6643238156570471222}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7407218792578564340}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7890423729758280270
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,6 +71,7 @@ GameObject:
   - component: {fileID: 7407218792578564340}
   - component: {fileID: 5864919999381065553}
   - component: {fileID: 8538990797429783451}
+  - component: {fileID: 6022580574297106911}
   m_Layer: 0
   m_Name: Tileset_21
   m_TagString: Untagged
@@ -30,7 +91,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1552284081457942480}
-  - {fileID: 7218870142184642273}
+  - {fileID: 5339319888453460771}
+  - {fileID: 8478098476548220483}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -61,7 +123,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 352c30d56f7f93548b493e20b578c22b, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,6 +145,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6022580574297106911
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7890423729758280270}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3961298560338342742, guid: ceddeb8c966e2274a8319129c9e1294e, type: 3}
 --- !u!1001 &3641948590517493985
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -140,12 +216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c8aafc86fd9cef4390271e0ba5f60f6, type: 3}
---- !u!4 &1552284081457942480 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2810280079161880369, guid: 7c8aafc86fd9cef4390271e0ba5f60f6, type: 3}
-  m_PrefabInstance: {fileID: 3641948590517493985}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &7179913565508972810
+--- !u!1001 &5589998871184868552
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -196,14 +267,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ceddeb8c966e2274a8319129c9e1294e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f777b1c983776774b9973ca275b9ac66, type: 2}
     - target: {fileID: 919132149155446097, guid: ceddeb8c966e2274a8319129c9e1294e, type: 3}
       propertyPath: m_Name
       value: Tileset_21
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceddeb8c966e2274a8319129c9e1294e, type: 3}
---- !u!4 &7218870142184642273 stripped
+--- !u!4 &5339319888453460771 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ceddeb8c966e2274a8319129c9e1294e, type: 3}
-  m_PrefabInstance: {fileID: 7179913565508972810}
+  m_PrefabInstance: {fileID: 5589998871184868552}
   m_PrefabAsset: {fileID: 0}

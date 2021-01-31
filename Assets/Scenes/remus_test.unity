@@ -5049,7 +5049,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _houdiniAsset: {fileID: 1035765263}
   _bakeTargets:
-  - {fileID: 7897498545132519825, guid: c18933457d5ffdd4786ccbae3c9192f0, type: 3}
+  - {fileID: 7267289835099305834, guid: 23b1513cae7e1284ca0169ba43cfdb4c, type: 3}
+  - {fileID: 6681875401880387960, guid: ea8f4626c4895184eb41278d6ca7efe5, type: 3}
+  - {fileID: 8189439551816908453, guid: 2f907c9e9a29f114ba1363ac8e6b6bda, type: 3}
+  - {fileID: 1974259171827837844, guid: aa81fd5f9b1454745ae597224c614c88, type: 3}
+  - {fileID: 366754845640593968, guid: 79fa76c4bd7527947b1bb88c59a15d8f, type: 3}
+  - {fileID: 4158332241307361455, guid: e2db113da96195e41adb7c0b4cd86a3f, type: 3}
 --- !u!4 &621116113
 Transform:
   m_ObjectHideFlags: 0
@@ -16148,6 +16153,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1833138891}
     m_Modifications:
+    - target: {fileID: 7127465831982643166, guid: 264ef66ea66496c43abf343c106b13f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127465831982643166, guid: 264ef66ea66496c43abf343c106b13f2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7492209622255578434, guid: 264ef66ea66496c43abf343c106b13f2, type: 3}
       propertyPath: m_Name
       value: wfc_wall_Instance76
@@ -17021,7 +17034,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 96727d1fdb6caa3498b448c414c83410, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 36f2a1b1d02272f4f9aa0df584086251, type: 2}
+      objectReference: {fileID: 2100000, guid: 66e383aba68425a4782b552f7a3e11f4, type: 2}
     - target: {fileID: 919132149155446097, guid: 96727d1fdb6caa3498b448c414c83410, type: 3}
       propertyPath: m_Name
       value: testwall
