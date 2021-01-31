@@ -11,6 +11,8 @@ namespace Tenet.Triggers
 {
 	public class HistoryInfo
 	{
+		public static readonly HistoryInfo Empty = new HistoryInfo();
+
 		public long Timestamp;
 		public readonly HashSet<HistoryTarget> AffectedTargets = new HashSet<HistoryTarget>();
 
@@ -71,7 +73,7 @@ namespace Tenet.Triggers
 
 		public IEnumerable<HistoryInfo> GetInfos() => History;
 
-		public HistoryInfo GetLastRecord() => History.Count > 0 ? History.Peek() : null;
+		public HistoryInfo GetLastRecord() => History.Count > 0 ? History.Peek() : HistoryInfo.Empty;
 
 		public HistoryInfo CreateRecord()
 		{
