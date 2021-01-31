@@ -109,10 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3c07092afd346498566dac3b79985a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultDifficulty: 0
+  DefaultDifficulty: 1
   Difficulties:
   - Name: Easy
-    MaxPlayerHealth: 100
+    MaxPlayerHealth: 120
     PlayerHealCooldown: 60
     PlayerHealPercent: 0.5
     WeaponBlackoutMultiplier: 1
@@ -142,13 +142,13 @@ MonoBehaviour:
     - {fileID: 6865067194589089316, guid: 74e6d349a8b0fff4088a1d3434fac222, type: 3}
     - {fileID: 6253324031318218260, guid: b35013d44e886fa4b8c19ef779a67099, type: 3}
   - Name: Normal
-    MaxPlayerHealth: 100
-    PlayerHealCooldown: 60
-    PlayerHealPercent: 0.5
+    MaxPlayerHealth: 110
+    PlayerHealCooldown: 70
+    PlayerHealPercent: 0.4
     WeaponBlackoutMultiplier: 1
-    InversionMaxDuration: 5
+    InversionMaxDuration: 7
     InversionHealthLossPercent: 0.02
-    InversionHealthLossInterval: 1
+    InversionHealthLossInterval: 0.85
     ReservedTags:
     - Tag: Landmark
       MinCount: 1
@@ -173,12 +173,12 @@ MonoBehaviour:
     - {fileID: 8202548836543278150, guid: 10600b4a518959d4a8ceea2bb98c9766, type: 3}
   - Name: Hard
     MaxPlayerHealth: 100
-    PlayerHealCooldown: 60
-    PlayerHealPercent: 0.5
+    PlayerHealCooldown: 80
+    PlayerHealPercent: 0.3
     WeaponBlackoutMultiplier: 1
-    InversionMaxDuration: 5
+    InversionMaxDuration: 2
     InversionHealthLossPercent: 0.02
-    InversionHealthLossInterval: 1
+    InversionHealthLossInterval: 0.75
     ReservedTags:
     - Tag: Landmark
       MinCount: 1
