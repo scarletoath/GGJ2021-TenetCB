@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2063469343876016829, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: GeneralTags.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -2063469343876016829, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: GeneralTags.Array.data[0]
@@ -21,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2063469343876016829, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: GeneralTags.Array.data[2]
-      value: Explosive
+      value: Simple
       objectReference: {fileID: 0}
     - target: {fileID: -2063469343876016829, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: GeneralTags.Array.data[3]
