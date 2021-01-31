@@ -18,6 +18,7 @@ namespace Tenet.NPC
 		float shootDuration;
 		Vector3 positionToShootAt;
 		private Vector3 velocity = Vector3.zero;
+		public bool isDead									= false;
 
 		// Start is called before the first frame update
 		void Start()
@@ -45,7 +46,6 @@ namespace Tenet.NPC
 			}
 			else
 			{
-				//Debug.Log( "update else, time : " + Time.time + ", end time " + autoShootEndTime );
 				shootDuration = 0.0f;
 			}
 		}
@@ -53,7 +53,6 @@ namespace Tenet.NPC
 		public void StartShootingAtPosition(Vector3 targetPosition)
 		{
 			autoShootEndTime	= Time.time + autoShootDuration;
-			//Debug.Log( "New auto shoot end time : " + autoShootEndTime );
 			positionToShootAt	= targetPosition;
 		}
 
@@ -62,10 +61,12 @@ namespace Tenet.NPC
 			Vector3 shootDir = positionToShootAt - weapon.gameObject.transform.position;
 			shootDir.Normalize();
 			float percentageAccuracy = currAccuracy / maxAccuracy;
-			//Debug.Log( "Rotate n shoot : " + percentageAccuracy );
-			//weapon.gameObject.transform.forward = Vector3.Lerp( weapon.gameObject.transform.forward, shootDir, percentageAccuracy );
 			weapon.gameObject.transform.forward = Vector3.SmoothDamp( weapon.gameObject.transform.forward, shootDir, ref velocity, 0.3f);
-			weapon.TryShoot();
+			if (!weapon.TryShoot())
+			{
+				// check if weapon does not have ammo, reload if true
+				//weapon.
+			}
 		}
 
 		void ResetAccuracy()

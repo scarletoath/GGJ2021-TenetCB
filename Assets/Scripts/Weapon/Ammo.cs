@@ -130,7 +130,11 @@ namespace Tenet.Weapon
             bool HasApplied = false;
 			foreach (var Collider in Colliders)
 			{
-                HasApplied |= ApplyDamage(Collider.gameObject, Marker);
+				// 9 is player, 10 is enemy
+				if( Collider.gameObject.layer >= 9 )
+				{
+					HasApplied |= ApplyDamage( Collider.gameObject, Marker );
+				}
 			}
             return HasApplied;
 		}
