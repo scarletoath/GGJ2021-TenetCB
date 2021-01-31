@@ -74,9 +74,10 @@ namespace Tenet.GameMode
 			return Value;
 		}
 
-		public bool CanUseWeapon(InversionState InversionState, Ammo AmmoType, Transform StartPoint, out HistoryMarker Marker)
+		public bool CanUseWeapon(InversionState InversionState, Ammo AmmoType, Transform StartPoint, out HistoryMarker Marker, out AmmoDrop AmmoDrop)
 		{
 			Marker = null;
+			AmmoDrop = null;
 			switch (InversionState)
 			{
 				case InversionState.Normal:
@@ -90,6 +91,10 @@ namespace Tenet.GameMode
 					long NewestTimestamp = long.MinValue;
 					foreach (var Result in Results)
 					{
+						if (Result.TryGetComponent(out AmmoDrop))
+						{
+							return true;
+						}
 						if (Result.TryGetComponent(out HistoryMarker ResultMarker) && ResultMarker.GetLastRecord().Timestamp > NewestTimestamp) // assume if it exists it has a record; if no records it should already be removed
 						{
 							Marker = ResultMarker;
@@ -172,6 +177,43 @@ namespace Tenet.GameMode
 							yield return HealthLossInterval;
 						}
 					}
+					break;
+			}
+		}
+
+		public void ConsumeAmmoDrop(InversionState InversionState, AmmoDrop AmmoDrop, Weapon.Weapon Weapon)
+		{
+			var Position = AmmoDrop.transform.position + UnityEngine.Random.insideUnitSphere; ;
+			var InitialDirection = (Weapon.transform.position - Position).normalized;
+			Weapon.CurrentAmmo.CreateProjectile(Position + InitialDirection * 0.25f, Quaternion.LookRotation(InitialDirection), Weapon.transform); // Small depentration to prevent self-collision with original target
+			Weapon.CurrentAmmo.Add(1, true);
+		}
+
+		public void DestroyAmmoDrop(InversionState InversionState, AmmoDrop AmmoDrop, Player Player)
+		{
+			switch (InversionState)
+			{
+				case InversionState.Normal:
+					foreach (var Marker in Player.GetAllMarkers())
+					{
+						var Direction = UnityEngine.Random.insideUnitSphere;
+						var Position = AmmoDrop.transform.position + Direction * AmmoDrop.BurstRadius;
+						if (Physics.SphereCast(AmmoDrop.transform.position, Marker.TriggerRadius, Direction, out var Hit, AmmoDrop.BurstRadius)) // Collision in direction towards offset
+						{
+							Position = Hit.point;
+							Direction = Hit.normal;
+						}
+						else if (Physics.SphereCast(Position, Marker.TriggerRadius, Vector3.down, out Hit)) // Thunk collision from offset
+						{
+							Position = Hit.point;
+							Direction = Hit.normal;
+						}
+						Instantiate(Marker, Position, Quaternion.LookRotation(Direction)).gameObject.SetActive(true);
+					}
+					Destroy(AmmoDrop.gameObject);
+					break;
+				case InversionState.Inverted:
+					Player.CollectAmmoDrop(AmmoDrop);
 					break;
 			}
 		}

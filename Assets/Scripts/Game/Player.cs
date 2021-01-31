@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Tenet.Triggers;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -184,5 +185,30 @@ namespace Tenet.Game
                 SessionManager.Instance.ActivateInversion();
 			}
 		}
-    }
+
+		private void OnTriggerEnter(Collider other)
+		{
+			if (other.TryGetComponent(out AmmoDrop AmmoDrop)) // Collect ammo drop if it is one
+			{
+                CollectAmmoDrop(AmmoDrop);
+			}
+		}
+
+        public void CollectAmmoDrop(AmmoDrop AmmoDrop)
+		{
+			foreach (var Weapon in Weapons)
+			{
+				SessionManager.Instance.GameMode.ConsumeAmmoDrop(SessionManager.Instance.CurrentInversionState, AmmoDrop, Weapon);
+			}
+			Destroy(AmmoDrop.gameObject);
+		}
+
+        public IEnumerable<HistoryMarker> GetAllMarkers()
+        {
+			foreach (var Weapon in Weapons)
+			{
+                yield return Weapon.CurrentAmmo.MarkerPrefab;
+			}
+		}
+	}
 }

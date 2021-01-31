@@ -54,6 +54,7 @@ namespace Tenet.Weapon
 		}
 
 		public DamageType Type => DamageType;
+		public HistoryMarker MarkerPrefab => Marker;
 
 		public bool IsEmpty => CurrentCount == 0;
         public bool IsFull => CurrentCount == ClipCount;
