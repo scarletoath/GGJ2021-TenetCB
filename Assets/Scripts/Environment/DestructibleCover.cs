@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tenet.Triggers;
+using Tenet.Weapon;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -14,13 +16,23 @@ namespace Tenet.Environment
         [SerializeField] private GameObject DestructionObject;
 		[SerializeField] private float TargetRebuildDuration = 0.3f; // seconds
 
+		[Space]
+
+		[SerializeField] private HistoryTarget HistoryTarget;
+		[SerializeField] private DamageType DamageType;
+
 		private Animation[] DestructionAnims;
 		private Coroutine AnimCoroutine;
 
 		private void Awake()
 		{
-			DestructionAnims = DestructionObject.GetComponentsInChildren<Animation>();
-			DestructionObject.SetActive(false);
+			if (DestructionObject != null)
+			{
+				DestructionAnims = DestructionObject.GetComponentsInChildren<Animation>();
+				DestructionObject.SetActive(false);
+			}
+
+			HistoryTarget.OnMarkerChanged += CheckDestroyRebuild;
 		}
 
 		public bool IsDestroyed { get; private set; }
@@ -31,13 +43,17 @@ namespace Tenet.Environment
 				return;
 
 			NormalObject.SetActive(false);
-			DestructionObject.SetActive(true);
-			foreach (var Anim in DestructionAnims)
+			if (DestructionObject != null)
 			{
-				var State = Anim[Anim.clip.name];
-				State.speed = 1;
-				State.normalizedTime = 0;
-				Anim.Play(State.name);
+				DestructionObject.SetActive(true);
+				foreach (var Anim in DestructionAnims)
+				{
+					var State = Anim[Anim.clip.name];
+					State.speed = 1;
+					State.normalizedTime = 0;
+					Anim.Play(State.name);
+				}
+
 			}
 			if (AnimCoroutine != null)
 				StopCoroutine(AnimCoroutine);
@@ -50,33 +66,50 @@ namespace Tenet.Environment
 			if (!IsDestroyed)
 				return;
 
-			float MaxDuration = 0;
-			foreach (var Anim in DestructionAnims)
+			if (DestructionObject != null)
 			{
-				var State = Anim[Anim.clip.name];
-				MaxDuration = Mathf.Max(MaxDuration, State.length);
-			}
+				float MaxDuration = 0;
+				foreach (var Anim in DestructionAnims)
+				{
+					var State = Anim[Anim.clip.name];
+					MaxDuration = Mathf.Max(MaxDuration, State.length);
+				}
 
-			bool OverrideRebuildDuration = TargetRebuildDuration > 0 && TargetRebuildDuration < MaxDuration;
-			float TargetSpeed = OverrideRebuildDuration ? -MaxDuration / TargetRebuildDuration : -1f;
-			foreach (var Anim in DestructionAnims)
-			{
-				var State = Anim[Anim.clip.name];
-				State.speed = TargetSpeed;
-				State.normalizedTime = 1;
-				Anim.Play(State.name);
-			}
-			if (AnimCoroutine != null)
-				StopCoroutine(AnimCoroutine);
-			AnimCoroutine = StartCoroutine(WaitForAnimCompletion(OverrideRebuildDuration ? TargetRebuildDuration : MaxDuration));
-			IsDestroyed = false;
+				bool OverrideRebuildDuration = TargetRebuildDuration > 0 && TargetRebuildDuration < MaxDuration;
+				float TargetSpeed = OverrideRebuildDuration ? -MaxDuration / TargetRebuildDuration : -1f;
+				foreach (var Anim in DestructionAnims)
+				{
+					var State = Anim[Anim.clip.name];
+					State.speed = TargetSpeed;
+					State.normalizedTime = 1;
+					Anim.Play(State.name);
+				}
+				if (AnimCoroutine != null)
+					StopCoroutine(AnimCoroutine);
+				AnimCoroutine = StartCoroutine(WaitForAnimCompletion(OverrideRebuildDuration ? TargetRebuildDuration : MaxDuration));
 
-			IEnumerator WaitForAnimCompletion (float Duration)
+				IEnumerator WaitForAnimCompletion(float Duration)
+				{
+					yield return new WaitForSeconds(Duration);
+					NormalObject.SetActive(true);
+					DestructionObject.SetActive(false);
+				}
+			}
+			else
 			{
-				yield return new WaitForSeconds(Duration);
 				NormalObject.SetActive(true);
-				DestructionObject.SetActive(false);
 			}
+			IsDestroyed = false;
+		}
+
+		private void CheckDestroyRebuild(HistoryMarker Marker, bool IsAdded)
+		{
+			if (Marker.Type != DamageType) // Only change state if Marker's type matches
+				return;
+			if (IsAdded)
+				Destroy();
+			else
+				Rebuild();
 		}
 
 #if UNITY_EDITOR

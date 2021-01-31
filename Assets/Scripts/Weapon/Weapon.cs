@@ -87,7 +87,7 @@ namespace Tenet.Weapon
 
         public bool TryShoot ()
         {
-            if (!SessionManager.Instance.GameMode.CanUseWeapon(SessionManager.Instance.CurrentInversionState, ProjectileSpawnPoint, out var Marker))
+            if (!SessionManager.Instance.GameMode.CanUseWeapon(SessionManager.Instance.CurrentInversionState, CurrentAmmoType, ProjectileSpawnPoint, out var Marker))
             {
                 return false;
 			}

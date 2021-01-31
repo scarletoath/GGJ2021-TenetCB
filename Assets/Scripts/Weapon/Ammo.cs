@@ -8,8 +8,18 @@ using UnityEngine;
 namespace Tenet.Weapon
 {
 
-    public class Ammo : MonoBehaviour
+	public enum DamageType
+	{
+		Normal,
+		Explosive,
+	}
+
+	public class Ammo : MonoBehaviour
     {
+
+		[SerializeField] private DamageType DamageType = DamageType.Normal;
+
+		[Space]
 
         [SerializeField] private int MaxCount = 15;
         [SerializeField] private int ClipCount = 15;
@@ -30,10 +40,11 @@ namespace Tenet.Weapon
 		private void Awake()
 		{
 			Marker.gameObject.SetActive(false);
-			Marker.Configure(this);
             SpareCount = MaxCount;
 			Refill();
 		}
+
+		public DamageType Type => DamageType;
 
 		public bool IsEmpty => CurrentCount == 0;
         public bool IsFull => CurrentCount == ClipCount;
@@ -65,7 +76,6 @@ namespace Tenet.Weapon
 			if (MarkerInstance == null)
 			{
 				MarkerInstance = Instantiate(Marker, Position, Quaternion.LookRotation(Direction));
-				MarkerInstance.Configure(this);
 				MarkerInstance.gameObject.SetActive(true);
 			}
             return MarkerInstance;
