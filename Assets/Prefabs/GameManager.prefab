@@ -118,11 +118,11 @@ MonoBehaviour:
     WeaponBlackoutMultiplier: 1
     WeaponConfigurations:
     - Name: Pistol
-      StartInClipRange: {x: 1, y: 1}
-      StartTotalRange: {x: 10, y: 10}
+      StartInClipRange: {x: 4, y: 7}
+      StartTotalRange: {x: 14, y: 21}
     - Name: RPG
-      StartInClipRange: {x: 1, y: 1}
-      StartTotalRange: {x: 10, y: 10}
+      StartInClipRange: {x: 1, y: 2}
+      StartTotalRange: {x: 3, y: 5}
     InversionMaxDuration: 15
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 1
@@ -164,11 +164,11 @@ MonoBehaviour:
     WeaponBlackoutMultiplier: 1
     WeaponConfigurations:
     - Name: Pistol
-      StartInClipRange: {x: 5, y: 15}
-      StartTotalRange: {x: 100, y: 200}
+      StartInClipRange: {x: 2, y: 5}
+      StartTotalRange: {x: 10, y: 17}
     - Name: RPG
-      StartInClipRange: {x: 1, y: 5}
-      StartTotalRange: {x: 15, y: 30}
+      StartInClipRange: {x: 1, y: 2}
+      StartTotalRange: {x: 2, y: 4}
     InversionMaxDuration: 7
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 0.85
@@ -211,11 +211,11 @@ MonoBehaviour:
     WeaponBlackoutMultiplier: 1
     WeaponConfigurations:
     - Name: Pistol
-      StartInClipRange: {x: 1, y: 1}
-      StartTotalRange: {x: 10, y: 10}
+      StartInClipRange: {x: 0, y: 2}
+      StartTotalRange: {x: 8, y: 15}
     - Name: RPG
       StartInClipRange: {x: 1, y: 1}
-      StartTotalRange: {x: 10, y: 10}
+      StartTotalRange: {x: 2, y: 3}
     InversionMaxDuration: 2
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 0.75
