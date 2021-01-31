@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   isForward: 0
-  detectionRadius: 0
+  detectionRadius: 25
   isDebug: 0
   ForwardDeathParticle: {fileID: 8194911512057338182, guid: c721dbd3fb932ca49b7bb10ca894423a, type: 3}
   InverseDeathParticle: {fileID: 4722384088147044624, guid: 3a4ebf1c83af3b34c90e6c827971f592, type: 3}

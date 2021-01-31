@@ -19,7 +19,7 @@ namespace Tenet.NPC
 		private Vector3 velocity = Vector3.zero;
 
 		Weapon.Weapon weapon = null;
-		[SerializeField] readonly Weapon.Weapon [] UsableWeapons;
+		[SerializeField] Weapon.Weapon [] UsableWeapons;
 
 		// Start is called before the first frame update
 		void Start()

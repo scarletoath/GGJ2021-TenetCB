@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Tenet.Weapon;
 using UnityEngine;
+using Tenet.Game;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -31,8 +32,13 @@ namespace Tenet.Triggers
 
 		[SerializeField] private DamageType DamageType;
 		[SerializeField] private SphereCollider Trigger;
+		[SerializeField] private Transform RendererRoot;
 
         private readonly Stack<HistoryInfo> History = new Stack<HistoryInfo>();
+
+		private readonly Dictionary<InversionState, GameObject> StateVisuals = new Dictionary<InversionState, GameObject>();
+		private GameObject CurrentVisual;
+		private bool IsHighlighted;
 
 		public float TriggerRadius => Trigger.radius;
 
@@ -42,6 +48,33 @@ namespace Tenet.Triggers
 			{
 				DamageType = (DamageType)(UnityEngine.Random.Range(0, (int)DamageType.Random) % NumNonRandomDamageTypes);
 			}
+			SessionManager.Instance.OnInversionStateChanged += ChangeVisuals;
+			ChangeVisuals(SessionManager.Instance.CurrentInversionState);
+		}
+
+		private void OnDestroy()
+		{
+			SessionManager.Instance.OnInversionStateChanged -= ChangeVisuals;
+		}
+
+		public void ChangeVisuals(InversionState InversionState)
+		{
+			if (CurrentVisual != null)
+				CurrentVisual.SetActive(false);
+			var InversionStateKey = IsHighlighted ? (InversionState) -(int)InversionState : InversionState;
+			if (!StateVisuals.TryGetValue(InversionStateKey, out var Visual))
+			{
+				var Profile = SessionManager.Instance.GameMode.GetInversionStateProfile(InversionState);
+				Visual = IsHighlighted ? Profile?.MarkerVisualHighlighted : Profile?.MarkerVisual; // prefab
+				if (Visual != null)
+				{
+					Visual = Instantiate(Visual, RendererRoot.position, RendererRoot.rotation, RendererRoot); // instance
+					StateVisuals.Add(InversionStateKey, Visual);
+				}
+			}
+			CurrentVisual = Visual;
+			if (!Visual.activeSelf)
+				Visual.SetActive(true);
 		}
 
 		public HistoryMarker FindAtLocation(Vector3 Location)
@@ -67,6 +100,7 @@ namespace Tenet.Triggers
 		public void Enable (bool IsEnable)
 		{
 			enabled = Trigger.enabled = IsEnable;
+			RendererRoot.gameObject.SetActive(IsEnable);
 		}
 
 		public DamageType Type => DamageType;
@@ -103,6 +137,24 @@ namespace Tenet.Triggers
 				return Info;
 			}
 			return null;
+		}
+
+		private void OnTriggerEnter(Collider other)
+		{
+			if (other.GetComponentInParent<Player>())
+			{
+				IsHighlighted = true;
+				ChangeVisuals(SessionManager.Instance.CurrentInversionState);
+			}
+		}
+
+		private void OnTriggerExit(Collider other)
+		{
+			if (other.GetComponentInParent<Player>())
+			{
+				IsHighlighted = false;
+				ChangeVisuals(SessionManager.Instance.CurrentInversionState);
+			}
 		}
 
 #if UNITY_EDITOR

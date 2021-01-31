@@ -28,9 +28,54 @@ namespace Tenet.NPC
 			health	= maxHealth;
 		}
 
-        // Update is called once per frame
-        void Update()
+  //      // Update is called once per frame
+  //      void Update()
+		//{
+		//	if( playerCollider != null )
+		//	{
+		//		Vector3 playerPos = playerCollider.transform.position;
+		//		Vector3 playerDir = playerPos - transform.position;
+		//		playerDir.Normalize();
+		//		RaycastHit hit;
+
+		//		if( Physics.Raycast( transform.position, playerDir, out hit, Mathf.Infinity, playerLayerMask ) )
+		//		{
+		//			if( turret != null )
+		//			{
+		//				turret.StartShootingAtPosition( playerPos );
+		//			}
+
+		//			if( isDebug )
+		//			{
+		//				Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.green, 2.0f );
+		//			}
+		//		}
+		//		else
+		//		{
+		//			if( isDebug )
+		//			{
+		//				Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.red, 2.0f );
+		//			}
+		//		}
+		//	}
+		//}
+
+		void FixedUpdate()
 		{
+			var Colliders = Physics.OverlapSphere( transform.position, detectionRadius );
+
+			playerCollider = null;
+			foreach( var Collider in Colliders )
+			{
+				Game.Player player = Collider.gameObject.GetComponent<Game.Player>();
+				if( player != null )
+				{
+					playerLayerMask = 1 << player.gameObject.layer;
+					playerCollider = player.GetComponent<Collider>();
+					playerCollider = Collider;
+				}
+			}
+
 			if( playerCollider != null )
 			{
 				Vector3 playerPos = playerCollider.transform.position;
@@ -56,23 +101,6 @@ namespace Tenet.NPC
 					{
 						Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.red, 2.0f );
 					}
-				}
-			}
-		}
-
-		void FixedUpdate()
-		{
-			var Colliders = Physics.OverlapSphere( transform.position, detectionRadius );
-
-			playerCollider = null;
-			foreach( var Collider in Colliders )
-			{
-				Game.Player player = Collider.gameObject.GetComponent<Game.Player>();
-				if( player != null )
-				{
-					playerLayerMask = 1 << player.gameObject.layer;
-					playerCollider = player.GetComponent<Collider>();
-					playerCollider = Collider;
 				}
 			}
 		}

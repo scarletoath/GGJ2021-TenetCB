@@ -38,6 +38,7 @@ namespace Tenet.Weapon
 
         private int SpareCount;
         private int CurrentCount;
+		public bool IsPlayer;
 
 		private void Awake()
 		{
@@ -114,9 +115,25 @@ namespace Tenet.Weapon
 					Target.RegisterMarker(Marker);
 					Marker.GetLastRecord().AffectedTargets.Add(Target);
 				}
+
+				// 9 is player, 10 is enemy
+				if( TargetGameObject.layer >= 9 )
+				{ }
+
 				if (TargetGameObject.GetComponentInParent<IHealth>() is IHealth IHealth)
 				{
-					IHealth.Damage(Damage);
+					Debug.Log( "TargetGameObject.layer : " + TargetGameObject.layer + " | IsPlayer? " + IsPlayer);
+					if( TargetGameObject.layer == 9 && !IsPlayer )
+					{
+						if ( IHealth.Damage( Damage ) <= 0.0f )
+						{
+							UnityEngine.SceneManagement.SceneManager.LoadScene( "Main Menu", UnityEngine.SceneManagement.LoadSceneMode.Single );
+						}
+					}
+					else if( TargetGameObject.layer == 10 && IsPlayer )
+					{
+						IHealth.Damage(Damage);
+					}
 					return true;
 				}
 			}
@@ -130,11 +147,7 @@ namespace Tenet.Weapon
             bool HasApplied = false;
 			foreach (var Collider in Colliders)
 			{
-				// 9 is player, 10 is enemy
-				if( Collider.gameObject.layer >= 9 )
-				{
-					HasApplied |= ApplyDamage( Collider.gameObject, Marker );
-				}
+				HasApplied |= ApplyDamage( Collider.gameObject, Marker );
 			}
             return HasApplied;
 		}

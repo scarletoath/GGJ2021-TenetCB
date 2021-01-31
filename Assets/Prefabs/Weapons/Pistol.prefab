@@ -224,6 +224,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HistoryMarker_Bullet
       objectReference: {fileID: 0}
+    - target: {fileID: 3081154810636895017, guid: ac4bc763b3cfcfe479956aab63093d1c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8083404954046973235, guid: ac4bc763b3cfcfe479956aab63093d1c, type: 3}
       propertyPath: m_RootOrder
       value: 1
