@@ -58,6 +58,8 @@ namespace Tenet.Game
 
 		internal void StartLevel()
 		{
+			CurrentInversionState = DifficultySettings.Instance.CurrentDifficulty.GetRandomInversionState(); // Need to do this first so that anything in the level that relies on it queries the correct state
+
 			var StartTile = GenerateLevel();
 			var Landmarks = LevelGenerator.GetTilesForTag("Landmark"); // Hard-coded like a MF, no good place to store this
 			var LookAtLandmark = Landmarks[UnityEngine.Random.Range(0, Landmarks.Count)];
@@ -65,7 +67,6 @@ namespace Tenet.Game
 			Player.transform.position = StartTile.transform.position + Vector3.up;
 			Player.transform.forward = LookAtDir;
 			Player.Enable(true);
-			CurrentInversionState = DifficultySettings.Instance.CurrentDifficulty.GetRandomInversionState();
 			RefreshInversion();
 			UnityEngine.Debug.Log($"Player start facing {LookAtLandmark.name} with rotation = {Quaternion.LookRotation(LookAtDir).eulerAngles} and initial inversion state = {CurrentInversionState}", LookAtLandmark);
 		}
