@@ -15,6 +15,14 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 60343464712467305, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
+      propertyPath: UsableWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 7090843454776542283, guid: ec8c5669844ae2d47bd690cb025af39d, type: 3}
+    - target: {fileID: 60343464712467305, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
+      propertyPath: UsableWeapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 5007106274976154127, guid: a1c8581bb60d77f42812dc7085c3b6d6, type: 3}
     - target: {fileID: 1449382730220950064, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
       propertyPath: m_Name
       value: TestTarget Variant

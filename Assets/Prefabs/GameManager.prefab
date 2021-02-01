@@ -154,6 +154,8 @@ MonoBehaviour:
     - Verticality
     - Simple
     TilePatterns:
+    - {fileID: 6865067194589089316, guid: 74e6d349a8b0fff4088a1d3434fac222, type: 3}
+    - {fileID: 6253324031318218260, guid: b35013d44e886fa4b8c19ef779a67099, type: 3}
     - {fileID: 1892286679096750158, guid: f4085ceab26924b469b13bea0a45e9f0, type: 3}
     - {fileID: 1384766325256355178, guid: 61916f947c0c23143be71b9093303e7c, type: 3}
     - {fileID: 7696737824638535622, guid: 45ee863637b458f46a22ed4824afca47, type: 3}
@@ -199,6 +201,8 @@ MonoBehaviour:
     - Verticality
     - Complex
     TilePatterns:
+    - {fileID: 1536457501810267314, guid: 8b651033761e9724db6b0deb8852f0d6, type: 3}
+    - {fileID: 8803991480852554634, guid: 85d0de5db2e12be478f9b3c9344ad26d, type: 3}
     - {fileID: 4187642526057872996, guid: 89533f5868b1a0043bff769cf2baa930, type: 3}
     - {fileID: 7556789858751074586, guid: 132f0436eeaa9504d8a280edb11fa0a6, type: 3}
     - {fileID: 5650066172811749293, guid: 207fd16c8516c084dbe1010b467102c0, type: 3}
@@ -244,8 +248,10 @@ MonoBehaviour:
     - Verticality
     - Extreme
     TilePatterns:
-    - {fileID: 2579119152743999946, guid: ad651e7071955c84ea27fd639ea98322, type: 3}
+    - {fileID: 8202548836543278150, guid: 10600b4a518959d4a8ceea2bb98c9766, type: 3}
+    - {fileID: 7821118189927091627, guid: 1747380568e13f542a030ef58cf98b4f, type: 3}
     - {fileID: 5164230201337496657, guid: 71d6d9092fa0d614290eb0d80f82dcd3, type: 3}
+    - {fileID: 2579119152743999946, guid: ad651e7071955c84ea27fd639ea98322, type: 3}
     - {fileID: 5350467298001405730, guid: bae7b08bc5cb59e4eb91891b562c55fc, type: 3}
 --- !u!114 &5484344037062922497
 MonoBehaviour:
