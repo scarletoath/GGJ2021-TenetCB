@@ -16,6 +16,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 60343464712467305, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
+      propertyPath: baseAccuracy
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 60343464712467305, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
+      propertyPath: durationToReachMaxAccuracy
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 60343464712467305, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
       propertyPath: UsableWeapons.Array.data[0]
       value: 
       objectReference: {fileID: 7090843454776542283, guid: ec8c5669844ae2d47bd690cb025af39d, type: 3}
