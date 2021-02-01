@@ -67,11 +67,9 @@ namespace Tenet.NPC
 			playerCollider = null;
 			foreach( var Collider in Colliders )
 			{
-				Game.Player player = Collider.gameObject.GetComponent<Game.Player>();
-				if( player != null )
+				if (Collider.gameObject.TryGetComponent(out Game.Player player))
 				{
 					playerLayerMask = 1 << player.gameObject.layer;
-					playerCollider = player.GetComponent<Collider>();
 					playerCollider = Collider;
 				}
 			}
