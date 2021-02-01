@@ -42,7 +42,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 3, z: 0}
+  - {x: 0, y: 0, z: 3}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -228,11 +228,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8678084597166365328, guid: 1bd7e537bb54cef488c8cd8f7dc3d429, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8678084597166365328, guid: 1bd7e537bb54cef488c8cd8f7dc3d429, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8678084597166365328, guid: 1bd7e537bb54cef488c8cd8f7dc3d429, type: 3}
       propertyPath: m_LocalPosition.x
