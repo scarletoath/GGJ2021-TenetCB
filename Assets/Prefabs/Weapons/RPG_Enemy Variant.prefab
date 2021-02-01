@@ -116,7 +116,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4987184342446102107, guid: 5d37b5a2202454149a606c2da1767ffd, type: 3}
       propertyPath: BlackoutDuration
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2787294967986285096, guid: 5d37b5a2202454149a606c2da1767ffd, type: 3}
       propertyPath: m_Name

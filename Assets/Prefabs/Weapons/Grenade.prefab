@@ -46,11 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1635656a790636940a61a6a877bd1c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 30
+  Speed: 75
   MaxLifetime: 3.5
   DestroyAfterLifetime: 0
   DestroyOnDamage: 1
-  DamageOnCollision: 0
+  DamageOnCollision: 1
   KinematicOnDamage: 0
   RandomSpin: 1
   Rigidbody: {fileID: 1676144803591018585}
