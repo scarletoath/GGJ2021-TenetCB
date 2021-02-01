@@ -20,6 +20,10 @@ PrefabInstance:
       value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 60343464712467305, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
+      propertyPath: UsableWeapons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 60343464712467305, guid: fbf6ffa09b81c1d4c82617ba97e0d555, type: 3}
       propertyPath: durationToReachMaxAccuracy
       value: 30
       objectReference: {fileID: 0}
