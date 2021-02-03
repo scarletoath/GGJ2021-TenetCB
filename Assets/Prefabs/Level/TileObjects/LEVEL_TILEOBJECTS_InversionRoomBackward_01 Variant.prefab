@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1470719239345053537, guid: ad3cc9ef84568dd46870dc6941f5c8e3, type: 3}
       propertyPath: m_Name
-      value: LEVEL_TILEOBJECTS_InversionRoom_Backward_01
+      value: LEVEL_TILEOBJECTS_InversionRoomBackward_01 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1470719239345053538, guid: ad3cc9ef84568dd46870dc6941f5c8e3, type: 3}
       propertyPath: m_RootOrder
