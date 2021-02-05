@@ -144,11 +144,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c09bb8b1477b43408e5607a3ba30611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NormalObject: {fileID: 0}
+  NormalObject: {fileID: 2535768999304816012}
   DestructionObject: {fileID: 8643119259401164653}
   TargetRebuildDuration: 0.3
   HistoryTarget: {fileID: 6233413013895107793}
   DamageType: 0
+  AudioSource: {fileID: 0}
 --- !u!114 &6233413013895107793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +237,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46a9a27d48333b14686cbb77a894b293, type: 3}
+--- !u!1 &2535768999304816012 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 46a9a27d48333b14686cbb77a894b293, type: 3}
+  m_PrefabInstance: {fileID: 3454742129309374685}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2916939292061384502 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 46a9a27d48333b14686cbb77a894b293, type: 3}
