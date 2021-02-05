@@ -51,7 +51,8 @@ MonoBehaviour:
   DestructionObject: {fileID: 5018532165203798319}
   TargetRebuildDuration: 0.3
   HistoryTarget: {fileID: 8360295897689285434}
-  DamageType: 0
+  DamageType: 1
+  AudioSource: {fileID: 0}
 --- !u!114 &8360295897689285434
 MonoBehaviour:
   m_ObjectHideFlags: 0

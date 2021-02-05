@@ -20,7 +20,7 @@ MonoBehaviour:
     MarkerVisual: {fileID: 5667290273926175009, guid: 29362668090bc624a90c3090a944c0d6, type: 3}
     MarkerVisualHighlighted: {fileID: 0}
   - Name: Inverted
-    Color: {r: 0, g: 0, b: 1, a: 1}
+    Color: {r: 0, g: 0.18561697, b: 1, a: 1}
     VolumeProfile: {fileID: 11400000, guid: d63b9becec8de074d86f7fff977897c7, type: 2}
     SoundClip: {fileID: 8300000, guid: 72582256bdf3ebd41bc09770384db6f5, type: 3}
     MarkerVisual: {fileID: 3312974420882932165, guid: cab4e4fb89ee5de4b93bfd18e9c79058, type: 3}
