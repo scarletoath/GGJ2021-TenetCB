@@ -50,6 +50,14 @@ namespace Tenet.Game
 			{
 				GodMode = !GodMode;
 			}
+			if (Input.GetKeyUp(KeyCode.Home))
+			{
+				EndLevel(true);
+			}
+			if (Input.GetKeyUp(KeyCode.End))
+			{
+				EndLevel(false);
+			}
 		}
 
 		private readonly Stopwatch InversionTimer = new Stopwatch();

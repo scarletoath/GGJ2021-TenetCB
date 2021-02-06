@@ -26,7 +26,7 @@ namespace Tenet.UI
 
 		private Vector3 CameraMoveDir;
 
-		private void Start()
+		private void Awake()
 		{
 			if (Difficulty == -1) // Only set if never set before
 				Difficulty = DifficultySettings.Instance.Default;
@@ -43,8 +43,11 @@ namespace Tenet.UI
 				if (InitialToggle != null)
 					InitialToggle.isOn = true;
 			}
+
 			SessionManager.Instance.GenerateLevel();
 			StartCoroutine(PlayCameraAnim(LevelGen.GetBounds()));
+
+			Cursor.lockState = CursorLockMode.None;
 		}
 
 		private void Update()
