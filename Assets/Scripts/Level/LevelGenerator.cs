@@ -83,7 +83,7 @@ namespace Tenet.Level
 			{
 				var TagCount = UnityEngine.Random.Range(Tag.MinCount, Tag.MaxCount + 1);
 				Debug.Log($"- Reserved {TagCount} tiles for reserved tag = {Tag.Tag}.");
-				for (int i = 0; i < TagCount; i++, TileIndex++)
+				for (int i = 0; i < TagCount && TileIndex < Tiles.Count; i++, TileIndex++)
 				{
 					var Tile = Tiles[TileIndex];
 					Tile.AssignedTag = Tag.Tag;
