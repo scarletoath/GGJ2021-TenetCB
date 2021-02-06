@@ -36,7 +36,8 @@ namespace Tenet.Environment
 				DestructionObject.SetActive(false);
 			}
 
-			HistoryTarget.OnMarkerChanged += CheckDestroyRebuild;
+			if (HistoryTarget != null)
+				HistoryTarget.OnMarkerChanged += CheckDestroyRebuild;
 			if (AudioSource != null)
 			{
 				AudioSource.playOnAwake = false;

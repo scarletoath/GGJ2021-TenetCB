@@ -37,7 +37,7 @@ namespace Tenet.UI
 				Toggle InitialToggle = null;
 				foreach (var Toggle in DifficultyGroup.GetComponentsInChildren<Toggle>())
 				{
-					InitialToggle = InitialToggle == null || Index == DifficultySettings.Instance.Default ? Toggle : InitialToggle;
+					InitialToggle = InitialToggle == null || Index == Difficulty ? Toggle : InitialToggle;
 					++Index;
 				}
 				if (InitialToggle != null)
