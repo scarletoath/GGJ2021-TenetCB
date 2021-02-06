@@ -15,6 +15,7 @@ namespace Tenet.UI
 
 		[SerializeField] private GraphicRaycaster Raycaster;
 		[SerializeField] private LevelGenerator LevelGen;
+		[SerializeField] private ToggleGroup DifficultyGroup;
 		[SerializeField] private Camera Camera;
 		[SerializeField] private float CameraInterval = 5.0f;
 		[SerializeField] private float CameraMoveSpeed = 1.0f;
@@ -29,6 +30,19 @@ namespace Tenet.UI
 		{
 			if (Difficulty == -1) // Only set if never set before
 				Difficulty = DifficultySettings.Instance.Default;
+
+			if (DifficultyGroup != null) // Set initial active difficulty toggle
+			{
+				int Index = 0;
+				Toggle InitialToggle = null;
+				foreach (var Toggle in DifficultyGroup.GetComponentsInChildren<Toggle>())
+				{
+					InitialToggle = InitialToggle == null || Index == DifficultySettings.Instance.Default ? Toggle : InitialToggle;
+					++Index;
+				}
+				if (InitialToggle != null)
+					InitialToggle.isOn = true;
+			}
 			SessionManager.Instance.GenerateLevel();
 			StartCoroutine(PlayCameraAnim(LevelGen.GetBounds()));
 		}
@@ -40,6 +54,7 @@ namespace Tenet.UI
 
 		public void StartGame()
         {
+			Debug.Assert(Difficulty != -1, "Cannot start game with invalid difficulty.");
 			Raycaster.enabled = false;
 			Fader.transform.SetAsLastSibling();
 			StartCoroutine(FadeThenStart());

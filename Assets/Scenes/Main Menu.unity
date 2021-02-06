@@ -732,8 +732,9 @@ MonoBehaviour:
   m_text: "<align=\"center\"><size=96>CREDITS</size>\n\n<size=48>Global Game Jam
     2021 Austin Texas - Play My CB</size></align>\n\n\t\t\t\tEngineers\n\t\t\t\t\tSee
     Shuen Leong (Sam)\n\t\t\t\t\tWei Liang Tan\n\n\t\t\t\tDesigners\n\t\t\t\t\tSee
-    Ming Leong\n\n\t\t\t\t2D Art/Textures\n\t\t\t\t\tKillian Glenn\n\t\t\t\t\tDustin Lynch\n\n\t\t\t\tModelling/Animation\n\t\t\t\t\tRemus
-    Wong\n\t\t\t\t\tMimi Kwan\n\n\t\t\t\tMusic/Sound\n\t\t\t\t\tBeck Rivera"
+    Ming Leong\n\n\t\t\t\t2D Art/Textures\n\t\t\t\t\tKillian Glenn\n\t\t\t\t\tDustin
+    Lynch\n\n\t\t\t\tModelling/Animation\n\t\t\t\t\tRemus Wong\n\t\t\t\t\tMimi Kwan\n\n\t\t\t\tMusic/Sound\n\t\t\t\t\tBeck
+    Rivera"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -901,7 +902,7 @@ GameObject:
   - component: {fileID: 932575897}
   - component: {fileID: 932575896}
   m_Layer: 5
-  m_Name: Toggle (1)
+  m_Name: Toggle - Easy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1013,7 +1014,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &962622555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,7 +1027,7 @@ GameObject:
   - component: {fileID: 962622558}
   - component: {fileID: 962622557}
   m_Layer: 5
-  m_Name: Toggle (2)
+  m_Name: Toggle - Medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1258,6 +1259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Raycaster: {fileID: 1131747709}
   LevelGen: {fileID: 1333776902}
+  DifficultyGroup: {fileID: 1132156401}
   Camera: {fileID: 1178979684}
   CameraInterval: 5
   CameraMoveSpeed: 0.05
@@ -2050,7 +2052,7 @@ GameObject:
   - component: {fileID: 1384277646}
   - component: {fileID: 1384277645}
   m_Layer: 5
-  m_Name: Toggle (3)
+  m_Name: Toggle - Hard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
