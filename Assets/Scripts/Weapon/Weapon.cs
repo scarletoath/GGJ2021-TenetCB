@@ -41,8 +41,8 @@ namespace Tenet.Weapon
 			{
                 CurrentAmmoType.Configure(Config.StartInClipRange.GetRandom(), Config.StartTotalRange.GetRandom());
 			}
-
-			bool IsPlayer = GetComponent<Game.Player>() != null;
+						
+			bool IsPlayer = GetComponentInParent<Game.Player>() != null;
 			foreach( var AmmoType in AmmoTypes )
 			{
 				AmmoType.IsPlayer = IsPlayer;
