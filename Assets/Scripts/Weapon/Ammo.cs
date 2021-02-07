@@ -38,7 +38,6 @@ namespace Tenet.Weapon
 
         private int SpareCount;
         private int CurrentCount;
-		public bool IsPlayer;
 
 		private void Awake()
 		{
@@ -54,6 +53,7 @@ namespace Tenet.Weapon
 			SpareCount = TotalCount;
 		}
 
+		public bool IsPlayerOwned { get; set; }
 		public DamageType Type => DamageType;
 		public HistoryMarker MarkerPrefab => Marker;
 
@@ -68,10 +68,11 @@ namespace Tenet.Weapon
 
 		private void OnGUI()
 		{
-            using (new GUILayout.AreaScope(new Rect(Screen.width - 200, 0, 200, 50), string.Empty, GUI.skin.box))
-            {
-                GUILayout.Label($"Ammo Type {name}\n{CurrentCount} / {ClipCount}, {SpareCount}");
-			}
+			if (IsPlayerOwned)
+				using (new GUILayout.AreaScope(new Rect(Screen.width - 200, 0, 200, 50), string.Empty, GUI.skin.box))
+				{
+					GUILayout.Label($"Ammo Type {name}\n{CurrentCount} / {ClipCount}, {SpareCount}");
+				}
 		}
 
 		public Projectile CreateProjectile (Vector3 Position, Quaternion Rotation, Transform Target)
@@ -122,8 +123,8 @@ namespace Tenet.Weapon
 
 				if (TargetGameObject.GetComponentInParent<IHealth>() is IHealth IHealth)
 				{
-					Debug.Log( "TargetGameObject.layer : " + TargetGameObject.layer + " | IsPlayer? " + IsPlayer);
-					if( TargetGameObject.layer == 9 && !IsPlayer )
+					Debug.Log( "TargetGameObject.layer : " + TargetGameObject.layer + " | IsPlayer? " + IsPlayerOwned);
+					if( TargetGameObject.layer == 9 && !IsPlayerOwned )
 					{
 						if ( IHealth.Damage( Damage ) <= 0.0f )
 						{

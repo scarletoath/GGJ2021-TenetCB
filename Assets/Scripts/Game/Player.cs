@@ -56,7 +56,7 @@ namespace Tenet.Game
         private void Awake()
         {
             TryGetComponent(out Controller);
-			SessionManager.Instance.SetPlayer(this);
+			SessionManager.Instance?.SetPlayer(this);
         }
 
 		private void Start()
@@ -64,12 +64,18 @@ namespace Tenet.Game
             Weapons = GetComponentsInChildren<Weapon.Weapon>();
 			foreach (var Weapon in Weapons)
 			{
-                Weapon.Activate(false);
+                Weapon.Activate(false, true);
 			}
-            ChangeHealth(DifficultySettings.Instance.CurrentDifficulty.MaxPlayerHealth);
             ChangeWeapon(0);
 
-            SessionManager.Instance.StartLevel();
+            MaxHealth = DifficultySettings.Instance?.CurrentDifficulty.MaxPlayerHealth ?? 100;
+            ChangeHealth(MaxHealth);
+            Debug.Assert(MaxHealth > 0 && CurrentHealth == MaxHealth, "Player's health and max health contains invalid values.", this);
+
+            if (SessionManager.Instance != null)
+                SessionManager.Instance.StartLevel();
+            else
+                Enable(true);
 		}
 
 		// Update is called once per frame
@@ -100,19 +106,20 @@ namespace Tenet.Game
 		}
 
 		public float CurrentHealth => Health;
+		public float MaxHealth { get; private set; }
 		public Weapon.Weapon CurrentWeapon { get; private set; }
 
 		public float Damage(float Amount) => ChangeHealth(-Amount);
-        public float DamagePercent(float Percent) => Damage(Percent * DifficultySettings.Instance.CurrentDifficulty.MaxPlayerHealth);
+        public float DamagePercent(float Percent) => Damage(Percent * MaxHealth);
         public float Heal(float Amount) => ChangeHealth(Amount);
-        public float HealPercent(float Percent) => Heal(Percent * DifficultySettings.Instance.CurrentDifficulty.MaxPlayerHealth);
+        public float HealPercent(float Percent) => Heal(Percent * MaxHealth);
 
         private float ChangeHealth(float Amount)
         {
             if (!Mathf.Approximately(Amount, 0.0f))
             {
                 float PreviousHealth = Health;
-                Health = Mathf.Clamp(Health + Amount, 0, DifficultySettings.Instance.CurrentDifficulty.MaxPlayerHealth);
+                Health = Mathf.Clamp(Health + Amount, 0, MaxHealth);
                 OnHealthChanged?.Invoke(new HealthChangeArgs { Previous = PreviousHealth , Current = Health , Change = Amount });
             }
             return Health;
@@ -123,10 +130,10 @@ namespace Tenet.Game
             var NewWeapon = Weapons[WeaponIndex = Mathf.Clamp(WeaponIndex, 0, Weapons.Length)];
             if (WeaponIndex != CurrentWeaponIndex)
             {
-                CurrentWeapon?.Activate(false);
+                CurrentWeapon?.Activate(false, true);
                 CurrentWeapon = NewWeapon;
                 CurrentWeaponIndex = WeaponIndex;
-                CurrentWeapon?.Activate(true);
+                CurrentWeapon?.Activate(true, true);
                 OnWeaponChanged?.Invoke(CurrentWeapon);
             }
 		}
