@@ -44,11 +44,19 @@ namespace Tenet.Game
 		{
 			if (Input.GetKeyUp(KeyCode.Delete)) // Restart
 			{
-				SceneManager.LoadScene(gameObject.scene.name);
+				RestartLevel();
 			}
 			if (Input.GetKeyUp(KeyCode.F1)) // God mode
 			{
 				GodMode = !GodMode;
+			}
+			if (Input.GetKeyUp(KeyCode.Home))
+			{
+				EndLevel(true);
+			}
+			if (Input.GetKeyUp(KeyCode.End))
+			{
+				EndLevel(false);
 			}
 		}
 
@@ -76,6 +84,11 @@ namespace Tenet.Game
 			Player.Enable(true);
 			RefreshInversion();
 			UnityEngine.Debug.Log($"Player start facing {LookAtLandmark.name} with rotation = {Quaternion.LookRotation(LookAtDir).eulerAngles} and initial inversion state = {CurrentInversionState}", LookAtLandmark);
+		}
+
+		public void RestartLevel()
+		{
+			SceneManager.LoadScene(gameObject.scene.name);
 		}
 
 		public void EndLevel(bool IsWin)

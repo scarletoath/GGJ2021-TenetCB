@@ -48,13 +48,18 @@ namespace Tenet.Triggers
 			{
 				DamageType = (DamageType)(UnityEngine.Random.Range(0, (int)DamageType.Random) % NumNonRandomDamageTypes);
 			}
-			SessionManager.Instance.OnInversionStateChanged += ChangeVisuals;
-			ChangeVisuals(SessionManager.Instance.CurrentInversionState);
+
+			if (SessionManager.Instance != null)
+			{
+				SessionManager.Instance.OnInversionStateChanged += ChangeVisuals;
+				ChangeVisuals(SessionManager.Instance.CurrentInversionState);
+			}
 		}
 
 		private void OnDestroy()
 		{
-			SessionManager.Instance.OnInversionStateChanged -= ChangeVisuals;
+			if (SessionManager.Instance != null)
+				SessionManager.Instance.OnInversionStateChanged -= ChangeVisuals;
 		}
 
 		public void ChangeVisuals(InversionState InversionState)

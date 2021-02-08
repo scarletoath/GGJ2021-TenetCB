@@ -36,10 +36,16 @@ namespace Tenet.Weapon
 
 		private void Start()
 		{
-            var Config = DifficultySettings.Instance?.CurrentDifficulty.GetWeaponConfig(this);
+            var Config = DifficultySettings.Instance.CurrentDifficulty.GetWeaponConfig(this);
 			if (Config != null)
 			{
                 CurrentAmmoType.Configure(Config.StartInClipRange.GetRandom(), Config.StartTotalRange.GetRandom());
+			}
+						
+			bool IsPlayer = GetComponentInParent<Game.Player>() != null;
+			foreach( var AmmoType in AmmoTypes )
+			{
+				AmmoType.IsPlayer = IsPlayer;
 			}
 		}
 
@@ -55,23 +61,20 @@ namespace Tenet.Weapon
 
         private void OnGUI()
         {
-			if (IsPlayedOwned)
-				using (new GUILayout.AreaScope(new Rect(Screen.width - 200, Screen.height - 50, 200, 50), string.Empty, GUI.skin.box))
-				{
-					GUILayout.Label($"Weapon : {name}");
-					if (IsBlackout)
-						GUILayout.Label($"    Blackout");
-				}
-		}
+            using (new GUILayout.AreaScope(new Rect(Screen.width - 200, Screen.height - 50, 200, 50), string.Empty, GUI.skin.box))
+            {
+                GUILayout.Label($"Weapon : {name}");
+				if (IsBlackout)
+					GUILayout.Label($"    Blackout");
+            }
+        }
 
-		public bool IsPlayedOwned { get; private set; }
         public bool IsBlackout { get; private set; } // prevents any weapon-related actions, triggered when shot
 
         public Ammo CurrentAmmo => CurrentAmmoType;
 
-        public void Activate(bool IsActivated, bool IsPlayer = false)
+        public void Activate(bool IsActivated)
         {
-            IsPlayedOwned = IsPlayer;
             if (enabled != IsActivated)
             {
                 enabled = IsActivated;
@@ -81,7 +84,6 @@ namespace Tenet.Weapon
                 foreach (var AmmoType in AmmoTypes)
                 {
                     AmmoType.enabled = false;
-                    AmmoType.IsPlayerOwned = IsPlayer;
                 }
                 if (enabled)
                 {
@@ -107,7 +109,7 @@ namespace Tenet.Weapon
 
         public bool TryShoot ()
         {
-            if (SessionManager.Instance == null || !SessionManager.Instance.GameMode.CanUseWeapon(SessionManager.Instance.CurrentInversionState, CurrentAmmoType, ProjectileSpawnPoint, out var Marker, out var AmmoDrop))
+            if (!SessionManager.Instance.GameMode.CanUseWeapon(SessionManager.Instance.CurrentInversionState, CurrentAmmoType, ProjectileSpawnPoint, out var Marker, out var AmmoDrop))
             {
                 return false;
 			}
@@ -150,7 +152,7 @@ namespace Tenet.Weapon
                 IsBlackout = IsEnable;
                 if (IsEnable)
                 {
-                    BlackoutEndTime = Time.time + (DifficultySettings.Instance?.CurrentDifficulty.WeaponBlackoutMultiplier ?? 1) * BlackoutDuration;
+                    BlackoutEndTime = Time.time + DifficultySettings.Instance.CurrentDifficulty.WeaponBlackoutMultiplier * BlackoutDuration;
                 }
             }
 		}

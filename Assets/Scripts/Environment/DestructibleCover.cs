@@ -9,6 +9,7 @@ using UnityEditor;
 
 namespace Tenet.Environment
 {
+	[ExecuteAlways]
     public class DestructibleCover : MonoBehaviour
     {
 
@@ -25,7 +26,7 @@ namespace Tenet.Environment
 
 		[SerializeField] private AudioSource AudioSource;
 
-		private Animation[] DestructionAnims;
+		private Animation[] DestructionAnims = System.Array.Empty<Animation>();
 		private Coroutine AnimCoroutine;
 
 		private void Awake()
@@ -33,10 +34,11 @@ namespace Tenet.Environment
 			if (DestructionObject != null)
 			{
 				DestructionAnims = DestructionObject.GetComponentsInChildren<Animation>();
-				DestructionObject.SetActive(false);
+				ShowObject(DestructionObject, false);
 			}
 
-			HistoryTarget.OnMarkerChanged += CheckDestroyRebuild;
+			if (HistoryTarget != null)
+				HistoryTarget.OnMarkerChanged += CheckDestroyRebuild;
 			if (AudioSource != null)
 			{
 				AudioSource.playOnAwake = false;
@@ -46,71 +48,91 @@ namespace Tenet.Environment
 
 		public bool IsDestroyed { get; private set; }
 
-		public void Destroy()
+		public void Destroy(bool IsInstant = false)
 		{
 			if (IsDestroyed)
 				return;
 
-			NormalObject.SetActive(false);
-			if (DestructionObject != null)
-			{
-				DestructionObject.SetActive(true);
-				foreach (var Anim in DestructionAnims)
+			IsDestroyed = true;
+
+			ShowObject(NormalObject, false); // hide normal
+			ShowObject(DestructionObject, true); // show destruction
+
+			if (!IsInstant)
+				foreach (var Anim in DestructionAnims) // play destruction anim
 				{
 					var State = Anim[Anim.clip.name];
 					State.speed = 1;
 					State.normalizedTime = 0;
 					Anim.Play(State.name);
 				}
+			else
+				foreach (var Anim in DestructionAnims) // sample anim end frame
+				{
+					var State = Anim[Anim.clip.name];
+					State.normalizedTime = 1;
+					State.weight = 1;
+					State.enabled = true;
+					Anim.Sample();
+				}
 
-			}
-			if (AnimCoroutine != null)
-				StopCoroutine(AnimCoroutine);
-			if (AudioSource != null)
+			if (AudioSource != null) // play destruction sfx
 				AudioSource.Play();
+
+			if (AnimCoroutine != null) // clear any existing rebuild coroutines
+				StopCoroutine(AnimCoroutine);
 			AnimCoroutine = null;
-			IsDestroyed = true;
 		}
 
-		public void Rebuild()
+		public void Rebuild(bool IsInstant = false)
 		{
 			if (!IsDestroyed)
 				return;
 
-			if (DestructionObject != null)
+			IsDestroyed = false;
+
+			if (IsInstant)
+			{
+				RebuildNow();
+				return;
+			}
+
 			{
 				float MaxDuration = 0;
-				foreach (var Anim in DestructionAnims)
+				foreach (var Anim in DestructionAnims) // find longest duration animation
 				{
 					var State = Anim[Anim.clip.name];
 					MaxDuration = Mathf.Max(MaxDuration, State.length);
 				}
 
+				// figure out how much to scale all anims such that longest anim fits in target duration
 				bool OverrideRebuildDuration = TargetRebuildDuration > 0 && TargetRebuildDuration < MaxDuration;
 				float TargetSpeed = OverrideRebuildDuration ? -MaxDuration / TargetRebuildDuration : -1f;
-				foreach (var Anim in DestructionAnims)
+				
+				foreach (var Anim in DestructionAnims) // scale anim durations and play in reverse
 				{
 					var State = Anim[Anim.clip.name];
 					State.speed = TargetSpeed;
 					State.normalizedTime = 1;
 					Anim.Play(State.name);
 				}
-				if (AnimCoroutine != null)
+
+				if (AnimCoroutine != null) // clear any existing rebuild coroutines so a new one can be started
 					StopCoroutine(AnimCoroutine);
 				AnimCoroutine = StartCoroutine(WaitForAnimCompletion(OverrideRebuildDuration ? TargetRebuildDuration : MaxDuration));
 
-				IEnumerator WaitForAnimCompletion(float Duration)
+				IEnumerator WaitForAnimCompletion(float Duration) // hide destruction and show normal once reverse destruction anim is completed
 				{
 					yield return new WaitForSeconds(Duration);
-					NormalObject.SetActive(true);
-					DestructionObject.SetActive(false);
+					RebuildNow();
 				}
 			}
-			else
+
+			void RebuildNow()
 			{
-				NormalObject.SetActive(true);
+				ShowObject(NormalObject, true);
+				ShowObject(DestructionObject, false);
 			}
-			IsDestroyed = false;
 		}
 
 		private void CheckDestroyRebuild(HistoryMarker Marker, bool IsAdded)
@@ -123,6 +145,25 @@ namespace Tenet.Environment
 				Rebuild();
 		}
 
+		private static void ShowObject(GameObject TargetObject, bool IsVisible)
+		{
+			if (TargetObject == null)
+				return;
+
+#if UNITY_EDITOR
+			if (IsVisible)
+				SceneVisibilityManager.instance.Show(TargetObject, true);
+			else
+				SceneVisibilityManager.instance.Hide(TargetObject, true);
+
+			if (EditorApplication.isPlayingOrWillChangePlaymode)
+#endif
+			{
+				if (TargetObject.activeSelf != IsVisible)
+					TargetObject.SetActive(IsVisible);
+			}
+		}
+
 #if UNITY_EDITOR
 		[CustomEditor(typeof(DestructibleCover))]
 		private class Inspector : Editor
@@ -130,21 +171,22 @@ namespace Tenet.Environment
 			public override void OnInspectorGUI()
 			{
 				DrawDefaultInspector();
-				if (!EditorApplication.isPlayingOrWillChangePlaymode)
-					return;
 
 				var Cover = (DestructibleCover)target;
+				if (PrefabUtility.IsPartOfPrefabAsset(target)/* || (UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage()?.IsPartOfPrefabContents(Cover.gameObject) ?? false)*/)
+					return;
 
 				EditorGUILayout.Space();
+				EditorGUILayout.LabelField("Debug Controls", EditorStyles.boldLabel);
 				EditorGUILayout.Toggle(nameof(IsDestroyed), Cover.IsDestroyed);
 				using (var ChangeCheck = new EditorGUILayout.HorizontalScope())
 				{
 					using (new EditorGUI.DisabledScope(Cover.IsDestroyed))
 						if (GUILayout.Button(nameof(Destroy)))
-							Cover.Destroy();
+							Cover.Destroy(!EditorApplication.isPlaying);
 					using (new EditorGUI.DisabledScope(!Cover.IsDestroyed))
 						if (GUILayout.Button(nameof(Rebuild)))
-							Cover.Rebuild();
+							Cover.Rebuild(!EditorApplication.isPlaying);
 				}
 			}
 		}
