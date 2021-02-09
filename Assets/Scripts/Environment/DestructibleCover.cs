@@ -13,9 +13,19 @@ namespace Tenet.Environment
     public class DestructibleCover : MonoBehaviour
     {
 
-        [SerializeField] private GameObject NormalObject;
+		[System.Serializable]
+		private class RebuildKeyframe
+		{
+			[Range(0, 1)] public float NormalizedStartTime;
+			[Range(0, 1)] public float NormalizedDuration;
+			public float Speed = 1.0f;
+		}
+
+		[SerializeField] private GameObject NormalObject;
         [SerializeField] private GameObject DestructionObject;
 		[SerializeField] private float TargetRebuildDuration = 0.3f; // seconds
+		[Tooltip("Check that keyframes do not overlap (later keyframes must start after previous keyframe's start+duration) and have non-zero speeds.")]
+		[SerializeField] private RebuildKeyframe[] RebuildKeyframes = System.Array.Empty<RebuildKeyframe>();
 
 		[Space]
 
@@ -106,8 +116,13 @@ namespace Tenet.Environment
 				}
 
 				// figure out how much to scale all anims such that longest anim fits in target duration
-				bool OverrideRebuildDuration = TargetRebuildDuration > 0 && TargetRebuildDuration < MaxDuration;
-				float TargetSpeed = OverrideRebuildDuration ? -MaxDuration / TargetRebuildDuration : -1f;
+				float TargetSpeed = -1f;
+				MaxDuration = CalcModifiedDuration(MaxDuration);
+				if (TargetRebuildDuration > 0 && TargetRebuildDuration < MaxDuration)
+				{
+					TargetSpeed *= MaxDuration / TargetRebuildDuration;
+					MaxDuration = TargetRebuildDuration;
+				}
 				
 				foreach (var Anim in DestructionAnims) // scale anim durations and play in reverse
 				{
@@ -119,12 +134,66 @@ namespace Tenet.Environment
 
 				if (AnimCoroutine != null) // clear any existing rebuild coroutines so a new one can be started
 					StopCoroutine(AnimCoroutine);
-				AnimCoroutine = StartCoroutine(WaitForAnimCompletion(OverrideRebuildDuration ? TargetRebuildDuration : MaxDuration));
+				AnimCoroutine = StartCoroutine(WaitForAnimCompletion(MaxDuration, TargetSpeed, RebuildKeyframes));
 
-				IEnumerator WaitForAnimCompletion(float Duration) // hide destruction and show normal once reverse destruction anim is completed
+				IEnumerator WaitForAnimCompletion(float Duration, float SpeedMultiplier, RebuildKeyframe[] ModifierKeyframes) // hide destruction and show normal once reverse destruction anim is completed
 				{
-					yield return new WaitForSeconds(Duration);
+					if (ModifierKeyframes.Length > 0)
+					{
+						float CurrentTime = 0.0f;
+						float ModifiedSpeedEndTime = Duration;
+						foreach (var Keyframe in ModifierKeyframes)
+						{
+							float TargetTime = Keyframe.NormalizedStartTime * Duration;
+							if (TargetTime > ModifiedSpeedEndTime)
+							{
+								yield return WaitThenChangeSpeed(SpeedMultiplier, ModifiedSpeedEndTime, CurrentTime); // reset speed to -1 if needed (previous segment ends before current)
+								CurrentTime = ModifiedSpeedEndTime;
+							}
+							yield return WaitThenChangeSpeed(Keyframe.Speed * SpeedMultiplier, TargetTime, CurrentTime); // set target speed in reverse (wait til target time if needed)
+							CurrentTime = TargetTime;
+							ModifiedSpeedEndTime = TargetTime + Keyframe.NormalizedDuration * Duration;
+						}
+
+						if (Duration > ModifiedSpeedEndTime) // Reset speed one more time if last segment ends before full duration
+						{
+							yield return WaitThenChangeSpeed(SpeedMultiplier, ModifiedSpeedEndTime, CurrentTime);
+							CurrentTime = ModifiedSpeedEndTime;
+						}
+						Duration -= CurrentTime; // Change to remaining duration to reach end of anim
+
+						IEnumerator WaitThenChangeSpeed(float TargetSpeed, float TargetTime, float SeekTime)
+						{
+							if (TargetTime > SeekTime) 
+								yield return new WaitForSeconds(TargetTime - SeekTime);
+
+							foreach (var Anim in DestructionAnims)
+								Anim[Anim.clip.name].speed = TargetSpeed;
+							Debug.Log($"Changed speed to {TargetSpeed} for {name} at T+{TargetTime:F2}s", this);
+						}
+					}
+
+					yield return new WaitForSeconds(Duration); // Wait for end of anim
+
 					RebuildNow();
+				}
+				float CalcModifiedDuration(float OriginalDuration)
+				{
+					if (RebuildKeyframes.Length == 0)
+						return MaxDuration;
+
+					float CurrentSeekTime = 0.0f; // Seek on unmodified duration
+					float NewDuration = MaxDuration; // Start unmodified and apply deltas from modified segments
+					foreach (var Keyframe in RebuildKeyframes)
+					{
+						float StartTime = MaxDuration * Keyframe.NormalizedStartTime;
+						float SegmentDuration = MaxDuration * Keyframe.NormalizedDuration;
+						Debug.Assert(StartTime >= CurrentSeekTime, "Cannot apply invalid keyframe with reverse normalized times.");
+						NewDuration -= SegmentDuration * (1.0f - 1.0f / Keyframe.Speed); // SegmentDuration/Speed is modified duration, so just apply delta duration to total
+						CurrentSeekTime = StartTime + SegmentDuration; // Move seek time to end of modified segment
+					}
+					Debug.Log($"Modified duration from {OriginalDuration:F2}s to {NewDuration:F2}s for {name}", this);
+					return NewDuration;
 				}
 			}
 
