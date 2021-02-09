@@ -149,7 +149,7 @@ namespace Tenet.Level
 
 		public void Configure(int NumExpendedAmmo)
 		{
-			var Markers = Root.GetComponentsInChildren<HistoryMarker>();
+			var Markers = Root.GetComponentsInChildren<IHistoryMarker>();
 			ShuffleList(Markers);
 			for (int i = NumExpendedAmmo; i < Markers.Length; i++)
 				Markers[i].gameObject.SetActive(false);

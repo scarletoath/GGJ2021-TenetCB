@@ -40,3 +40,6 @@ MonoBehaviour:
   - Simple
   - Complex
   - Extreme
+  MarkerLibrary:
+  - {fileID: -4719849834234476334, guid: ac4bc763b3cfcfe479956aab63093d1c, type: 3}
+  - {fileID: -4719849834234476334, guid: 8d3df749a9168fe4ebcae0623af41b57, type: 3}
