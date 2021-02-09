@@ -25,7 +25,13 @@ namespace Tenet.Triggers
 		}
 	}
 
-	public class HistoryMarker : MonoBehaviour
+	public interface IHistoryMarker
+	{
+		DamageType AssociatedDamageType { get; }
+		GameObject gameObject { get; }
+	}
+
+	public class HistoryMarker : MonoBehaviour , IHistoryMarker
 	{
 
 		private static readonly int NumNonRandomDamageTypes = Enum.GetValues(typeof(DamageType)).Length - 1;
@@ -40,16 +46,17 @@ namespace Tenet.Triggers
 		private GameObject CurrentVisual;
 		private bool IsHighlighted;
 
+		public DamageType AssociatedDamageType => DamageType;
 		public float TriggerRadius => Trigger.radius;
 
 		private void Awake()
 		{
-			if (DamageType == DamageType.Random)
+			if (DamageType == DamageType.Random) // Destroy if random; Use HistoryMarkerGenerator to generate a random marker
 			{
-				DamageType = (DamageType)(UnityEngine.Random.Range(0, (int)DamageType.Random) % NumNonRandomDamageTypes);
+				Destroy(gameObject);
 			}
 
-			if (SessionManager.Instance != null)
+			else if (SessionManager.Instance != null)
 			{
 				SessionManager.Instance.OnInversionStateChanged += ChangeVisuals;
 				ChangeVisuals(SessionManager.Instance.CurrentInversionState);

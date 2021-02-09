@@ -7,9 +7,11 @@ using Tenet.GameMode;
 using Tenet.Triggers;
 using Tenet.Utils.Editor;
 using Tenet.Weapon;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Tenet.GameMode
 {
@@ -30,8 +32,24 @@ namespace Tenet.GameMode
 		[SerializeField] private InversionStateProfile[] InversionStateProfiles = Array.Empty<InversionStateProfile>();
 		[SerializeField] private string[] ReservedTags = { "Landmark", "InversionForward", "InversionBackward" };
 		[SerializeField] private string[] GeneralTags = Array.Empty<string>();
+		[SerializeField] private HistoryMarker[] MarkerLibrary = Array.Empty<HistoryMarker>();
 
 		private Coroutine InversionRoutine;
+
+		private readonly Dictionary<DamageType, HistoryMarker> MarkerLibraryMap = new Dictionary<DamageType, HistoryMarker>();
+
+		private void OnEnable()
+		{
+			foreach (var Marker in MarkerLibrary)
+			{
+				if (Marker.AssociatedDamageType == DamageType.Random) // Do not cache random markers (should not really be added, but just in case)
+					continue;
+				if (!MarkerLibraryMap.ContainsKey(Marker.AssociatedDamageType))
+					MarkerLibraryMap.Add(Marker.AssociatedDamageType, Marker);
+				else
+					Debug.LogWarning($"Duplicate marker found for DamageType:{Marker.AssociatedDamageType} not added to map.", Marker);
+			}
+		}
 
 #if UNITY_EDITOR
 		private void OnValidate()
@@ -51,6 +69,11 @@ namespace Tenet.GameMode
 
 		public IEnumerable<string> GetReservedTags() => ReservedTags;
 		public IEnumerable<string> GetGeneralTags() => GeneralTags;
+
+		public HistoryMarker GetRandomMarker() => MarkerLibrary[UnityEngine.Random.Range(0, MarkerLibrary.Length)];
+		public HistoryMarker GetMarker(DamageType DamageType) => DamageType == DamageType.Random
+				? GetRandomMarker()
+				: MarkerLibraryMap.TryGetValue(DamageType, out var Marker) ? Marker : default;
 
 		public bool CanHeal(InversionState InversionState)
 		{
