@@ -123,7 +123,7 @@ namespace Tenet.Weapon
 
 				if (TargetGameObject.GetComponentInParent<IHealth>() is IHealth IHealth)
 				{
-					Debug.Log( "TargetGameObject.layer : " + TargetGameObject.layer + " | IsPlayer? " + IsPlayerOwned);
+					Debug.Log( "TargetGameObject.layer : " + TargetGameObject.layer + " | IsPlayerOwned? " + IsPlayerOwned);
 					if( TargetGameObject.layer == 9 && !IsPlayerOwned )
 					{
 						if ( IHealth.Damage( Damage ) <= 0.0f )
@@ -131,7 +131,7 @@ namespace Tenet.Weapon
 							SessionManager.Instance.EndLevel(false);
 						}
 					}
-					else if( TargetGameObject.layer == 10 && IsPlayer )
+					else if( TargetGameObject.layer == 10 && IsPlayerOwned)
 					{
 						IHealth.Damage(Damage);
 					}

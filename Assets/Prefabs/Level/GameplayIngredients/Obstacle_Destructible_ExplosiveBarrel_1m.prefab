@@ -146,7 +146,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NormalObject: {fileID: 2535768999304816012}
   DestructionObject: {fileID: 8643119259401164653}
-  TargetRebuildDuration: 0.4
+  TargetRebuildDuration: 99
+  RebuildKeyframes:
+  - NormalizedStartTime: 0
+    NormalizedDuration: 0.7
+    Speed: 10
+  - NormalizedStartTime: 0.7
+    NormalizedDuration: 0.3
+    Speed: 0.05
   HistoryTarget: {fileID: 6233413013895107793}
   DamageType: 1
   AudioSource: {fileID: 0}
