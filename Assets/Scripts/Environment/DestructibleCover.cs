@@ -19,6 +19,9 @@ namespace Tenet.Environment
 			[Range(0, 1)] public float NormalizedStartTime;
 			[Range(0, 1)] public float NormalizedDuration;
 			public float Speed = 1.0f;
+
+			[System.NonSerialized] public float ModifiedStartTime;
+			[System.NonSerialized] public float ModifiedEndTime;
 		}
 
 		[SerializeField] private GameObject NormalObject;
@@ -138,13 +141,15 @@ namespace Tenet.Environment
 
 				IEnumerator WaitForAnimCompletion(float Duration, float SpeedMultiplier, RebuildKeyframe[] ModifierKeyframes) // hide destruction and show normal once reverse destruction anim is completed
 				{
+					Debug.Log($"Playing anim for {name} with duration={Duration:F2}s, base speed={SpeedMultiplier}", this);
 					if (ModifierKeyframes.Length > 0)
 					{
 						float CurrentTime = 0.0f;
 						float ModifiedSpeedEndTime = Duration;
+						float BaseSpeedScale = Mathf.Abs(SpeedMultiplier);
 						foreach (var Keyframe in ModifierKeyframes)
 						{
-							float TargetTime = Keyframe.NormalizedStartTime * Duration;
+							float TargetTime = Keyframe.ModifiedStartTime / BaseSpeedScale; // Need to scale by base speed in case target duration was applied
 							if (TargetTime > ModifiedSpeedEndTime)
 							{
 								yield return WaitThenChangeSpeed(SpeedMultiplier, ModifiedSpeedEndTime, CurrentTime); // reset speed to -1 if needed (previous segment ends before current)
@@ -152,7 +157,7 @@ namespace Tenet.Environment
 							}
 							yield return WaitThenChangeSpeed(Keyframe.Speed * SpeedMultiplier, TargetTime, CurrentTime); // set target speed in reverse (wait til target time if needed)
 							CurrentTime = TargetTime;
-							ModifiedSpeedEndTime = TargetTime + Keyframe.NormalizedDuration * Duration;
+							ModifiedSpeedEndTime = Keyframe.ModifiedEndTime / BaseSpeedScale; // Need to scale by base speed in case target duration was applied
 						}
 
 						if (Duration > ModifiedSpeedEndTime) // Reset speed one more time if last segment ends before full duration
@@ -164,11 +169,18 @@ namespace Tenet.Environment
 
 						IEnumerator WaitThenChangeSpeed(float TargetSpeed, float TargetTime, float SeekTime)
 						{
-							if (TargetTime > SeekTime) 
-								yield return new WaitForSeconds(TargetTime - SeekTime);
+							while (TargetTime > SeekTime)
+							{
+								//yield return new WaitForSeconds(TargetTime - SeekTime);
+								yield return null;
+								SeekTime += Time.deltaTime;
+							}
 
 							foreach (var Anim in DestructionAnims)
+							{
+								//Debug.Log($"{Anim[Anim.clip.name].name} @ {Anim[Anim.clip.name].normalizedTime:F2} with speed={Anim[Anim.clip.name].speed:F2}x"); // Uncomment for verbose logging
 								Anim[Anim.clip.name].speed = TargetSpeed;
+							}
 							Debug.Log($"Changed speed to {TargetSpeed} for {name} at T+{TargetTime:F2}s", this);
 						}
 					}
@@ -183,14 +195,28 @@ namespace Tenet.Environment
 						return MaxDuration;
 
 					float CurrentSeekTime = 0.0f; // Seek on unmodified duration
-					float NewDuration = MaxDuration; // Start unmodified and apply deltas from modified segments
+					float CurrentModifiedSeekTime = 0.0f; // Seek on modified duration
+					float NewDuration = 0.0f; // Start unmodified and apply deltas from modified segments
 					foreach (var Keyframe in RebuildKeyframes)
 					{
 						float StartTime = MaxDuration * Keyframe.NormalizedStartTime;
 						float SegmentDuration = MaxDuration * Keyframe.NormalizedDuration;
 						Debug.Assert(StartTime >= CurrentSeekTime, "Cannot apply invalid keyframe with reverse normalized times.");
-						NewDuration -= SegmentDuration * (1.0f - 1.0f / Keyframe.Speed); // SegmentDuration/Speed is modified duration, so just apply delta duration to total
-						CurrentSeekTime = StartTime + SegmentDuration; // Move seek time to end of modified segment
+
+						float ModifiedStartTime = CurrentModifiedSeekTime;
+						if (StartTime > CurrentSeekTime) // Add unmodified duration if desired start is after current seek
+						{
+							float UnmodifiedDurationBeforeKeyframe = StartTime - CurrentSeekTime;
+							ModifiedStartTime += UnmodifiedDurationBeforeKeyframe;
+							NewDuration += UnmodifiedDurationBeforeKeyframe;
+						}
+
+						NewDuration += SegmentDuration / Keyframe.Speed;
+						CurrentSeekTime = StartTime + SegmentDuration; // Move seek time to end of unmodified segment
+						CurrentModifiedSeekTime = NewDuration; // Move modified seek time to end of modified segment
+
+						Keyframe.ModifiedStartTime = ModifiedStartTime;
+						Keyframe.ModifiedEndTime = CurrentModifiedSeekTime;
 					}
 					Debug.Log($"Modified duration from {OriginalDuration:F2}s to {NewDuration:F2}s for {name}", this);
 					return NewDuration;
@@ -225,7 +251,7 @@ namespace Tenet.Environment
 			else
 				SceneVisibilityManager.instance.Hide(TargetObject, true);
 
-			if (EditorApplication.isPlayingOrWillChangePlaymode)
+			if (EditorApplication.isPlayingOrWillChangePlaymode && (!UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage()?.IsPartOfPrefabContents(TargetObject) ?? true))
 #endif
 			{
 				if (TargetObject.activeSelf != IsVisible)
@@ -237,25 +263,72 @@ namespace Tenet.Environment
 		[CustomEditor(typeof(DestructibleCover))]
 		private class Inspector : Editor
 		{
+
+			[CustomPropertyDrawer(typeof(RebuildKeyframe))]
+			private class KeyframeDrawer : PropertyDrawer
+			{
+				internal static bool ShowModifiedTimes = true;
+				internal static readonly Dictionary<Object, Dictionary<string, string>> CachedModifiedTimes = new Dictionary<Object, Dictionary<string, string>>();
+
+				public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+				{
+					return EditorGUI.GetPropertyHeight(property, label) + (property.isExpanded && ShowModifiedTimes ? EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing : 0.0f);
+				}
+
+				public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+				{
+					EditorGUI.PropertyField(position, property, label, true);
+					if (property.isExpanded && ShowModifiedTimes && 
+						CachedModifiedTimes.TryGetValue(property.serializedObject.targetObject, out var TargetModifiedTimes) && 
+						TargetModifiedTimes.TryGetValue(property.propertyPath, out string ModifiedTime))
+						using (new EditorGUI.IndentLevelScope())
+							EditorGUI.LabelField(new Rect(position) { yMin = position.yMax - EditorGUIUtility.singleLineHeight }, "Modified Time Range", ModifiedTime);
+				}
+			}
+
+			private SerializedProperty KeyframesSP;
+
+			private void OnEnable() => KeyframesSP = serializedObject.FindProperty(nameof(RebuildKeyframes));
+
+			private void OnDisable() => KeyframeDrawer.CachedModifiedTimes.Remove(target);
+
+			private bool IsInPrefabMode => UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage()?.IsPartOfPrefabContents(((DestructibleCover)target).gameObject) ?? false;
+
 			public override void OnInspectorGUI()
 			{
 				DrawDefaultInspector();
 
 				var Cover = (DestructibleCover)target;
-				if (PrefabUtility.IsPartOfPrefabAsset(target)/* || (UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage()?.IsPartOfPrefabContents(Cover.gameObject) ?? false)*/)
+				if (PrefabUtility.IsPartOfPrefabAsset(target))
 					return;
 
 				EditorGUILayout.Space();
 				EditorGUILayout.LabelField("Debug Controls", EditorStyles.boldLabel);
-				EditorGUILayout.Toggle(nameof(IsDestroyed), Cover.IsDestroyed);
+				EditorGUILayout.Toggle(ObjectNames.NicifyVariableName(nameof(IsDestroyed)), Cover.IsDestroyed);
+				//KeyframeDrawer.ShowModifiedTimes = EditorGUILayout.Toggle(ObjectNames.NicifyVariableName(nameof(KeyframeDrawer.ShowModifiedTimes)), KeyframeDrawer.ShowModifiedTimes); // Disabled to always show due to bug in ReorderableList caching height values
+				if(KeyframeDrawer.ShowModifiedTimes)
+				{
+					if (!KeyframeDrawer.CachedModifiedTimes.TryGetValue(target, out var CachedModifiedTimes))
+						KeyframeDrawer.CachedModifiedTimes.Add(target, CachedModifiedTimes = new Dictionary<string, string>());
+
+					if (CachedModifiedTimes.Count != Cover.RebuildKeyframes.Length)
+						CachedModifiedTimes.Clear();
+
+					for (int Index = 0; Index < Cover.RebuildKeyframes.Length; Index++)
+					{
+						var Keyframe = Cover.RebuildKeyframes[Index];
+						CachedModifiedTimes[KeyframesSP.GetArrayElementAtIndex(Index).propertyPath] = $"{Keyframe.ModifiedStartTime:F2}s -> {Keyframe.ModifiedEndTime:F2}s";
+					}
+				}
+
 				using (var ChangeCheck = new EditorGUILayout.HorizontalScope())
 				{
 					using (new EditorGUI.DisabledScope(Cover.IsDestroyed))
 						if (GUILayout.Button(nameof(Destroy)))
-							Cover.Destroy(!EditorApplication.isPlaying);
+							Cover.Destroy(!EditorApplication.isPlaying || IsInPrefabMode);
 					using (new EditorGUI.DisabledScope(!Cover.IsDestroyed))
 						if (GUILayout.Button(nameof(Rebuild)))
-							Cover.Rebuild(!EditorApplication.isPlaying);
+							Cover.Rebuild(!EditorApplication.isPlaying || IsInPrefabMode);
 				}
 			}
 		}
