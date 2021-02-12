@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 8844860304514768422}
   - component: {fileID: 3857516659919765668}
   - component: {fileID: 7044074317530100381}
-  - component: {fileID: 4127626816264181860}
+  - component: {fileID: 3581741939142970097}
   m_Layer: 0
   m_Name: Obstacle_Destructible_Explosive_FloorTrap_1.5m
   m_TagString: Untagged
@@ -146,6 +146,7 @@ MonoBehaviour:
   NormalObject: {fileID: 178132271545465816}
   DestructionObject: {fileID: 25934175013835285}
   TargetRebuildDuration: 0.4
+  RebuildKeyframes: []
   HistoryTarget: {fileID: 7044074317530100381}
   DamageType: 1
   AudioSource: {fileID: 0}
@@ -161,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a5bb14cc7e8a74cb9955e63d836ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!64 &4127626816264181860
+--- !u!64 &3581741939142970097
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,9 +173,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -4949051330971984582, guid: cd13e0313cf104745b9bb92f456504a0, type: 3}
+  m_Mesh: {fileID: -4949051330971984582, guid: 0ba548b843e8f524c9d9d5393288bce2, type: 3}
 --- !u!1001 &908965366329454404
 PrefabInstance:
   m_ObjectHideFlags: 0
