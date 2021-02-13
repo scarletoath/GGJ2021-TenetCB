@@ -349,6 +349,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8191011181289832769}
     m_Modifications:
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: TargetRebuildDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].Speed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].NormalizedDuration
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedStartTime
+      value: 0.85
+      objectReference: {fileID: 0}
     - target: {fileID: 7817580588257454986, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
       propertyPath: m_Name
       value: Pillar_Destructible_FullCover_0.5m
@@ -3028,6 +3056,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8191011181289832769}
     m_Modifications:
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: TargetRebuildDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].Speed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].NormalizedDuration
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedStartTime
+      value: 0.85
+      objectReference: {fileID: 0}
     - target: {fileID: 7817580588257454986, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
       propertyPath: m_Name
       value: Pillar_Destructible_FullCover_0.5m (3)
@@ -5137,6 +5189,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8191011181289832769}
     m_Modifications:
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: TargetRebuildDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].Speed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].NormalizedDuration
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedStartTime
+      value: 0.85
+      objectReference: {fileID: 0}
     - target: {fileID: 7817580588257454986, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
       propertyPath: m_Name
       value: Pillar_Destructible_FullCover_0.5m (1)
@@ -5593,6 +5673,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8191011181289832769}
     m_Modifications:
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: TargetRebuildDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].Speed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].NormalizedDuration
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedStartTime
+      value: 0.85
+      objectReference: {fileID: 0}
     - target: {fileID: 7817580588257454986, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
       propertyPath: m_Name
       value: Pillar_Destructible_FullCover_0.5m (2)
@@ -6063,7 +6171,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7027844457000455041, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: m_Name
-      value: LEVEL_TILEOBJECTS_Landmark_03
+      value: LEVEL_TILEOBJECTS_Landmark_03 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7027844457000455042, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: m_RootOrder
@@ -7833,6 +7941,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8191011181289832769}
     m_Modifications:
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: TargetRebuildDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].Speed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].NormalizedDuration
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099758583332732182, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedStartTime
+      value: 0.85
+      objectReference: {fileID: 0}
     - target: {fileID: 7817580588257454986, guid: df2663e5b7f75514fa36a3a76c9b7073, type: 3}
       propertyPath: m_Name
       value: Pillar_Destructible_FullCover_0.5m (4)

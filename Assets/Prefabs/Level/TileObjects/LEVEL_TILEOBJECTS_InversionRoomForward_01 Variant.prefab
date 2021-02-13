@@ -64,6 +64,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1470719239345053538}
     m_Modifications:
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: TargetRebuildDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].Speed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].NormalizedDuration
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedStartTime
+      value: 0.85
+      objectReference: {fileID: 0}
     - target: {fileID: 5268949615375613065, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
       propertyPath: m_RootOrder
       value: 138
@@ -2002,6 +2030,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1470719239345053538}
     m_Modifications:
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: TargetRebuildDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].Speed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].NormalizedDuration
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedStartTime
+      value: 0.85
+      objectReference: {fileID: 0}
     - target: {fileID: 5268949615375613065, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
       propertyPath: m_RootOrder
       value: 139
@@ -3541,6 +3597,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1470719239345053538}
     m_Modifications:
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: TargetRebuildDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].Speed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].NormalizedDuration
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedStartTime
+      value: 0.85
+      objectReference: {fileID: 0}
     - target: {fileID: 5268949615375613065, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
       propertyPath: m_RootOrder
       value: 136
@@ -7203,7 +7287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7027844457000455041, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: m_Name
-      value: LEVEL_TILEOBJECTS_InversionRoom_01
+      value: LEVEL_TILEOBJECTS_InversionRoomForward_01 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7027844457000455042, guid: c1230030723cc584fba477209f998f2f, type: 3}
       propertyPath: m_RootOrder
@@ -8403,6 +8487,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1470719239345053538}
     m_Modifications:
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: TargetRebuildDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].Speed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[0].NormalizedDuration
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346297357275441843, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
+      propertyPath: RebuildKeyframes.Array.data[1].NormalizedStartTime
+      value: 0.85
+      objectReference: {fileID: 0}
     - target: {fileID: 5268949615375613065, guid: 436aa1ea5f2a9fd439704f793b9cdcf3, type: 3}
       propertyPath: m_RootOrder
       value: 68
