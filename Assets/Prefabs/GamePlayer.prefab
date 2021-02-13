@@ -269,6 +269,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DetectionRadius: 2
+--- !u!124 &7493834303985486856
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3631878964396246324}
+  m_Enabled: 1
 --- !u!1001 &954275188541246676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -559,6 +567,11 @@ PrefabInstance:
 --- !u!1 &3631878964276355030 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 738646681744756154, guid: 573ac53c334415945bf239de2c2f0511, type: 3}
+  m_PrefabInstance: {fileID: 4046261694535373420}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3631878964396246324 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 738646681595172696, guid: 573ac53c334415945bf239de2c2f0511, type: 3}
   m_PrefabInstance: {fileID: 4046261694535373420}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &3631878964396246320 stripped
