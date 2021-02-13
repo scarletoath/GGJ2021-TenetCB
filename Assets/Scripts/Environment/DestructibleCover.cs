@@ -10,7 +10,7 @@ using UnityEditor;
 namespace Tenet.Environment
 {
 	[ExecuteAlways]
-    public class DestructibleCover : MonoBehaviour
+    public partial class DestructibleCover : MonoBehaviour
     {
 
 		[System.Serializable]
@@ -44,11 +44,11 @@ namespace Tenet.Environment
 
 		private void Awake()
 		{
+			Register_Editor();
 			if (DestructionObject != null)
-			{
 				DestructionAnims = DestructionObject.GetComponentsInChildren<Animation>();
-				ShowObject(DestructionObject, false);
-			}
+
+			UpdateVisuals(false);
 
 			if (HistoryTarget != null)
 				HistoryTarget.OnMarkerChanged += CheckDestroyRebuild;
@@ -59,6 +59,8 @@ namespace Tenet.Environment
 			}
 		}
 
+		private void OnDestroy() => Unregister_Editor();
+
 		public bool IsDestroyed { get; private set; }
 
 		public void Destroy(bool IsInstant = false)
@@ -68,8 +70,7 @@ namespace Tenet.Environment
 
 			IsDestroyed = true;
 
-			ShowObject(NormalObject, false); // hide normal
-			ShowObject(DestructionObject, true); // show destruction
+			UpdateVisuals(true);
 
 			if (!IsInstant)
 				foreach (var Anim in DestructionAnims) // play destruction anim
@@ -106,7 +107,7 @@ namespace Tenet.Environment
 
 			if (IsInstant)
 			{
-				RebuildNow();
+				UpdateVisuals(false);
 				return;
 			}
 
@@ -187,7 +188,7 @@ namespace Tenet.Environment
 
 					yield return new WaitForSeconds(Duration); // Wait for end of anim
 
-					RebuildNow();
+					UpdateVisuals(false);
 				}
 				float CalcModifiedDuration(float OriginalDuration)
 				{
@@ -222,12 +223,6 @@ namespace Tenet.Environment
 					return NewDuration;
 				}
 			}
-
-			void RebuildNow()
-			{
-				ShowObject(NormalObject, true);
-				ShowObject(DestructionObject, false);
-			}
 		}
 
 		private void CheckDestroyRebuild(HistoryMarker Marker, bool IsAdded)
@@ -240,17 +235,19 @@ namespace Tenet.Environment
 				Rebuild();
 		}
 
-		private static void ShowObject(GameObject TargetObject, bool IsVisible)
+		private void UpdateVisuals(bool IsDestroyed, bool IsHiddenOverride = false)
+		{
+			ShowObject(NormalObject, !IsHiddenOverride && !IsDestroyed);
+			ShowObject(DestructionObject, !IsHiddenOverride && IsDestroyed);
+		}
+
+		private void ShowObject(GameObject TargetObject, bool IsVisible)
 		{
 			if (TargetObject == null)
 				return;
 
+			ShowObject_Editor(TargetObject, IsVisible);
 #if UNITY_EDITOR
-			if (IsVisible)
-				SceneVisibilityManager.instance.Show(TargetObject, true);
-			else
-				SceneVisibilityManager.instance.Hide(TargetObject, true);
-
 			if (EditorApplication.isPlayingOrWillChangePlaymode && (!UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage()?.IsPartOfPrefabContents(TargetObject) ?? true))
 #endif
 			{
@@ -259,7 +256,47 @@ namespace Tenet.Environment
 			}
 		}
 
+		#region Scene Visibility Interface
+		partial void Register_Editor();
+		partial void Unregister_Editor();
+		partial void ShowObject_Editor(GameObject TargetObject, bool IsVisible);
+		#endregion
+
 #if UNITY_EDITOR
+		#region Scene Visibility Utils
+		partial void Register_Editor() => SceneVisibilityUtils.Covers.Add(this);
+		partial void Unregister_Editor() => SceneVisibilityUtils.Covers.Remove(this);
+		partial void ShowObject_Editor(GameObject TargetObject, bool IsVisible)
+		{
+			if (IsVisible)
+				SceneVisibilityManager.instance.Show(TargetObject, true);
+			else
+				SceneVisibilityManager.instance.Hide(TargetObject, true);
+		}
+
+		private static class SceneVisibilityUtils
+		{
+			internal static readonly HashSet<DestructibleCover> Covers = new HashSet<DestructibleCover>();
+			static SceneVisibilityUtils() => SceneVisibilityManager.visibilityChanged += UpdateVisibility;
+			private static bool IsUpdated = true;
+			private static void UpdateVisibility()
+			{
+				if (IsUpdated) // Skip the next visibility update as it was triggered by this very call, otherwise stuck in infinite visibility update loop
+				{
+					IsUpdated = false;
+					return;
+				}
+
+				IsUpdated = true;
+				var Temp = new List<(DestructibleCover Cover, bool IsHidden)>(Covers.Count);
+				foreach (var Cover in Covers)
+					Temp.Add((Cover, SceneVisibilityManager.instance.AreAllDescendantsHidden(Cover.gameObject)));
+				foreach (var (Cover, IsHidden) in Temp)
+					Cover.UpdateVisuals(Cover.IsDestroyed, IsHidden);
+			}
+		}
+		#endregion
+
 		[CustomEditor(typeof(DestructibleCover))]
 		private class Inspector : Editor
 		{
