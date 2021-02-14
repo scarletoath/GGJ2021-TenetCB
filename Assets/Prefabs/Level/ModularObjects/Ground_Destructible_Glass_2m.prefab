@@ -61,7 +61,7 @@ MonoBehaviour:
     Speed: 0.01
   HistoryTarget: {fileID: 8360295897689285434}
   DamageTypes:
-    _DamageTypes: 01000000
+    _DamageTypes: 0000000001000000
   AudioSource: {fileID: 0}
 --- !u!114 &8360295897689285434
 MonoBehaviour:
