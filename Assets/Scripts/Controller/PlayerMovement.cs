@@ -99,4 +99,12 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
     }
+
+	private void OnDrawGizmos()
+	{
+        var Color = Gizmos.color;
+        Gizmos.color = new Color(0.5f, 0.25f, 0, 0.67f);
+        Gizmos.DrawSphere(groundCheck.position, groundDistance);
+        Gizmos.color = Color;
+	}
 }

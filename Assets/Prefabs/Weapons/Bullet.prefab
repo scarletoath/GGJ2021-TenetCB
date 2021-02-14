@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5776279179799306088}
   - component: {fileID: 3826104943494369333}
   - component: {fileID: 9149965149210118793}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!96 &5776279179799306088
 TrailRenderer:
   serializedVersion: 2
@@ -5025,7 +5025,7 @@ GameObject:
   - component: {fileID: 441873607707751336}
   - component: {fileID: 3057438754157205580}
   - component: {fileID: 1794982969791916038}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

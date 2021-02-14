@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Tenet.Game;
-using UnityEngine;
 using Tenet.Triggers;
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -15,7 +14,7 @@ namespace Tenet.Level
     {
 
 		[SerializeField] private float TileSize = 20.0f;
-		[SerializeField] private TileObjects[] TileObjectsLibrary = Array.Empty<TileObjects>();
+		[SerializeField] private TileObjects[] TileObjectsLibrary = System.Array.Empty<TileObjects>();
 
 		private TilePattern LevelPattern;
 		private Transform Root;
@@ -27,8 +26,15 @@ namespace Tenet.Level
 		public float TileLength => TileSize;
 		public TilePattern CurrentTemplate => LevelPattern;
 
-		private void OnEnable()
+		private bool IsInitialized;
+
+		private void OnEnable() => Initialize();
+
+		private void Initialize()
 		{
+			if (IsInitialized)
+				return;
+
 			foreach (var TileObjects in TileObjectsLibrary)
 			{
 				foreach (var Tag in TileObjects.GetAllTags())
@@ -38,6 +44,8 @@ namespace Tenet.Level
 					TileObjectsSubLibrary.Add(TileObjects);
 				}
 			}
+
+			IsInitialized = true;
 		}
 
 #if UNITY_EDITOR
@@ -68,6 +76,8 @@ namespace Tenet.Level
 
 		public TileSpawnMarker Generate(TilePattern Pattern, string LevelTag, float LevelTagPercent, ReservedTagInfo[] ReservedTags, string[] GeneralTags) // Returns randomized player start tile
 		{
+			Initialize();
+
 			Debug.Log($"Generating level using Pattern {Pattern?.name} with level tag = {LevelTag} ...", Pattern);
 			LevelPattern = Pattern;
 
@@ -81,7 +91,7 @@ namespace Tenet.Level
 			int TileIndex = 0; // also tracks total number of reserved tiles
 			foreach (var Tag in ReservedTags)
 			{
-				var TagCount = UnityEngine.Random.Range(Tag.MinCount, Tag.MaxCount + 1);
+				var TagCount = Tag.GetRandomCount();
 				Debug.Log($"- Reserved {TagCount} tiles for reserved tag = {Tag.Tag}.");
 				for (int i = 0; i < TagCount && TileIndex < Tiles.Count; i++, TileIndex++)
 				{
@@ -104,7 +114,7 @@ namespace Tenet.Level
 					}
 					else // Randomize then rest
 					{
-						TileObjectsTargetTag = GeneralTags[UnityEngine.Random.Range(0, GeneralTags.Length)];
+						TileObjectsTargetTag = GeneralTags[Random.Range(0, GeneralTags.Length)];
 					}
 					Tile.AssignedTag = TileObjectsTargetTag;
 				}
@@ -120,8 +130,8 @@ namespace Tenet.Level
 				}
 
 				// Spawn TileObjects layer
-				var TileObjects = TileObjectsForTag[UnityEngine.Random.Range(0, TileObjectsForTag.Count)];
-				Tile.Spawn(TileObjects, UnityEngine.Random.Range(0, 4) * 90);
+				var TileObjects = TileObjectsForTag[Random.Range(0, TileObjectsForTag.Count)];
+				Tile.Spawn(TileObjects, Random.Range(0, 4) * 90);
 
 				// Cache tile for all tags that the TileObjects specifies
 				foreach (var Tag in TileObjects.GetAllTags())
@@ -144,7 +154,7 @@ namespace Tenet.Level
 				Debug.LogWarning("> Did not find any available tiles for spawning player. Randomizing from all tiles ...");
 				PlayerStarts.AddRange(Tiles);
 			}
-			return PlayerStarts[UnityEngine.Random.Range(0, PlayerStarts.Count)];
+			return PlayerStarts[Random.Range(0, PlayerStarts.Count)];
 		}
 
 		public void Configure(int NumExpendedAmmo)
@@ -191,7 +201,7 @@ namespace Tenet.Level
 			while (n > 1)
 			{
 				n--;
-				int k = UnityEngine.Random.Range(0, n + 1);
+				int k = Random.Range(0, n + 1);
 				(List[k], List[n]) = (List[n], List[k]);
 			}
 		}
