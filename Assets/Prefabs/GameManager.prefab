@@ -133,7 +133,7 @@ MonoBehaviour:
       Percent: 0.9
     - InversionState: 1
       Percent: 0.1
-    LevelTagPercent: 0.9
+    LevelTagPercent: 0.65
     ExpendedAmmoRange: {x: 40, y: 50}
     AdditionalEnemiesRange: {x: 0, y: 0}
     ReservedTags:
@@ -154,16 +154,15 @@ MonoBehaviour:
     - Verticality
     - Simple
     TilePatterns:
-    - {fileID: 6865067194589089316, guid: 74e6d349a8b0fff4088a1d3434fac222, type: 3}
-    - {fileID: 6253324031318218260, guid: b35013d44e886fa4b8c19ef779a67099, type: 3}
-    - {fileID: 1892286679096750158, guid: f4085ceab26924b469b13bea0a45e9f0, type: 3}
-    - {fileID: 1384766325256355178, guid: 61916f947c0c23143be71b9093303e7c, type: 3}
-    - {fileID: 7696737824638535622, guid: 45ee863637b458f46a22ed4824afca47, type: 3}
-    - {fileID: 5908972753514939868, guid: d4e494cdf969c944682405b3e643f561, type: 3}
+    - {fileID: 8787006080995204213, guid: 6759494c56810ad478ee6af59292116d, type: 3}
+    - {fileID: 1548712996153954298, guid: c72225891bfd76c4c9043490d6976a76, type: 3}
+    - {fileID: 6313211146228535813, guid: 4c3f2658a213cfa49a89c4ae9932ef53, type: 3}
+    - {fileID: 6164935900002117532, guid: 6b4c4956b0d914f49bc263a8a6ead0aa, type: 3}
+    - {fileID: 5080769498666755121, guid: 7f8b33ab135a7ef4a88bb77074dc1daa, type: 3}
   - Name: Normal
     MaxPlayerHealth: 110
     PlayerHealCooldown: 15
-    PlayerHealPercent: 0.6
+    PlayerHealPercent: 0.8
     WeaponBlackoutMultiplier: 0.2
     WeaponConfigurations:
     - Name: Pistol
@@ -172,7 +171,7 @@ MonoBehaviour:
     - Name: RPG
       StartInClipRange: {x: 2, y: 2}
       StartTotalRange: {x: 16, y: 20}
-    InversionMaxDuration: 7
+    InversionMaxDuration: 15
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 0.85
     StartInversionStateProbabilities:
@@ -201,16 +200,13 @@ MonoBehaviour:
     - Verticality
     - Complex
     TilePatterns:
-    - {fileID: 1536457501810267314, guid: 8b651033761e9724db6b0deb8852f0d6, type: 3}
-    - {fileID: 8803991480852554634, guid: 85d0de5db2e12be478f9b3c9344ad26d, type: 3}
-    - {fileID: 4187642526057872996, guid: 89533f5868b1a0043bff769cf2baa930, type: 3}
-    - {fileID: 7556789858751074586, guid: 132f0436eeaa9504d8a280edb11fa0a6, type: 3}
-    - {fileID: 5650066172811749293, guid: 207fd16c8516c084dbe1010b467102c0, type: 3}
-    - {fileID: 5511640233042114616, guid: 872a1f364532f404d870636c543dfb73, type: 3}
+    - {fileID: 5259851130818394349, guid: 60ebd29902a0cfe40abb3ef64dca89b5, type: 3}
+    - {fileID: 1308780576041441674, guid: e2e7cf1beb3c02145b7845eb0ed15344, type: 3}
+    - {fileID: 6478240907907943948, guid: a8b5a138decada44189efb6b7ffa91fc, type: 3}
   - Name: Hard
     MaxPlayerHealth: 100
     PlayerHealCooldown: 20
-    PlayerHealPercent: 0.4
+    PlayerHealPercent: 0.7
     WeaponBlackoutMultiplier: 0.2
     WeaponConfigurations:
     - Name: Pistol
@@ -219,16 +215,16 @@ MonoBehaviour:
     - Name: RPG
       StartInClipRange: {x: 2, y: 2}
       StartTotalRange: {x: 12, y: 14}
-    InversionMaxDuration: 2
+    InversionMaxDuration: 15
     InversionHealthLossPercent: 0.02
     InversionHealthLossInterval: 0.75
     StartInversionStateProbabilities:
     - InversionState: 0
-      Percent: 0.5
+      Percent: 0.65
     - InversionState: 1
-      Percent: 0.5
-    LevelTagPercent: 0.65
-    ExpendedAmmoRange: {x: 0, y: 40}
+      Percent: 0.35
+    LevelTagPercent: 0.9
+    ExpendedAmmoRange: {x: 30, y: 40}
     AdditionalEnemiesRange: {x: 0, y: 0}
     ReservedTags:
     - Tag: Landmark
@@ -248,11 +244,9 @@ MonoBehaviour:
     - Verticality
     - Extreme
     TilePatterns:
-    - {fileID: 8202548836543278150, guid: 10600b4a518959d4a8ceea2bb98c9766, type: 3}
-    - {fileID: 7821118189927091627, guid: 1747380568e13f542a030ef58cf98b4f, type: 3}
-    - {fileID: 5164230201337496657, guid: 71d6d9092fa0d614290eb0d80f82dcd3, type: 3}
-    - {fileID: 2579119152743999946, guid: ad651e7071955c84ea27fd639ea98322, type: 3}
-    - {fileID: 5350467298001405730, guid: bae7b08bc5cb59e4eb91891b562c55fc, type: 3}
+    - {fileID: 8021880801473874251, guid: 52a57e69b4efc904192ccceea6786377, type: 3}
+    - {fileID: 3428598393190988180, guid: 203d934d7250b7948a978b5087c1e6dd, type: 3}
+    - {fileID: 6573788818237158974, guid: 5de31c7f6ed014443899c7a0797d2706, type: 3}
 --- !u!114 &5484344037062922497
 MonoBehaviour:
   m_ObjectHideFlags: 0
