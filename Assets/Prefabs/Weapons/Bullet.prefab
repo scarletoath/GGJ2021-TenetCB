@@ -56,6 +56,8 @@ MonoBehaviour:
   Rigidbody: {fileID: -435278637726199356}
   DamageEffect: {fileID: 0}
   TrailEffect: {fileID: 5776279179799306088}
+  DamageSound: {fileID: 0}
+  DefaultDamageDirection: {x: 0, y: -1, z: 0}
 --- !u!54 &-435278637726199356
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -71,7 +73,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!96 &5776279179799306088
 TrailRenderer:
   serializedVersion: 2
