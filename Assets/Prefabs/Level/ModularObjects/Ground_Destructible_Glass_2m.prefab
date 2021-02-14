@@ -60,7 +60,8 @@ MonoBehaviour:
     NormalizedDuration: 0.15
     Speed: 0.01
   HistoryTarget: {fileID: 8360295897689285434}
-  DamageType: 1
+  DamageTypes:
+    _DamageTypes: 01000000
   AudioSource: {fileID: 0}
 --- !u!114 &8360295897689285434
 MonoBehaviour:
