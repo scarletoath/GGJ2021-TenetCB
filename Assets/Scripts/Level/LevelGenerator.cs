@@ -81,7 +81,7 @@ namespace Tenet.Level
 			int TileIndex = 0; // also tracks total number of reserved tiles
 			foreach (var Tag in ReservedTags)
 			{
-				var TagCount = UnityEngine.Random.Range(Tag.MinCount, Tag.MaxCount + 1);
+				var TagCount = Tag.GetRandomCount();
 				Debug.Log($"- Reserved {TagCount} tiles for reserved tag = {Tag.Tag}.");
 				for (int i = 0; i < TagCount && TileIndex < Tiles.Count; i++, TileIndex++)
 				{

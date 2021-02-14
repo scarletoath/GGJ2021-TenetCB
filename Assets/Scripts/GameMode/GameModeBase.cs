@@ -234,7 +234,7 @@ namespace Tenet.GameMode
 
 		public void ConsumeAmmoDrop(InversionState InversionState, AmmoDrop AmmoDrop, Weapon.Weapon Weapon)
 		{
-			var Position = AmmoDrop.transform.position + UnityEngine.Random.insideUnitSphere; ;
+			var Position = AmmoDrop.transform.position + UnityEngine.Random.insideUnitSphere;
 			var InitialDirection = (Weapon.transform.position - Position).normalized;
 			Weapon.CurrentAmmo.CreateProjectile(Position + InitialDirection * 0.25f, Quaternion.LookRotation(InitialDirection), Weapon.transform); // Small depentration to prevent self-collision with original target
 			Weapon.CurrentAmmo.Add(1, true);

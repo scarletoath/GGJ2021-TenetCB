@@ -30,6 +30,12 @@ namespace Tenet.Game
 
 		[SerializeField] private Volume InversionVolume;
 
+		[Header("Randomizer")]
+
+		[Tooltip("If true, will always generate the same \"randomized\" level, mainly for testing. Otherwise, each generation is randomized. RandomSeedOverride will always contain the currently used seed.")]
+		[SerializeField] private bool UseRandomSeedOverride;
+		[SerializeField] private int RandomSeedOverride;
+
 		public event Action<InversionState> OnInversionStateChanged;
 
 		private void Awake()
@@ -71,11 +77,24 @@ namespace Tenet.Game
 		public InversionState CurrentInversionState { get; private set; } = InversionState.Normal;
 		public float CurrentInversionStateDuration => (float)InversionTimer.Elapsed.TotalSeconds;
 
+		public void SetRandomSeed(int Seed, bool ForceRefresh = false)
+		{
+			if (ForceRefresh || Seed != RandomSeedOverride)
+			{
+				UnityEngine.Random.InitState(Seed);
+				RandomSeedOverride = Seed;
+			}
+		}
+
+		private void RefreshRandomSeed() => SetRandomSeed(UseRandomSeedOverride ? RandomSeedOverride : UnityEngine.Random.Range(int.MinValue, int.MaxValue), true);
+
 		internal void StartLevel()
 		{
+			RefreshRandomSeed();
+
 			CurrentInversionState = DifficultySettings.Instance.CurrentDifficulty.GetRandomInversionState(); // Need to do this first so that anything in the level that relies on it queries the correct state
 
-			var StartTile = GenerateLevel();
+			var StartTile = GenerateLevel(false);
 			var Landmarks = LevelGenerator.GetTilesForTag("Landmark"); // Hard-coded like a MF, no good place to store this
 			var LookAtLandmark = Landmarks[UnityEngine.Random.Range(0, Landmarks.Count)];
 			var LookAtDir = Vector3.ProjectOnPlane(LookAtLandmark.transform.position - Player.transform.position, Vector3.up).normalized;
@@ -97,8 +116,11 @@ namespace Tenet.Game
 				SceneManager.LoadScene("Main Menu");
 		}
 
-		public TileSpawnMarker GenerateLevel ()
+		public TileSpawnMarker GenerateLevel (bool RegenerateSeed = true)
 		{
+			if (RegenerateSeed)
+				RefreshRandomSeed();
+
 			string LevelTag = DifficultySettings.Instance.CurrentDifficulty.GetRandomGeneralTag();
 			var Pattern = DifficultySettings.Instance.CurrentDifficulty.GetRandomPattern();
 			var StartTile = LevelGenerator.Generate(Pattern, LevelTag, DifficultySettings.Instance.CurrentDifficulty.LevelTagPercent, DifficultySettings.Instance.CurrentDifficulty.ReservedTags, DifficultySettings.Instance.CurrentDifficulty.GeneralTags);
