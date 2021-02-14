@@ -1,20 +1,15 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Tenet.Game;
 using Tenet.Triggers;
 using UnityEngine;
+using System.Linq;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Tenet.Weapon
 {
-
-	public enum DamageType
-	{
-		Normal,
-		Explosive,
-
-		Random = 1000,
-	}
 
 	public class Ammo : MonoBehaviour
     {
@@ -178,4 +173,107 @@ namespace Tenet.Weapon
             return Change;
 		}
     }
+
+	#region Damage Type
+	public enum DamageType
+	{
+		Normal,
+		Explosive,
+
+		Random = 1000,
+	}
+
+	[System.Serializable]
+	public class DamageTypeFlags
+	{
+		[SerializeField] private DamageType[] _DamageTypes = System.Array.Empty<DamageType>();
+		public IList<DamageType> DamageTypes => _DamageTypes;
+		public bool HasFlag(DamageType DamageType) => System.Array.IndexOf(_DamageTypes, DamageType) != -1;
+
+#if UNITY_EDITOR
+		[CustomPropertyDrawer(typeof(DamageTypeFlags))]
+		public class DamageTypeFlagsAttributeDrawer : PropertyDrawer
+		{
+			private class DamageTypeInfo
+			{
+				private readonly DamageType DamageType;
+				private readonly GUIContent Label;
+				public int Index = -1;
+				public bool IsSelected => Index != -1;
+				public DamageTypeInfo(DamageType DamageType) => (this.DamageType, this.Label) = (DamageType, new GUIContent(DamageType.ToString()));
+				public void Clear() => Index = -1;
+				public void AddToMenu(GenericMenu Menu, SerializedProperty ArrayProp) => Menu.AddItem(Label, IsSelected, ToggleSelection, ArrayProp);
+				private void ToggleSelection(object Data)
+				{
+					var ArrayProp = (SerializedProperty)Data;
+					if (IsSelected)
+					{
+						ArrayProp.DeleteArrayElementAtIndex(Index);
+					}
+					else
+					{
+						ArrayProp.InsertArrayElementAtIndex(ArrayProp.arraySize);
+						ArrayProp.GetArrayElementAtIndex(ArrayProp.arraySize - 1).intValue = (int)DamageType;
+					}
+					ArrayProp.serializedObject.ApplyModifiedProperties();
+				}
+			}
+
+			private static readonly GUIContent Label_None = new GUIContent("None");
+			private static readonly GUIContent Label_Everything = new GUIContent("Everything");
+			private static readonly Dictionary<DamageType, DamageTypeInfo> DamageTypes = ((DamageType[])System.Enum.GetValues(typeof(DamageType))).Except(new[] { DamageType.Random }).ToDictionary(t => t, t => new DamageTypeInfo(t));
+
+			public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+			{
+				EditorGUI.PrefixLabel(position, label);
+				
+				property = property.FindPropertyRelative(nameof(_DamageTypes));
+				switch (property.arraySize)
+				{
+					case 0: label.text = "None"; break;
+					case 1 when property.GetArrayElementAtIndex(0) is SerializedProperty firstProp : label.text = firstProp.enumDisplayNames[firstProp.enumValueIndex]; break;
+					default: label.text = property.arraySize == DamageTypes.Count ? "All" : "Mixed ..."; break;
+				}
+
+				var DropdownPosition = EditorGUI.IndentedRect(new Rect(position) { xMin = EditorGUIUtility.labelWidth + 20 });
+				if (EditorGUI.DropdownButton(DropdownPosition, label, FocusType.Passive))
+				{
+					foreach (var Info in DamageTypes)
+						Info.Value.Clear();
+
+					var Menu = new GenericMenu();
+					Menu.AddItem(Label_None, property.arraySize == 0, RemoveEverything, property);
+					Menu.AddItem(Label_Everything, property.arraySize == DamageTypes.Count, AddEverything, property);
+					Menu.AddSeparator(string.Empty);
+					for (int i = 0; i < property.arraySize; i++)
+						if (DamageTypes.TryGetValue((DamageType)property.GetArrayElementAtIndex(i).intValue, out var Info))
+							Info.Index = i;
+
+					foreach (var Info in DamageTypes)
+						Info.Value.AddToMenu(Menu, property);
+
+					Menu.DropDown(DropdownPosition);
+
+					void AddEverything(object Data)
+					{
+						var ArrayProp = (SerializedProperty)Data;
+						ArrayProp.arraySize = DamageTypes.Count;
+						int Index = 0;
+						foreach (var Info in DamageTypes)
+							ArrayProp.GetArrayElementAtIndex(Index++).intValue = (int)Info.Key;
+						ArrayProp.serializedObject.ApplyModifiedProperties();
+					}
+					void RemoveEverything(object Data)
+					{
+						var ArrayProp = (SerializedProperty)Data;
+						ArrayProp.arraySize = 0;
+						ArrayProp.serializedObject.ApplyModifiedProperties();
+					}
+				}
+			}
+		}
+#endif
+	}
+	#endregion
+
 }

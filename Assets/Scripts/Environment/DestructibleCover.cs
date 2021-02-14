@@ -33,7 +33,7 @@ namespace Tenet.Environment
 		[Space]
 
 		[SerializeField] private HistoryTarget HistoryTarget;
-		[SerializeField] private DamageType DamageType;
+		[SerializeField] private DamageTypeFlags DamageTypes;
 
 		[Space]
 
@@ -227,7 +227,7 @@ namespace Tenet.Environment
 
 		private void CheckDestroyRebuild(HistoryMarker Marker, bool IsAdded)
 		{
-			if (Marker.Type != DamageType) // Only change state if Marker's type matches
+			if (!DamageTypes.HasFlag(Marker.Type)) // Only change state if Marker's type matches
 				return;
 			if (IsAdded)
 				Destroy();
