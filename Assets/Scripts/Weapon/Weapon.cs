@@ -50,7 +50,10 @@ namespace Tenet.Weapon
             {
                 EnableBlackout(false);
             }
-            Debug.DrawRay(ProjectileSpawnPoint.position, ProjectileSpawnPoint.forward * 100, Color.green);
+			if (IsPlayedOwned)
+			{
+				Debug.DrawRay(ProjectileSpawnPoint.position, ProjectileSpawnPoint.forward * 100, Color.green);
+			}
         }
 
         private void OnGUI()
