@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Tenet.Game;
 using UnityEngine;
 
 namespace Tenet.NPC
@@ -14,92 +15,34 @@ namespace Tenet.NPC
 		//float turnSpeed;
 		//bool isNormalPatrol; //TBC, check if this is a thing
 		Turret turret							= null;
-		Collider playerCollider					= null;
-		int playerLayerMask						= 0;
 		[SerializeField] float detectionRadius	= 0.0f;
-		[SerializeField] bool isDebug			= false;
-		[SerializeField] Object ForwardDeathParticle = null;
-		[SerializeField] Object InverseDeathParticle = null;
+		[SerializeField] GameObject ForwardDeathParticle = null;
+		[SerializeField] GameObject InverseDeathParticle = null;
 
 		// Start is called before the first frame update
 		void Start()
 		{
 			turret	= GetComponent<Turret>();
 			health	= maxHealth;
+
+			if (turret == null)
+			{
+				gameObject.SetActive(false);
+				Debug.LogWarning("Disabling Target as no turret available.", this);
+			}
 		}
 
-  //      // Update is called once per frame
-  //      void Update()
-		//{
-		//	if( playerCollider != null )
-		//	{
-		//		Vector3 playerPos = playerCollider.transform.position;
-		//		Vector3 playerDir = playerPos - transform.position;
-		//		playerDir.Normalize();
-		//		RaycastHit hit;
-
-		//		if( Physics.Raycast( transform.position, playerDir, out hit, Mathf.Infinity, playerLayerMask ) )
-		//		{
-		//			if( turret != null )
-		//			{
-		//				turret.StartShootingAtPosition( playerPos );
-		//			}
-
-		//			if( isDebug )
-		//			{
-		//				Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.green, 2.0f );
-		//			}
-		//		}
-		//		else
-		//		{
-		//			if( isDebug )
-		//			{
-		//				Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.red, 2.0f );
-		//			}
-		//		}
-		//	}
-		//}
-
-		void FixedUpdate()
+		private void Update()
 		{
-			var Colliders = Physics.OverlapSphere( transform.position, detectionRadius );
-
-			playerCollider = null;
-			foreach( var Collider in Colliders )
+			var Player = SessionManager.Instance.Player;
+			var Position = transform.position;
+			bool IsInRange = Vector3.Distance(Position, Player.ClosestPoint(Position, true)) <= detectionRadius;
+			if (IsInRange)
 			{
-				if (Collider.gameObject.TryGetComponent(out Game.Player player))
-				{
-					playerLayerMask = 1 << player.gameObject.layer;
-					playerCollider = Collider;
-				}
-			}
-
-			if( playerCollider != null )
-			{
-				Vector3 playerPos = playerCollider.transform.position;
-				Vector3 playerDir = playerPos - transform.position;
-				playerDir.Normalize();
-				RaycastHit hit;
-
-				if( Physics.Raycast( transform.position, playerDir, out hit, Mathf.Infinity, playerLayerMask ) )
-				{
-					if( turret != null )
-					{
-						turret.StartShootingAtPosition( playerPos );
-					}
-
-					if( isDebug )
-					{
-						Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.green, 2.0f );
-					}
-				}
-				else
-				{
-					if( isDebug )
-					{
-						Debug.DrawLine( transform.position, transform.position + playerDir * hit.distance, Color.red, 2.0f );
-					}
-				}
+				var PlayerPosition = Player.transform.position;
+				bool HasLineOfSight = Player.Raycast(new Ray(Position, (PlayerPosition - Position).normalized), out var Hit, detectionRadius);
+				if (HasLineOfSight)
+					turret.StartShootingAtPosition(PlayerPosition);
 			}
 		}
 

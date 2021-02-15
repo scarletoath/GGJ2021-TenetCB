@@ -105,6 +105,9 @@ namespace Tenet.Game
             Controller.enabled = IsEnable;
 		}
 
+        public Vector3 ClosestPoint(Vector3 Position, bool OnBounds = false) => OnBounds ? Controller.ClosestPointOnBounds(Position) : Controller.ClosestPoint(Position);
+        public bool Raycast(Ray Ray, out RaycastHit HitInfo, float MaxDistance) => Controller.Raycast(Ray, out HitInfo, MaxDistance);
+
 		public float CurrentHealth => Health;
 		public float MaxHealth { get; private set; }
 		public Weapon.Weapon CurrentWeapon { get; private set; }
