@@ -124,7 +124,7 @@ namespace Tenet.Weapon
 				}
 				else
 				{
-                    if (ShootSound != null) AudioSource.PlayOneShot(ShootSound, ShootSoundVolume);
+                    if (ShootSound != null && AudioSource != null) AudioSource.PlayOneShot(ShootSound, ShootSoundVolume);
                     SessionManager.Instance.GameMode.ConsumeAmmo(SessionManager.Instance.CurrentInversionState, CurrentAmmoType, ProjectileSpawnPoint, Marker);
                     EnableBlackout(true);
 				}
