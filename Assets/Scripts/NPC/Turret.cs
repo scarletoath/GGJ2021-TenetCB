@@ -18,13 +18,15 @@ namespace Tenet.NPC
 		Vector3 positionToShootAt;
 		private Vector3 velocity = Vector3.zero;
 
+		public Vector3 weaponForward { get; set; }
+
 		Weapon.Weapon weapon = null;
 		[SerializeField] Weapon.Weapon [] UsableWeapons;
 
 		// Start is called before the first frame update
 		void Start()
         {
-
+			//weapon			= Instantiate( UsableWeapons[0], transform );
 			weapon			= Instantiate(UsableWeapons[Random.Range(0,2)], transform);
 			currAccuracy	= baseAccuracy;
 			shootDuration	= autoShootDuration;
@@ -63,7 +65,8 @@ namespace Tenet.NPC
 			Vector3 shootDir = positionToShootAt - weapon.gameObject.transform.position;
 			shootDir.Normalize();
 			float percentageAccuracy = currAccuracy / maxAccuracy;
-			weapon.gameObject.transform.forward = Vector3.SmoothDamp( weapon.gameObject.transform.forward, shootDir, ref velocity, 0.3f);
+			weaponForward = Vector3.SmoothDamp( weapon.gameObject.transform.forward, shootDir, ref velocity, 0.3f );
+			weapon.gameObject.transform.forward = weaponForward;
 			if (!weapon.TryShoot())
 			{
 				// check if weapon does not have ammo, reload if true

@@ -20,12 +20,18 @@ namespace Tenet.NPC
 		[SerializeField] bool isDebug			= false;
 		[SerializeField] Object ForwardDeathParticle = null;
 		[SerializeField] Object InverseDeathParticle = null;
+		Transform meshTransform = null;
 
 		// Start is called before the first frame update
 		void Start()
 		{
 			turret	= GetComponent<Turret>();
 			health	= maxHealth;
+			MeshFilter mf = GetComponentInChildren<MeshFilter>();
+			if( mf != null )
+			{
+				meshTransform = mf.transform;
+			}
 		}
 
   //      // Update is called once per frame
@@ -88,6 +94,10 @@ namespace Tenet.NPC
 					if( turret != null )
 					{
 						turret.StartShootingAtPosition( playerPos );
+						if( meshTransform != null )
+						{
+							meshTransform.forward = turret.weaponForward;
+						}
 					}
 
 					if( isDebug )
