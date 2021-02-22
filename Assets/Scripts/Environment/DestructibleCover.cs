@@ -32,9 +32,10 @@ namespace Tenet.Environment
 		[SerializeField] private HistoryTarget HistoryTarget;
 		[SerializeField] private DamageType DamageType;
 
-		[Space]
+		[Header("FX")]
 
 		[SerializeField] private AudioSource AudioSource;
+		[SerializeField] private GameObject[] DamageEffects;
 
 		private Animation[] DestructionAnims = System.Array.Empty<Animation>();
 		private Coroutine AnimCoroutine;
@@ -67,6 +68,13 @@ namespace Tenet.Environment
 
 			ShowObject(NormalObject, false); // hide normal
 			ShowObject(DestructionObject, true); // show destruction
+
+			if (DamageEffects.Length > 0)
+			{
+				var DamageEffect = DamageEffects[Random.Range(0, DamageEffects.Length)];
+				if (DamageEffect != null)
+					Instantiate(DamageEffect, transform.position, transform.rotation);
+			}
 
 			if (!IsInstant)
 				foreach (var Anim in DestructionAnims) // play destruction anim
