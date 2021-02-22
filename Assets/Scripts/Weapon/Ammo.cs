@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Tenet.Game;
 using Tenet.Triggers;
+using Tenet.Utils;
 using UnityEngine;
 
 namespace Tenet.Weapon
@@ -96,7 +97,7 @@ namespace Tenet.Weapon
 		{
             var Marker = GetOrCreateMarker(TargetPoint, Direction);
 			Marker.CreateRecord();
-			if (Marker.TriggerRadius <= 0)
+			if (DamageRadius <= 0)
 			{
                 ApplyDamage(TargetGameObject, Marker);
 			}
@@ -117,12 +118,9 @@ namespace Tenet.Weapon
 				}
 
 				// 9 is player, 10 is enemy
-				if( TargetGameObject.layer >= 9 )
-				{ }
-
 				if (TargetGameObject.GetComponentInParent<IHealth>() is IHealth IHealth)
 				{
-					Debug.Log( "TargetGameObject.layer : " + TargetGameObject.layer + " | IsPlayer? " + IsPlayer);
+					Debug.Log($"Damaged {TargetGameObject.FullName()} : layer={TargetGameObject.layer} IsPlayer={IsPlayer}", TargetGameObject);
 					if( TargetGameObject.layer == 9 && !IsPlayer )
 					{
 						if ( IHealth.Damage( Damage ) <= 0.0f )
@@ -143,13 +141,22 @@ namespace Tenet.Weapon
 
         private bool ApplyDamage(Vector3 TargetPoint, HistoryMarker Marker)
         {
-            var Colliders = Physics.OverlapSphere(TargetPoint, Marker.TriggerRadius);
+            var Colliders = Physics.OverlapSphere(TargetPoint, DamageRadius);
             bool HasApplied = false;
 			foreach (var Collider in Colliders)
 			{
+				DebugDamage(TargetPoint, Collider);
 				HasApplied |= ApplyDamage( Collider.gameObject, Marker );
 			}
             return HasApplied;
+		}
+
+		[System.Diagnostics.Conditional("DEBUG")]
+		private void DebugDamage(Vector3 TargetPoint, Collider Collider)
+		{
+			var HitPoint = Collider.ClosestPoint(TargetPoint);
+			Debug.DrawLine(HitPoint, TargetPoint, Color.red, 5);
+			Debug.Log($"{name} hit {Collider.gameObject.FullName()} at {HitPoint} with distance {Vector3.Distance(HitPoint, TargetPoint)}", Collider);
 		}
 
 		private int ChangeCount(int Change, bool AllowTransfer)
