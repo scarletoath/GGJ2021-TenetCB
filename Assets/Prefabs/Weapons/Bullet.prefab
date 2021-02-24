@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1635656a790636940a61a6a877bd1c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 60
+  Speed: 80
   MaxLifetime: 1
   DestroyAfterLifetime: 0
   DestroyOnDamage: 1
@@ -56,7 +56,7 @@ MonoBehaviour:
   KinematicOnDamage: 1
   RandomSpin: 0
   Rigidbody: {fileID: -435278637726199356}
-  DamageEffect: {fileID: 0}
+  DamageEffect: {fileID: 4826695717156266660, guid: eb9c7eb7d0ec9ec4a97bd822e328b454, type: 3}
   TrailEffect: {fileID: 5776279179799306088}
   DamageSound: {fileID: 0}
   DefaultDamageDirection: {x: 0, y: -1, z: 0}
