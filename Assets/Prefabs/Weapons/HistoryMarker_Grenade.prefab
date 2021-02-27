@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8083404954046973235}
   - component: {fileID: -4719849834234476334}
   - component: {fileID: 1995749447424215859}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: HistoryMarker_Grenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}

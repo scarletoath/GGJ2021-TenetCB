@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 8083404954046973235}
   - component: {fileID: -4719849834234476334}
   - component: {fileID: 8792980232813344009}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: HistoryMarker_Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
