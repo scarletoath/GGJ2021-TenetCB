@@ -69,8 +69,11 @@ namespace Tenet.Triggers
 				SessionManager.Instance.OnInversionStateChanged -= ChangeVisuals;
 		}
 
-		public void ChangeVisuals(InversionState InversionState)
+		public void ChangeVisuals(InversionState InversionState, bool IsRefreshed = false)
 		{
+			if (IsRefreshed)
+				return;
+
 			var InversionStateKey = IsHighlighted ? (InversionState)(-(int)InversionState) : InversionState;
 			if (!StateVisuals.TryGetValue(InversionStateKey, out var Visual))
 			{
@@ -87,7 +90,7 @@ namespace Tenet.Triggers
 				if (CurrentVisual != null)
 					CurrentVisual.SetActive(false);
 				CurrentVisual = Visual;
-				if (!Visual.activeSelf)
+				if (Visual != null && !Visual.activeSelf)
 					Visual.SetActive(true);
 			}
 		}

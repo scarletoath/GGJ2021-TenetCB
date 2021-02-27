@@ -36,7 +36,8 @@ namespace Tenet.Game
 		[SerializeField] private bool UseRandomSeedOverride;
 		[SerializeField] private int RandomSeedOverride;
 
-		public event Action<InversionState> OnInversionStateChanged;
+		public delegate void InversionStateChangedHandler(InversionState NewInversionState, bool IsRefreshed);
+		public event InversionStateChangedHandler OnInversionStateChanged;
 
 		private void Awake()
 		{
@@ -154,7 +155,7 @@ namespace Tenet.Game
 			{
 				CurrentInversionState = NewInversionState;
 				GameMode.ApplyInversionEffects(CurrentInversionState, InversionVolume);
-				OnInversionStateChanged?.Invoke(CurrentInversionState);
+				OnInversionStateChanged?.Invoke(CurrentInversionState, false);
 				InversionTimer.Restart();
 				return true;
 			}
@@ -164,6 +165,7 @@ namespace Tenet.Game
 		public void RefreshInversion ()
 		{
 			GameMode.ApplyInversionEffects(CurrentInversionState, InversionVolume);
+			OnInversionStateChanged?.Invoke(CurrentInversionState, true);
 			InversionTimer.Restart();
 		}
 

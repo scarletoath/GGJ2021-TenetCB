@@ -13,18 +13,28 @@ namespace Tenet.UI
         [SerializeField] private float HealthWarningPercent = 0.2f;
         [SerializeField] private float PromptDuration = 3.0f; // seconds
 
-        [SerializeField] private Image InversionForward;
-        [SerializeField] private Image InversionBackward;
+		[Header("UI Elements")]
 
-        [SerializeField] private Image WeaponPistol;
+		[SerializeField] private Image InversionForward;
+        [SerializeField] private Image InversionBackward;
+        [SerializeField] private Image InversionTimer;
+		[SerializeField] private Gradient InversionTimerColors = new Gradient { colorKeys = new[] { new GradientColorKey(Color.white, 1) } };
+
+        [Space]
+		[SerializeField] private Image WeaponPistol;
         [SerializeField] private Image WeaponRPG;
 
+        [Space]
         [SerializeField] private Image HealthBarMax;
         [SerializeField] private Image HealthBar;
         [SerializeField] private float PixelsPerHealth = 100.0f / 25.0f;
 
         private float PromptEndTIme;
         private string PromptText;
+
+        private Coroutine InversionCoroutine;
+        private float InversionStartTime;
+        private float InversionEndTime;
 
         // Start is called before the first frame update
         private void Start()
@@ -85,17 +95,53 @@ namespace Tenet.UI
 			}
 		}
 
-        private void UpdateInversionStateVisuals(InversionState InversionState)
+        private void UpdateInversionStateVisuals(InversionState InversionState, bool IsRefreshed = false)
         {
 			switch (InversionState)
 			{
 				case InversionState.Normal:
                     InversionForward.enabled = true;
                     InversionBackward.enabled = false;
+
+                    if(InversionCoroutine!=null)
+                    {
+                        StopCoroutine(InversionCoroutine);
+                        InversionTimer.enabled = false;
+					}
 					break;
 				case InversionState.Inverted:
                     InversionForward.enabled = false;
                     InversionBackward.enabled = true;
+
+					if (InversionTimer != null)
+					{
+                        if (InversionCoroutine != null)
+                            StopCoroutine(InversionCoroutine);
+						InversionStartTime = Time.time;
+						InversionEndTime = InversionStartTime + DifficultySettings.Instance.CurrentDifficulty.InversionMaxDuration;
+						InversionCoroutine = StartCoroutine(UpdateInversionTimer());
+					}
+					IEnumerator UpdateInversionTimer()
+					{
+						InversionTimer.CrossFadeColor(InversionTimerColors.Evaluate(1), 0, false, true);
+						if (!InversionTimer.enabled)
+                            InversionTimer.enabled = true;
+						while (true)
+						{
+							float PercentTimer = Mathf.Clamp01(Mathf.InverseLerp(InversionEndTime, InversionStartTime, Time.time));
+							InversionTimer.fillAmount = PercentTimer;
+
+							var TargetColor = InversionTimerColors.Evaluate(PercentTimer);
+							if (InversionTimer.color != TargetColor)
+								InversionTimer.CrossFadeColor(TargetColor, 0.25f, false, true);
+
+							if (PercentTimer <= 0)
+								yield break;
+							else
+								yield return null;
+						}
+                        InversionTimer.enabled = false;
+					}
                     break;
 			}
 		}
