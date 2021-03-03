@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: GrenadeMarkerDecal
   m_Shader: {fileID: 4800000, guid: 1d64af84bdc970c4fae0c1e06dd95b73, type: 3}
-  m_ShaderKeywords: _COLORMAP _MATERIAL_AFFECTS_ALBEDO
+  m_ShaderKeywords: _COLORMAP _EMISSIVEMAP _MATERIAL_AFFECTS_ALBEDO
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -22,8 +22,6 @@ Material:
   - TransparentBackface
   - TransparentBackfaceDebugDisplay
   - MOTIONVECTORS
-  - DecalProjectorForwardEmissive
-  - DecalMeshForwardEmissive
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -32,7 +30,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: e6aeedf72fbe04d419e5a3245f53b2ab, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6a855b9e804b00d4581ed9c802adfbd4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
@@ -76,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissiveColorMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d10ca94b71908b04e96e0fef3fb81fe7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
@@ -144,13 +142,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AO: 1
+    - _AO: 0
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
     - _AffectAO: 0
     - _AffectAlbedo: 1
-    - _AffectEmission: 0
+    - _AffectEmission: 1
     - _AffectMetal: 0
     - _AffectNormal: 0
     - _AffectSmoothness: 0
@@ -168,7 +166,7 @@ Material:
     - _CullMode: 2
     - _CullModeForward: 2
     - _Cutoff: 0.5
-    - _DecalBlend: 0.5
+    - _DecalBlend: 1
     - _DecalColorMask0: 15
     - _DecalColorMask1: 0
     - _DecalColorMask2: 0
@@ -211,7 +209,7 @@ Material:
     - _EditorExpendedAreas: 0
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 1
-    - _EmissiveIntensity: 1
+    - _EmissiveIntensity: 10000
     - _EmissiveIntensityUnit: 0
     - _EnableBlendModeAccurateLighting: 1
     - _EnableBlendModePreserveSpecularLighting: 1
@@ -260,7 +258,7 @@ Material:
     - _RefractionMode: 0
     - _ShiverDirectionality: 0.5
     - _ShiverDrag: 0.2
-    - _Smoothness: 0.712
+    - _Smoothness: 0
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
     - _SmoothnessTextureChannel: 0
@@ -287,17 +285,17 @@ Material:
     - _UVEmissive: 0
     - _UVSec: 0
     - _Unity_Identify_HDRP_Decal: 1
-    - _UseEmissiveIntensity: 0
+    - _UseEmissiveIntensity: 1
     - _ZTestMode: 8
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.56404424, b: 0, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.72794116, g: 0.72794116, b: 0.72794116, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissiveColor: {r: 10000, g: 2945.9392, b: 1144.9479, a: 10000}
     - _EmissiveColorHDR: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissiveColorLDR: {r: 1, g: 0.5790094, b: 0.3726415, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
